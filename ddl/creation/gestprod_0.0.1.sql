@@ -127,16 +127,6 @@ ALTER TABLE additives_production_orders ADD CONSTRAINT additives_production_orde
 ALTER TABLE additives_production_orders ADD CONSTRAINT additive_id__additives_fkey FOREIGN KEY (additive_id) REFERENCES additives(id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE additives_production_orders ADD CONSTRAINT production_order_code_id__production_orders__fkey FOREIGN KEY (production_order_code_id) REFERENCES production_orders(id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE;
 
-CREATE TABLE notes (
-    id serial,
-    phase integer NOT NULL,
-    note text NOT NULL
-);
-
-ALTER TABLE notes OWNER TO gestprod;
-
-ALTER TABLE notes ADD CONSTRAINT notes_id_pkey PRIMARY KEY (id);
-
 CREATE TABLE setting_phases (
     id serial,
     production_order_id integer NOT NULL,
@@ -144,8 +134,7 @@ CREATE TABLE setting_phases (
     start_time timestamp with time zone,
     end_time timestamp with time zone,
     effective_mixture_temperature double precision,
-    effective_mixture_mode_id integer,
-    note text
+    effective_mixture_mode_id integer
 );
 
 ALTER TABLE setting_phases OWNER TO gestprod;
@@ -161,8 +150,7 @@ CREATE TABLE system_preparation_phases (
     production_order_id integer NOT NULL,
     user_id integer NOT NULL,
     start_time timestamp with time zone,
-    end_time timestamp with time zone,
-    note text
+    end_time timestamp with time zone
 );
 
 ALTER TABLE system_preparation_phases OWNER TO gestprod;
@@ -174,8 +162,7 @@ ALTER TABLE system_preparation_phases ADD CONSTRAINT user_id__users_fkey FOREIGN
 
 CREATE TABLE working_phases (
     id serial,
-    production_order_id integer NOT NULL,
-    note text
+    production_order_id integer NOT NULL
 );
 
 ALTER TABLE working_phases OWNER TO gestprod;
@@ -203,8 +190,7 @@ CREATE TABLE cleaning_phases (
     production_order_id integer NOT NULL,
     user_id integer NOT NULL,
     start_time timestamp with time zone,
-    end_time timestamp with time zone,
-    note text
+    end_time timestamp with time zone
 );
 
 ALTER TABLE cleaning_phases OWNER TO gestprod;
@@ -213,3 +199,27 @@ ALTER TABLE cleaning_phases ADD CONSTRAINT cleaning_phases_id_pkey PRIMARY KEY (
 
 ALTER TABLE cleaning_phases ADD CONSTRAINT production_order_id__production_orders__fkey FOREIGN KEY (production_order_id) REFERENCES production_orders(id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE cleaning_phases ADD CONSTRAINT user_id__users_fkey FOREIGN KEY (user_id) REFERENCES users(id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+CREATE TABLE validation_phases (
+    id serial,
+    production_order_id integer NOT NULL,
+    user_id integer NOT NULL,
+    start_time timestamp with time zone,
+    end_time timestamp with time zone,
+    humidity_finished_product double precision NOT NULL,
+    density_finished_product double precision NOT NULL,
+    packaging_state text,
+    sieve_quantity double precision,
+    chimney_quantity double precision,
+    tower_entry_temperature double precision,
+    tower_intern_temperature double precision,
+    cyclon_entry_temperature double precision,
+    note text
+);
+
+ALTER TABLE validation_phases OWNER TO gestprod;
+
+ALTER TABLE validation_phases ADD CONSTRAINT validation_phases_id_pkey PRIMARY KEY (id);
+
+ALTER TABLE validation_phases ADD CONSTRAINT production_order_id__production_orders__fkey FOREIGN KEY (production_order_id) REFERENCES production_orders(id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE validation_phases ADD CONSTRAINT user_id__users_fkey FOREIGN KEY (user_id) REFERENCES users(id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
