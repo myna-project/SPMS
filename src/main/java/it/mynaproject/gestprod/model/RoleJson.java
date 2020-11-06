@@ -6,6 +6,8 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import it.mynaproject.gestprod.util.ClassSerializer;
+
 @JsonInclude(Include.NON_EMPTY)
 public class RoleJson {
 
@@ -48,16 +50,23 @@ public class RoleJson {
 	public void setUsers(List<String> userList) {
 		this.userList = userList;
 	}
-
+	
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("RoleJson [name=");
-		builder.append(name);
-		builder.append(", description=");
-		builder.append(description);
-		builder.append(", users=");
-		builder.append(userList);
-		builder.append("]");
-		return builder.toString();
+		ClassSerializer serializer = new ClassSerializer();
+		serializer.setObj(this);
+		return serializer.toString();
 	}
+
+// --- original implementation ---
+//	public String toString() {
+//		StringBuilder builder = new StringBuilder();
+//		builder.append("RoleJson [name=");
+//		builder.append(name);
+//		builder.append(", description=");
+//		builder.append(description);
+//		builder.append(", users=");
+//		builder.append(userList);
+//		builder.append("]");
+//		return builder.toString();
+//	}
 }

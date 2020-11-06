@@ -8,18 +8,18 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import it.mynaproject.gestprod.util.ClassSerializer;
 
 @JsonInclude(Include.NON_EMPTY)
-public class CustomerJson {
-
-	private Integer id;
-
+public class MixtureModeJson {
+	
+	private int id;
+	
 	@NotBlank
 	private String name;
-
-	public Integer getId() {
+	
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

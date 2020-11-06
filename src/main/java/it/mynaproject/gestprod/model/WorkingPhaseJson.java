@@ -1,5 +1,7 @@
 package it.mynaproject.gestprod.model;
 
+import java.util.List;
+
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -8,27 +10,17 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import it.mynaproject.gestprod.util.ClassSerializer;
 
 @JsonInclude(Include.NON_EMPTY)
-public class CustomerJson {
-
-	private Integer id;
-
+public class WorkingPhaseJson {
+	
 	@NotBlank
-	private String name;
+	private List<WorkingPhaseShiftJson> shifts;
 
-	public Integer getId() {
-		return id;
+	public List<WorkingPhaseShiftJson> getShifts() {
+		return shifts;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setShifts(List<WorkingPhaseShiftJson> shifts) {
+		this.shifts = shifts;
 	}
 
 	public String toString() {

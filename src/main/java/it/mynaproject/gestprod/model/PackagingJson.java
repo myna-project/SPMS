@@ -8,27 +8,27 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import it.mynaproject.gestprod.util.ClassSerializer;
 
 @JsonInclude(Include.NON_EMPTY)
-public class CustomerJson {
-
-	private Integer id;
-
+public class PackagingJson {
+	
+	private int id;
+	
 	@NotBlank
-	private String name;
-
-	public Integer getId() {
+	private String packaging_mode;
+	
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getPackaging_mode() {
+		return packaging_mode;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setPackaging_mode(String packaging_mode) {
+		this.packaging_mode = packaging_mode;
 	}
 
 	public String toString() {

@@ -8,32 +8,16 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import it.mynaproject.gestprod.util.ClassSerializer;
 
 @JsonInclude(Include.NON_EMPTY)
-public class CustomerJson {
-
-	private Integer id;
-
-	@NotBlank
-	private String name;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
+public class SystemPreparationPhaseJson extends PhaseJson {
+	
 	public String toString() {
+		StringBuilder builder = new StringBuilder();
 		ClassSerializer serializer = new ClassSerializer();
 		serializer.setObj(this);
-		return serializer.toString();
+		builder.append(serializer.toString());
+		builder.append(" (Superclass: ");
+		builder.append(super.toString());
+		builder.append(" )");
+		return builder.toString();
 	}
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import it.mynaproject.gestprod.util.ClassSerializer;
+
 @JsonInclude(Include.NON_EMPTY)
 public class UserJson {
 
@@ -129,22 +131,27 @@ public class UserJson {
 		this.rolesId = list;
 	}
 
-	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("UserJson [username=");
-		builder.append(username);
-		builder.append(", enabled=");
-		builder.append(enabled);
-		builder.append(", email=");
-		builder.append(email);
-		builder.append(", lang=");
-		builder.append(lang);
-		builder.append(", style=");
-		builder.append(style);
-		builder.append(", roles=");
-		builder.append(rolesId);
-		builder.append("]");
-		return builder.toString();
+		ClassSerializer serializer = new ClassSerializer();
+		serializer.setObj(this);
+		return serializer.toString();
 	}
+	
+//	public String toString() {
+//		StringBuilder builder = new StringBuilder();
+//		builder.append("UserJson [username=");
+//		builder.append(username);
+//		builder.append(", enabled=");
+//		builder.append(enabled);
+//		builder.append(", email=");
+//		builder.append(email);
+//		builder.append(", lang=");
+//		builder.append(lang);
+//		builder.append(", style=");
+//		builder.append(style);
+//		builder.append(", roles=");
+//		builder.append(rolesId);
+//		builder.append("]");
+//		return builder.toString();
+//	}
 }
