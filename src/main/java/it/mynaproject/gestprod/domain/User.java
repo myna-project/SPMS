@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
@@ -50,6 +51,61 @@ public class User extends BaseDomain {
 	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name = "users_roles", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
 	private List<Role> roleList;
+	
+	@OneToOne(mappedBy = "user")
+	private List<SettingPhase> settingPhases;
+	
+	@OneToOne(mappedBy = "user")
+	private List<SystemPreparationPhase> systemPreparationPhases;
+
+	@OneToOne(mappedBy = "user")
+	private List<CleaningPhase> cleaningPhases;
+	
+	@OneToOne(mappedBy = "user")
+	private List<ValidationPhase> validationPhases;
+	
+	@ManyToMany(mappedBy="users")
+	private List<User> workingPhases;
+
+	public List<SettingPhase> getSettingPhases() {
+		return settingPhases;
+	}
+
+	public void setSettingPhases(List<SettingPhase> settingPhases) {
+		this.settingPhases = settingPhases;
+	}
+
+	public List<SystemPreparationPhase> getSystemPreparationPhases() {
+		return systemPreparationPhases;
+	}
+
+	public void setSystemPreparationPhases(List<SystemPreparationPhase> systemPreparationPhases) {
+		this.systemPreparationPhases = systemPreparationPhases;
+	}
+
+	public List<CleaningPhase> getCleaningPhases() {
+		return cleaningPhases;
+	}
+
+	public void setCleaningPhases(List<CleaningPhase> cleaningPhases) {
+		this.cleaningPhases = cleaningPhases;
+	}
+	
+	public List<ValidationPhase> getValidationPhases() {
+		return validationPhases;
+	}
+
+	public void setValidationPhases(List<ValidationPhase> validationPhases) {
+		this.validationPhases = validationPhases;
+	}
+	
+	public List<User> getWorkingPhases() {
+		return workingPhases;
+	}
+
+	public void setWorkingPhases(List<User> workingPhases) {
+		this.workingPhases = workingPhases;
+	}
 
 	public String getUsername() {
 		return username;

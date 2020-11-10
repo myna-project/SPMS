@@ -1,8 +1,12 @@
 package it.mynaproject.gestprod.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.OneToMany;
 
 import it.mynaproject.gestprod.model.CustomerJson;
 
@@ -12,6 +16,9 @@ public class Customer extends BaseDomain {
 
 	@Column(nullable=false)
 	private String name;
+	
+	@OneToMany(mappedBy="customer")
+	private List<ProductionOrder> productionOrders;
 
 	public String getName() {
 		return name;

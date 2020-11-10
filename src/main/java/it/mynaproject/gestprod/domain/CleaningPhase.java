@@ -9,12 +9,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import it.mynaproject.gestprod.model.SettingPhaseJson;
+import it.mynaproject.gestprod.model.CleaningPhaseJson;
 import it.mynaproject.gestprod.util.ClassSerializer;
 
 @Entity
-@Table(name = "setting_phases")
-public class SettingPhase extends BaseDomain {
+@Table(name = "cleaning_phases")
+public class CleaningPhase extends BaseDomain {
 	
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="production_order_id", referencedColumnName="id")
@@ -29,12 +29,6 @@ public class SettingPhase extends BaseDomain {
 	
 	@Column
 	private Instant end_time;
-	
-	@Column
-	private float effective_mixture_temperature;
-	
-	@Column
-	private int effective_mixture_mode_id;
 	
 	public ProductionOrder getProductionOrder() {
 		return productionOrder;
@@ -68,29 +62,11 @@ public class SettingPhase extends BaseDomain {
 		this.end_time = end_time;
 	}
 
-	public float getEffective_mixture_temperature() {
-		return effective_mixture_temperature;
-	}
-
-	public void setEffective_mixture_temperature(float effective_mixture_temperature) {
-		this.effective_mixture_temperature = effective_mixture_temperature;
-	}
-
-	public int getEffective_mixture_mode_id() {
-		return effective_mixture_mode_id;
-	}
-
-	public void setEffective_mixture_mode_id(int effective_mixture_mode_id) {
-		this.effective_mixture_mode_id = effective_mixture_mode_id;
-	}
-
-	public void populateSettingPhaseFromInput(SettingPhaseJson input, ProductionOrder po, User u) {
+	public void populateCleaningPhaseFromInput(CleaningPhaseJson input, ProductionOrder po, User u) {
 		this.setProductionOrder(po);
 		this.setUser(u);
 		this.setStart_time(input.getStart_time());
 		this.setEnd_time(input.getEnd_time());
-		this.setEffective_mixture_mode_id(input.getEffective_mixture_mode_id());
-		this.setEffective_mixture_temperature(input.getEffective_mixture_temperature());
 	}
 
 	public String toString() {
