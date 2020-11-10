@@ -14,7 +14,7 @@ public class SettingPhaseJson extends PhaseJson {
 	private float effective_mixture_temperature;
 	
 	@NotBlank
-	private float effective_mixture_mode_id;
+	private int effective_mixture_mode_id;
 
 	public float getEffective_mixture_temperature() {
 		return effective_mixture_temperature;
@@ -24,11 +24,11 @@ public class SettingPhaseJson extends PhaseJson {
 		this.effective_mixture_temperature = effective_mixture_temperature;
 	}
 
-	public float getEffective_mixture_mode_id() {
+	public int getEffective_mixture_mode_id() {
 		return effective_mixture_mode_id;
 	}
 
-	public void setEffective_mixture_mode_id(float effective_mixture_mode_id) {
+	public void setEffective_mixture_mode_id(int effective_mixture_mode_id) {
 		this.effective_mixture_mode_id = effective_mixture_mode_id;
 	}
 

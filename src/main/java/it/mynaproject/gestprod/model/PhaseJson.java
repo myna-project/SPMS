@@ -1,5 +1,6 @@
 package it.mynaproject.gestprod.model;
 
+import java.time.Instant;
 import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
@@ -20,9 +21,11 @@ public class PhaseJson {
 	@NotBlank
 	private int user_id;
 
-	private Date start_time;
+	@NotBlank
+	private Instant start_time;
 	
-	private Date end_time;
+	@NotBlank
+	private Instant end_time;
 
 	public int getId() {
 		return id;
@@ -48,19 +51,19 @@ public class PhaseJson {
 		this.user_id = user_id;
 	}
 	
-	public Date getStart_time() {
+	public Instant getStart_time() {
 		return start_time;
 	}
 
-	public void setStart_time(Date start_time) {
+	public void setStart_time(Instant start_time) {
 		this.start_time = start_time;
 	}
 
-	public Date getEnd_time() {
+	public Instant getEnd_time() {
 		return end_time;
 	}
 
-	public void setEnd_time(Date end_time) {
+	public void setEnd_time(Instant end_time) {
 		this.end_time = end_time;
 	}
 	

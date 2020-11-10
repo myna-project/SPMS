@@ -4,19 +4,17 @@ import java.lang.reflect.Field;
 
 public class ClassSerializer {
 	
-	Object obj;
-	Class cls;
+	private Object obj;
 
 	public void setObj(Object obj) {
-		this.cls = obj.getClass();
 		this.obj = obj;
 	}
 	
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(cls.getName());
+		builder.append(obj.getClass().getName());
 		builder.append(" [");
-		for(Field f: cls.getDeclaredFields()) {
+		for(Field f: obj.getClass().getDeclaredFields()) {
 			builder.append(f.getName());
 			builder.append(" = ");
 			try {

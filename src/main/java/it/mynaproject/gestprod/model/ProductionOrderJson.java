@@ -43,10 +43,10 @@ public class ProductionOrderJson {
 	
 	private String ddt_number;
 	
-	private List<Integer> additivesId;
+	private List<Integer> additivesId; // TODO weight additive
 	
 	private int settingPhaseId;
-	
+
 	private int system_preparationPhaseId;
 	
 	private int cleaningPhaseId;
@@ -54,6 +54,55 @@ public class ProductionOrderJson {
 	private int working_phaseId;
 	
 	private int validation_phaseId;
+	
+	public List<Integer> getAdditivesId() {
+		return additivesId;
+	}
+
+	public void setAdditivesId(List<Integer> additivesId) {
+		this.additivesId = additivesId;
+	}
+
+	public int getSettingPhaseId() {
+		return settingPhaseId;
+	}
+
+	public void setSettingPhaseId(int settingPhaseId) {
+		this.settingPhaseId = settingPhaseId;
+	}
+
+	public int getSystem_preparationPhaseId() {
+		return system_preparationPhaseId;
+	}
+
+	public void setSystem_preparationPhaseId(int system_preparationPhaseId) {
+		this.system_preparationPhaseId = system_preparationPhaseId;
+	}
+
+	public int getCleaningPhaseId() {
+		return cleaningPhaseId;
+	}
+
+	public void setCleaningPhaseId(int cleaningPhaseId) {
+		this.cleaningPhaseId = cleaningPhaseId;
+	}
+
+	public int getWorking_phaseId() {
+		return working_phaseId;
+	}
+
+	public void setWorking_phaseId(int working_phaseId) {
+		this.working_phaseId = working_phaseId;
+	}
+
+	public int getValidation_phaseId() {
+		return validation_phaseId;
+	}
+
+	public void setValidation_phaseId(int validation_phaseId) {
+		this.validation_phaseId = validation_phaseId;
+	}
+
 
 	public int getId() {
 		return id;

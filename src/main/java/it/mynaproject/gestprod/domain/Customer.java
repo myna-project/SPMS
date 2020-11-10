@@ -10,7 +10,7 @@ import it.mynaproject.gestprod.model.CustomerJson;
 @Table(name = "customers")
 public class Customer extends BaseDomain {
 
-	@Column
+	@Column(nullable=false)
 	private String name;
 
 	public String getName() {
@@ -22,7 +22,6 @@ public class Customer extends BaseDomain {
 	}
 
 	public void populateCustomerFromInput(CustomerJson input) {
-
 		this.setName(input.getName());
 	}
 
