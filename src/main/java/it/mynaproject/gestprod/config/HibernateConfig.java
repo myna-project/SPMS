@@ -10,9 +10,7 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import it.mynaproject.gestprod.domain.Customer;
-import it.mynaproject.gestprod.domain.Role;
-import it.mynaproject.gestprod.domain.User;
+import it.mynaproject.gestprod.domain.*;
 
 @Configuration
 @EnableTransactionManagement
@@ -28,9 +26,21 @@ public class HibernateConfig {
 
 		factoryBean.setConfigLocation(context.getResource("classpath:hibernate.xml"));
 		factoryBean.setAnnotatedClasses(
+				Additive.class,
+				AdditiveProductionOrder.class,
+				CleaningPhase.class,
 				Customer.class,
+				MixtureMode.class,
+				Packaging.class,
+				ProductionOrder.class,
+				RawMaterial.class,
 				Role.class,
-				User.class
+				SettingPhase.class,
+				SystemPreparationPhase.class,
+				User.class,
+				ValidationPhase.class,
+				WorkingPhase.class,
+				WorkingPhaseUser.class
 		);
 		return factoryBean;
 	}
