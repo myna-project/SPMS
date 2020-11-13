@@ -31,28 +31,28 @@ public class ValidationPhase extends BaseDomain {
 	private Instant end_time;
 	
 	@Column(nullable=false)
-	private float humidity_finished_product;
+	private Float humidity_finished_product;
 	
 	@Column(nullable=false)
-	private float density_finished_product;
+	private Float density_finished_product;
 	
 	@Column
 	private String packaging_state;
 	
 	@Column
-	private float sieve_quantity;
+	private Float sieve_quantity;
 	
 	@Column
-	private float chimney_quantity;
+	private Float chimney_quantity;
 	
 	@Column
-	private float tower_entry_temperature;
+	private Float tower_entry_temperature;
 	
 	@Column
-	private float tower_intern_temperature;
+	private Float tower_intern_temperature;
 	
 	@Column
-	private float cyclon_entry_temperature;
+	private Float cyclon_entry_temperature;
 	
 	public float getHumidity_finished_product() {
 		return humidity_finished_product;

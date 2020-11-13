@@ -1,29 +1,31 @@
 package it.mynaproject.gestprod.domain;
 
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
+import javax.persistence.Id;
 
 import it.mynaproject.gestprod.model.AdditiveProductionOrderJson;
 import it.mynaproject.gestprod.util.ClassSerializer;
 
 @Entity
 @Table(name = "additives_production_orders")
-public class AdditiveProductionOrder {
+public class AdditiveProductionOrder implements java.io.Serializable {
 	
+	@Id
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="additive_id", referencedColumnName="id")
 	private Additive additive;
 	
+	@Id
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="production_order_code_id", referencedColumnName="id")
 	private ProductionOrder productionOrder;
 	
+	@Id
 	@Column
 	private Float weight_additive;
 

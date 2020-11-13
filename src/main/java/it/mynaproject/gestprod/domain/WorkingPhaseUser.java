@@ -1,6 +1,5 @@
 package it.mynaproject.gestprod.domain;
 
-import java.util.List;
 import java.time.Instant;
 
 import javax.persistence.CascadeType;
@@ -9,25 +8,30 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
+import javax.persistence.Id;
 
 import it.mynaproject.gestprod.model.WorkingPhaseUserJson;
 import it.mynaproject.gestprod.util.ClassSerializer;
 
 @Entity
 @Table(name = "working_phases_users")
-public class WorkingPhaseUser {
+public class WorkingPhaseUser implements java.io.Serializable {
 	
+	@Id
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="working_phase_id", referencedColumnName="id")
 	private WorkingPhase workingPhase;
 	
+	@Id
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="user_id", referencedColumnName="id")
 	private User user;
 	
+	@Id
 	@Column(nullable=false)
 	private Instant start_time;
 	
+	@Id
 	@Column(nullable=false)
 	private Instant end_time;
 
@@ -68,6 +72,7 @@ public class WorkingPhaseUser {
 		this.setEnd_time(input.getEnd_time());
 	}
 
+	@Override
 	public String toString() {
 		ClassSerializer serializer = new ClassSerializer();
 		serializer.setObj(this);

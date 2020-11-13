@@ -31,10 +31,10 @@ public class SettingPhase extends BaseDomain {
 	private Instant end_time;
 	
 	@Column
-	private float effective_mixture_temperature;
+	private Float effective_mixture_temperature;
 	
 	@Column
-	private int effective_mixture_mode_id;
+	private Integer effective_mixture_mode_id;
 	
 	public ProductionOrder getProductionOrder() {
 		return productionOrder;

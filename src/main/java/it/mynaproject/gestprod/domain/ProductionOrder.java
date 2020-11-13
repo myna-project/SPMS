@@ -35,7 +35,7 @@ public class ProductionOrder extends BaseDomain {
 	private RawMaterial rawMaterial;
 	
 	@ManyToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name="packaging", referencedColumnName="id")
+	@JoinColumn(name="packaging_id", referencedColumnName="id")
 	private Packaging packaging;
 	
 	@ManyToOne(cascade = CascadeType.MERGE)
@@ -43,30 +43,30 @@ public class ProductionOrder extends BaseDomain {
 	private MixtureMode mixtureMode;
 	
 	@Column(nullable=false)
-	private float weight_raw_material;
+	private Float weight_raw_material;
 	
 	@Column(nullable=false)
-	private int tons_raw_material;
+	private Integer tons_raw_material;
 	
 	@Column
-	private float dry_residue;
+	private Float dry_residue;
 	
 	@Column
-	private float density_raw_material;
+	private Float density_raw_material;
 	
 	@Column
-	private float expected_mixture_temperature;
+	private Float expected_mixture_temperature;
 	
 	@Column
-	private float expected_quantity_finished_product;
+	private Float expected_quantity_finished_product;
 	
-	@Column
+	@Column(columnDefinition = "DATE")
 	private Date delivery_date;
 	
-	@Column
+	@Column(columnDefinition = "DATE")
 	private Date production_order_date;
 	
-	@Column
+	@Column(columnDefinition = "DATE")
 	private Date ddt_date;
 	
 	@Column
