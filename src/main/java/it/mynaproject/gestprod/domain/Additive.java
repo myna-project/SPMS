@@ -18,7 +18,7 @@ public class Additive extends BaseDomain {
 	@Column(nullable=false)
 	private String name;
 	
-	@OneToMany(mappedBy = "additive", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+	@OneToMany(mappedBy = "additive", cascade = CascadeType.ALL)
 	private List<AdditiveProductionOrder> additiveProductionOrderList;
 
 	public String getName() {
