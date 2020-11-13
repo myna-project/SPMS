@@ -15,7 +15,7 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 
 @Entity
 @Table(name = "working_phases_users")
-public class WorkingPhaseUser extends BaseDomain {
+public class WorkingPhaseUser {
 	
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="working_phase_id", referencedColumnName="id")

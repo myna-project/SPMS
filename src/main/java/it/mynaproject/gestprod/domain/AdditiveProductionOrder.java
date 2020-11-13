@@ -14,7 +14,7 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 
 @Entity
 @Table(name = "additives_production_orders")
-public class AdditiveProductionOrder extends BaseDomain {
+public class AdditiveProductionOrder {
 	
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="additive_id", referencedColumnName="id")
