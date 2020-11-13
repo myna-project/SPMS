@@ -16,12 +16,12 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 public class AdditiveProductionOrder implements java.io.Serializable {
 	
 	@Id
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne
 	@JoinColumn(name="additive_id", referencedColumnName="id")
 	private Additive additive;
 	
 	@Id
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne
 	@JoinColumn(name="production_order_code_id", referencedColumnName="id")
 	private ProductionOrder productionOrder;
 	

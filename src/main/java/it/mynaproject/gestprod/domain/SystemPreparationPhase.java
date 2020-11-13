@@ -16,11 +16,11 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 @Table(name = "system_preparation_phases")
 public class SystemPreparationPhase extends BaseDomain {
 	
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne
 	@JoinColumn(name="production_order_id", referencedColumnName="id")
 	private ProductionOrder productionOrder;
 	
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne
 	@JoinColumn(name="user_id", referencedColumnName="id")
 	private User user;
 	

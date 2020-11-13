@@ -2,6 +2,7 @@ package it.mynaproject.gestprod.domain;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -22,7 +23,7 @@ public class Role extends BaseDomain implements GrantedAuthority {
 
 	private String description;
 
-	@ManyToMany(mappedBy = "roleList")
+	@ManyToMany(mappedBy = "roleList", cascade = CascadeType.MERGE)
 	private List<User> userList;
 
 	public String getName() {

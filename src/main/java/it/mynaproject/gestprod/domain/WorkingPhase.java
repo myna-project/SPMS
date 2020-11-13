@@ -16,11 +16,11 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 @Table(name = "working_phases")
 public class WorkingPhase extends BaseDomain {
 	
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne
 	@JoinColumn(name="production_order_id", referencedColumnName="id")
 	private ProductionOrder productionOrder;
 	
-	@OneToMany(mappedBy="workingPhase")
+	@OneToMany(mappedBy="workingPhase", cascade=CascadeType.ALL)
 	private List<WorkingPhaseUser> workingPhaseUserList;
 	
 	public ProductionOrder getProductionOrder() {

@@ -18,12 +18,12 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 public class WorkingPhaseUser implements java.io.Serializable {
 	
 	@Id
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne
 	@JoinColumn(name="working_phase_id", referencedColumnName="id")
 	private WorkingPhase workingPhase;
 	
 	@Id
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne
 	@JoinColumn(name="user_id", referencedColumnName="id")
 	private User user;
 	

@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
 
 import it.mynaproject.gestprod.model.AdditiveJson;
 import it.mynaproject.gestprod.util.ClassSerializer;
@@ -17,7 +18,7 @@ public class Additive extends BaseDomain {
 	@Column(nullable=false)
 	private String name;
 	
-	@OneToMany(mappedBy = "additive")
+	@OneToMany(mappedBy = "additive", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
 	private List<AdditiveProductionOrder> additiveProductionOrderList;
 
 	public String getName() {

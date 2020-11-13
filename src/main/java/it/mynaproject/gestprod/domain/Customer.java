@@ -2,6 +2,7 @@ package it.mynaproject.gestprod.domain;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
@@ -17,7 +18,7 @@ public class Customer extends BaseDomain {
 	@Column(nullable=false)
 	private String name;
 	
-	@OneToMany(mappedBy="customer")
+	@OneToMany(mappedBy="customer", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
 	private List<ProductionOrder> productionOrders;
 
 	public String getName() {

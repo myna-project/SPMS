@@ -26,19 +26,19 @@ public class ProductionOrder extends BaseDomain {
 	@Column(nullable=false)
 	private String production_number_lot;
 	
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne
 	@JoinColumn(name="customer_id", referencedColumnName="id")
 	private Customer customer;
 	
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne
 	@JoinColumn(name="raw_material_id", referencedColumnName="id")
 	private RawMaterial rawMaterial;
 	
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne
 	@JoinColumn(name="packaging_id", referencedColumnName="id")
 	private Packaging packaging;
 	
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne
 	@JoinColumn(name="expected_mixture_mode_id", referencedColumnName="id")
 	private MixtureMode mixtureMode;
 	
@@ -72,22 +72,22 @@ public class ProductionOrder extends BaseDomain {
 	@Column
 	private String ddt_number;
 	
-	@OneToMany(mappedBy="productionOrder")
+	@OneToMany(mappedBy="productionOrder", cascade = CascadeType.ALL)
 	private List<SettingPhase> settingPhaseList;
 	
-	@OneToMany(mappedBy="productionOrder")
+	@OneToMany(mappedBy="productionOrder", cascade = CascadeType.ALL)
 	private List<SystemPreparationPhase> systemPreparationPhaseList;
 	
-	@OneToMany(mappedBy="productionOrder")
+	@OneToMany(mappedBy="productionOrder", cascade = CascadeType.ALL)
 	private List<CleaningPhase> cleaningPhaseList;
 	
-	@OneToMany(mappedBy="productionOrder")
+	@OneToMany(mappedBy="productionOrder", cascade = CascadeType.ALL)
 	private List<ValidationPhase> validationPhaseList;
 	
-	@OneToMany(mappedBy="productionOrder")
+	@OneToMany(mappedBy="productionOrder", cascade = CascadeType.ALL)
 	private List<WorkingPhase> workingPhaseList;
 	
-	@OneToMany(mappedBy="productionOrder")
+	@OneToMany(mappedBy="productionOrder", cascade = CascadeType.ALL)
 	private List<AdditiveProductionOrder> additiveProductionOrderList;
 	
 	public String toString() {
