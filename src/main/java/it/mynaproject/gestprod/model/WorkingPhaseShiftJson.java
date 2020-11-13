@@ -8,7 +8,7 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 @JsonInclude(Include.NON_EMPTY)
 public class WorkingPhaseShiftJson extends PhaseJson {
 	
-	private int working_phase_id;
+	private Integer working_phase_id;
 	
 	public int getWorking_phase_id() {
 		return working_phase_id;

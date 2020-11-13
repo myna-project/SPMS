@@ -11,31 +11,31 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 @JsonInclude(Include.NON_EMPTY)
 public class ProductionOrderJson {
 	
-	private int id;
+	private Integer id;
 	
 	private String production_order_code;
 	
 	private String production_number_lot;
 	
-	private int raw_material_id;
+	private Integer raw_material_id;
 	
-	private float weight_raw_material;
+	private Float weight_raw_material;
 	
-	private int tons_raw_material;
+	private Integer tons_raw_material;
 	
-	private float dry_residue;
+	private Float dry_residue;
 	
-	private float density_raw_material;
+	private Float density_raw_material;
 	
-	private float expected_mixture_temperature;
+	private Float expected_mixture_temperature;
 	
-	private int expected_mixture_mode_id;
+	private Integer expected_mixture_mode_id;
 	
-	private float expected_quantity_finished_product;
+	private Float expected_quantity_finished_product;
 	
 	private Date delivery_date;
 	
-	private int packaging_id;
+	private Integer packaging_id;
 	
 	private Date production_order_date;
 	

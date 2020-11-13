@@ -10,7 +10,7 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 @JsonInclude(Include.NON_EMPTY)
 public class PackagingJson {
 	
-	private int id;
+	private Integer id;
 	
 	@NotBlank
 	private String packaging_mode;

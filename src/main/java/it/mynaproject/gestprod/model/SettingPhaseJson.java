@@ -11,10 +11,10 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 public class SettingPhaseJson extends PhaseJson {
 	
 	@NotBlank
-	private float effective_mixture_temperature;
+	private Float effective_mixture_temperature;
 	
 	@NotBlank
-	private int effective_mixture_mode_id;
+	private Integer effective_mixture_mode_id;
 
 	public float getEffective_mixture_temperature() {
 		return effective_mixture_temperature;

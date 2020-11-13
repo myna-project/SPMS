@@ -13,13 +13,13 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 @JsonInclude(Include.NON_EMPTY)
 public class PhaseJson {
 	
-	private int id;
+	private Integer id;
 	
 	@NotBlank
-	private int production_order_id;
+	private Integer production_order_id;
 	
 	@NotBlank
-	private int user_id;
+	private Integer user_id;
 
 	@NotBlank
 	private Instant start_time;

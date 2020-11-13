@@ -11,22 +11,22 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 public class ValidationPhaseJson extends PhaseJson {
 	
 	@NotBlank
-	private float humidity_finished_product;
+	private Float humidity_finished_product;
 	
 	@NotBlank
-	private float density_finished_product;
+	private Float density_finished_product;
 	
 	private String packaging_state;
 	
-	private float sieve_quantity;
+	private Float sieve_quantity;
 	
-	private float chimney_quantity;
+	private Float chimney_quantity;
 	
-	private float tower_entry_temperature;
+	private Float tower_entry_temperature;
 	
-	private float tower_intern_temperature;
+	private Float tower_intern_temperature;
 	
-	private float cyclon_entry_temperature;
+	private Float cyclon_entry_temperature;
 	
 	private String note;
 	
