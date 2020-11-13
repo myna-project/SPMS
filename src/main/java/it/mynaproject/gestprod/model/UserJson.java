@@ -130,28 +130,29 @@ public class UserJson {
 	public void setRoles(List<Integer> list) {
 		this.rolesId = list;
 	}
-
-	public String toString() {
-		ClassSerializer serializer = new ClassSerializer();
-		serializer.setObj(this);
-		return serializer.toString();
-	}
 	
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("UserJson [username=");
+		builder.append(username);
+		builder.append(", enabled=");
+		builder.append(enabled);
+		builder.append(", email=");
+		builder.append(email);
+		builder.append(", lang=");
+		builder.append(lang);
+		builder.append(", style=");
+		builder.append(style);
+		builder.append(", roles=");
+		builder.append(rolesId);
+		builder.append("]");
+		return builder.toString();
+	}
+
+//  NOT SECURE: could serialize user password 
 //	public String toString() {
-//		StringBuilder builder = new StringBuilder();
-//		builder.append("UserJson [username=");
-//		builder.append(username);
-//		builder.append(", enabled=");
-//		builder.append(enabled);
-//		builder.append(", email=");
-//		builder.append(email);
-//		builder.append(", lang=");
-//		builder.append(lang);
-//		builder.append(", style=");
-//		builder.append(style);
-//		builder.append(", roles=");
-//		builder.append(rolesId);
-//		builder.append("]");
-//		return builder.toString();
+//		ClassSerializer serializer = new ClassSerializer();
+//		serializer.setObj(this);
+//		return serializer.toString();
 //	}
 }
