@@ -14,7 +14,7 @@ import it.mynaproject.gestprod.model.WorkingPhaseUserJson;
 import it.mynaproject.gestprod.util.ClassSerializer;
 
 @Entity
-@Table(name = "additives_production_orders")
+@Table(name = "working_phases_users")
 public class WorkingPhaseUser extends BaseDomain {
 	
 	@ManyToOne(cascade = CascadeType.MERGE)
