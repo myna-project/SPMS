@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
@@ -52,59 +52,59 @@ public class User extends BaseDomain {
 	@JoinTable(name = "users_roles", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
 	private List<Role> roleList;
 	
-	@OneToOne(mappedBy = "user")
-	private List<SettingPhase> settingPhases;
+	@OneToMany(mappedBy = "user")
+	private List<SettingPhase> settingPhaseList;
 	
-	@OneToOne(mappedBy = "user")
-	private List<SystemPreparationPhase> systemPreparationPhases;
+	@OneToMany(mappedBy = "user")
+	private List<SystemPreparationPhase> systemPreparationPhaseList;
 
-	@OneToOne(mappedBy = "user")
-	private List<CleaningPhase> cleaningPhases;
+	@OneToMany(mappedBy = "user")
+	private List<CleaningPhase> cleaningPhaseList;
 	
-	@OneToOne(mappedBy = "user")
-	private List<ValidationPhase> validationPhases;
+	@OneToMany(mappedBy = "user")
+	private List<ValidationPhase> validationPhaseList;
 	
-	@ManyToMany(mappedBy="users")
-	private List<User> workingPhases;
+	@OneToMany(mappedBy = "user")
+	private List<WorkingPhaseUser> workingPhaseUserList;
 
-	public List<SettingPhase> getSettingPhases() {
-		return settingPhases;
+	public List<SettingPhase> getSettingPhaseList() {
+		return settingPhaseList;
 	}
 
-	public void setSettingPhases(List<SettingPhase> settingPhases) {
-		this.settingPhases = settingPhases;
+	public void setSettingPhaseList(List<SettingPhase> settingPhaseList) {
+		this.settingPhaseList = settingPhaseList;
 	}
 
-	public List<SystemPreparationPhase> getSystemPreparationPhases() {
-		return systemPreparationPhases;
+	public List<SystemPreparationPhase> getSystemPreparationPhaseList() {
+		return systemPreparationPhaseList;
 	}
 
-	public void setSystemPreparationPhases(List<SystemPreparationPhase> systemPreparationPhases) {
-		this.systemPreparationPhases = systemPreparationPhases;
+	public void setSystemPreparationPhaseList(List<SystemPreparationPhase> systemPreparationPhaseList) {
+		this.systemPreparationPhaseList = systemPreparationPhaseList;
 	}
 
-	public List<CleaningPhase> getCleaningPhases() {
-		return cleaningPhases;
+	public List<CleaningPhase> getCleaningPhaseList() {
+		return cleaningPhaseList;
 	}
 
-	public void setCleaningPhases(List<CleaningPhase> cleaningPhases) {
-		this.cleaningPhases = cleaningPhases;
-	}
-	
-	public List<ValidationPhase> getValidationPhases() {
-		return validationPhases;
-	}
-
-	public void setValidationPhases(List<ValidationPhase> validationPhases) {
-		this.validationPhases = validationPhases;
+	public void setCleaningPhaseList(List<CleaningPhase> cleaningPhaseList) {
+		this.cleaningPhaseList = cleaningPhaseList;
 	}
 	
-	public List<User> getWorkingPhases() {
-		return workingPhases;
+	public List<ValidationPhase> getValidationPhaseList() {
+		return validationPhaseList;
 	}
 
-	public void setWorkingPhases(List<User> workingPhases) {
-		this.workingPhases = workingPhases;
+	public void setValidationPhaseList(List<ValidationPhase> validationPhaseList) {
+		this.validationPhaseList = validationPhaseList;
+	}
+	
+	public List<WorkingPhaseUser> getWorkingPhaseList() {
+		return workingPhaseUserList;
+	}
+
+	public void setWorkingPhaseList(List<WorkingPhaseUser> workingPhaseUserList) {
+		this.workingPhaseUserList = workingPhaseUserList;
 	}
 
 	public String getUsername() {

@@ -73,23 +73,22 @@ public class ProductionOrder extends BaseDomain {
 	private String ddt_number;
 	
 	@OneToMany(mappedBy="productionOrder")
-	private List<SettingPhase> settingPhases;
+	private List<SettingPhase> settingPhaseList;
 	
 	@OneToMany(mappedBy="productionOrder")
-	private List<SystemPreparationPhase> systemPreparationPhases;
+	private List<SystemPreparationPhase> systemPreparationPhaseList;
 	
 	@OneToMany(mappedBy="productionOrder")
-	private List<CleaningPhase> cleaningPhases;
+	private List<CleaningPhase> cleaningPhaseList;
 	
 	@OneToMany(mappedBy="productionOrder")
-	private List<ValidationPhase> validationPhases;
+	private List<ValidationPhase> validationPhaseList;
 	
 	@OneToMany(mappedBy="productionOrder")
-	private List<WorkingPhase> workingPhases;
+	private List<WorkingPhase> workingPhaseList;
 	
-	@ManyToMany(cascade = CascadeType.MERGE)
-	@JoinTable(name = "additives_production_orders", joinColumns = { @JoinColumn(name = "production_order_code_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "additive_id", referencedColumnName = "id") })
-	private List<Additive> additiveList;
+	@OneToMany(mappedBy="productionOrder")
+	private List<AdditiveProductionOrder> additiveProductionOrderList;
 	
 	public String toString() {
 		ClassSerializer serializer = new ClassSerializer();
