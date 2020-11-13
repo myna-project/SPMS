@@ -29,6 +29,18 @@ public class AdditiveProductionOrder implements java.io.Serializable {
 	@Column
 	private Float weight_additive;
 
+	public void populateAdditiveProductionOrderFromInput(AdditiveProductionOrderJson input) {
+		this.setWeight_additive(input.getWeight_additive());
+	}
+
+	public String toString() {
+		ClassSerializer serializer = new ClassSerializer();
+		serializer.setObj(this);
+		return serializer.toString();
+	}
+	
+/** GETTERS and SETTERS **/
+		
 	public Additive getAdditive() {
 		return additive;
 	}
@@ -53,13 +65,4 @@ public class AdditiveProductionOrder implements java.io.Serializable {
 		this.weight_additive = weight_additive;
 	}
 
-	public void populateAdditiveProductionOrderFromInput(AdditiveProductionOrderJson input) {
-		this.setWeight_additive(input.getWeight_additive());
-	}
-
-	public String toString() {
-		ClassSerializer serializer = new ClassSerializer();
-		serializer.setObj(this);
-		return serializer.toString();
-	}
 }

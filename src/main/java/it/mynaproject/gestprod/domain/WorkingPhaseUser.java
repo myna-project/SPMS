@@ -35,6 +35,20 @@ public class WorkingPhaseUser implements java.io.Serializable {
 	@Column(nullable=false)
 	private Instant end_time;
 
+	public void populateWorkingPhaseUserFromInput(WorkingPhaseUserJson input) {
+		this.setStart_time(input.getStart_time());
+		this.setEnd_time(input.getEnd_time());
+	}
+
+	@Override
+	public String toString() {
+		ClassSerializer serializer = new ClassSerializer();
+		serializer.setObj(this);
+		return serializer.toString();
+	}
+	
+/** GETTERS and SETTERS **/
+	
 	public WorkingPhase getWorkingPhase() {
 		return workingPhase;
 	}
@@ -65,17 +79,5 @@ public class WorkingPhaseUser implements java.io.Serializable {
 
 	public void setEnd_time(Instant end_time) {
 		this.end_time = end_time;
-	}
-
-	public void populateWorkingPhaseUserFromInput(WorkingPhaseUserJson input) {
-		this.setStart_time(input.getStart_time());
-		this.setEnd_time(input.getEnd_time());
-	}
-
-	@Override
-	public String toString() {
-		ClassSerializer serializer = new ClassSerializer();
-		serializer.setObj(this);
-		return serializer.toString();
 	}
 }

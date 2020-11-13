@@ -22,7 +22,19 @@ public class WorkingPhase extends BaseDomain {
 	
 	@OneToMany(mappedBy="workingPhase", cascade=CascadeType.ALL)
 	private List<WorkingPhaseUser> workingPhaseUserList;
+
+	public void populateWorkingPhaseFromInput(WorkingPhaseJson input, ProductionOrder po, List<User> u) {
+		this.setProductionOrder(po);
+	}
+
+	public String toString() {
+		ClassSerializer serializer = new ClassSerializer();
+		serializer.setObj(this);
+		return serializer.toString();
+	}
 	
+/** GETTERS and SETTERS **/
+		
 	public ProductionOrder getProductionOrder() {
 		return productionOrder;
 	}
@@ -37,15 +49,5 @@ public class WorkingPhase extends BaseDomain {
 
 	public void setWorkingPhaseUserList(List<WorkingPhaseUser> workingPhaseUserList) {
 		this.workingPhaseUserList = workingPhaseUserList;
-	}
-
-	public void populateWorkingPhaseFromInput(WorkingPhaseJson input, ProductionOrder po, List<User> u) {
-		this.setProductionOrder(po);
-	}
-
-	public String toString() {
-		ClassSerializer serializer = new ClassSerializer();
-		serializer.setObj(this);
-		return serializer.toString();
 	}
 }

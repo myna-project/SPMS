@@ -21,14 +21,6 @@ public class RawMaterial extends BaseDomain {
 	@OneToMany(mappedBy="rawMaterial", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
 	private List<ProductionOrder> productionOrders;
 	
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-	
 	public void populateRawMaterialFromInput(RawMaterialJson input) {
 		this.setName(input.getName());
 	}
@@ -37,5 +29,15 @@ public class RawMaterial extends BaseDomain {
 		ClassSerializer serializer = new ClassSerializer();
 		serializer.setObj(this);
 		return serializer.toString();
+	}
+	
+/** GETTERS and SETTERS **/
+		
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

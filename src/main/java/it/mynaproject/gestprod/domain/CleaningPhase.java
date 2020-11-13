@@ -29,7 +29,21 @@ public class CleaningPhase extends BaseDomain {
 	
 	@Column
 	private Instant end_time;
+	public void populateCleaningPhaseFromInput(CleaningPhaseJson input, ProductionOrder po, User u) {
+		this.setProductionOrder(po);
+		this.setUser(u);
+		this.setStart_time(input.getStart_time());
+		this.setEnd_time(input.getEnd_time());
+	}
+
+	public String toString() {
+		ClassSerializer serializer = new ClassSerializer();
+		serializer.setObj(this);
+		return serializer.toString();
+	}
 	
+/** GETTERS and SETTERS **/
+		
 	public ProductionOrder getProductionOrder() {
 		return productionOrder;
 	}
@@ -62,16 +76,4 @@ public class CleaningPhase extends BaseDomain {
 		this.end_time = end_time;
 	}
 
-	public void populateCleaningPhaseFromInput(CleaningPhaseJson input, ProductionOrder po, User u) {
-		this.setProductionOrder(po);
-		this.setUser(u);
-		this.setStart_time(input.getStart_time());
-		this.setEnd_time(input.getEnd_time());
-	}
-
-	public String toString() {
-		ClassSerializer serializer = new ClassSerializer();
-		serializer.setObj(this);
-		return serializer.toString();
-	}
 }

@@ -26,6 +26,30 @@ public class Role extends BaseDomain implements GrantedAuthority {
 	@ManyToMany(mappedBy = "roleList", cascade = CascadeType.MERGE)
 	private List<User> userList;
 
+	@Override
+	public String getAuthority() {
+		return this.name;
+	}
+	
+	public void populateRoleFromInput(RoleJson input) {
+
+		this.setDescription(input.getDescription());
+		this.setName(input.getName());
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Role [name=");
+		builder.append(name);
+		builder.append(", description=");
+		builder.append(description);
+		builder.append("]");
+		return builder.toString();
+	}
+	
+/** GETTERS and SETTERS **/
+	
 	public String getName() {
 		return name;
 	}
@@ -48,27 +72,5 @@ public class Role extends BaseDomain implements GrantedAuthority {
 
 	public void setUsers(List<User> users) {
 		this.userList = users;
-	}
-
-	@Override
-	public String getAuthority() {
-		return this.name;
-	}
-	
-	public void populateRoleFromInput(RoleJson input) {
-
-		this.setDescription(input.getDescription());
-		this.setName(input.getName());
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Role [name=");
-		builder.append(name);
-		builder.append(", description=");
-		builder.append(description);
-		builder.append("]");
-		return builder.toString();
 	}
 }

@@ -21,14 +21,6 @@ public class Packaging extends BaseDomain {
 	@OneToMany(mappedBy="packaging", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
 	private List<ProductionOrder> productionOrders;
 	
-	public String getPackaging_mode() {
-		return packaging_mode;
-	}
-
-	public void setPackaging_mode(String packaging_mode) {
-		this.packaging_mode = packaging_mode;
-	}
-	
 	public void populatePackagingFromInput(PackagingJson input) {
 		this.setPackaging_mode(input.getPackaging_mode());
 	}
@@ -37,5 +29,15 @@ public class Packaging extends BaseDomain {
 		ClassSerializer serializer = new ClassSerializer();
 		serializer.setObj(this);
 		return serializer.toString();
+	}
+	
+/** GETTERS and SETTERS **/
+		
+	public String getPackaging_mode() {
+		return packaging_mode;
+	}
+
+	public void setPackaging_mode(String packaging_mode) {
+		this.packaging_mode = packaging_mode;
 	}
 }

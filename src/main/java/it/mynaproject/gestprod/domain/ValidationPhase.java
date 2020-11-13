@@ -53,7 +53,30 @@ public class ValidationPhase extends BaseDomain {
 	
 	@Column
 	private Float cyclon_entry_temperature;
+
+	public void populateValidationPhaseFromInput(ValidationPhaseJson input, ProductionOrder po, User u) {
+		this.setProductionOrder(po);
+		this.setUser(u);
+		this.setStart_time(input.getStart_time());
+		this.setEnd_time(input.getEnd_time());
+		this.setHumidity_finished_product(input.getHumidity_finished_product());
+		this.setDensity_finished_product(input.getDensity_finished_product());
+		this.setPackaging_state(input.getPackaging_state());
+		this.setSieve_quantity(input.getSieve_quantity());
+		this.setChimney_quantity(input.getChimney_quantity());
+		this.setTower_entry_temperature(input.getTower_entry_temperature());
+		this.setTower_intern_temperature(input.getTower_intern_temperature());
+		this.setCyclon_entry_temperature(input.getCyclon_entry_temperature());
+	}
+
+	public String toString() {
+		ClassSerializer serializer = new ClassSerializer();
+		serializer.setObj(this);
+		return serializer.toString();
+	}
 	
+/** GETTERS and SETTERS **/
+		
 	public float getHumidity_finished_product() {
 		return humidity_finished_product;
 	}
@@ -159,26 +182,5 @@ public class ValidationPhase extends BaseDomain {
 
 	public void setEnd_time(Instant end_time) {
 		this.end_time = end_time;
-	}
-
-	public void populateValidationPhaseFromInput(ValidationPhaseJson input, ProductionOrder po, User u) {
-		this.setProductionOrder(po);
-		this.setUser(u);
-		this.setStart_time(input.getStart_time());
-		this.setEnd_time(input.getEnd_time());
-		this.setHumidity_finished_product(input.getHumidity_finished_product());
-		this.setDensity_finished_product(input.getDensity_finished_product());
-		this.setPackaging_state(input.getPackaging_state());
-		this.setSieve_quantity(input.getSieve_quantity());
-		this.setChimney_quantity(input.getChimney_quantity());
-		this.setTower_entry_temperature(input.getTower_entry_temperature());
-		this.setTower_intern_temperature(input.getTower_intern_temperature());
-		this.setCyclon_entry_temperature(input.getCyclon_entry_temperature());
-	}
-
-	public String toString() {
-		ClassSerializer serializer = new ClassSerializer();
-		serializer.setObj(this);
-		return serializer.toString();
 	}
 }

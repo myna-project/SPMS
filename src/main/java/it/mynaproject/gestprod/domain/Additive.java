@@ -21,6 +21,18 @@ public class Additive extends BaseDomain {
 	@OneToMany(mappedBy = "additive", cascade = CascadeType.ALL)
 	private List<AdditiveProductionOrder> additiveProductionOrderList;
 
+	public void populateAdditiveFromInput(AdditiveJson input) {
+		this.setName(input.getName());
+	}
+
+	public String toString() {
+		ClassSerializer serializer = new ClassSerializer();
+		serializer.setObj(this);
+		return serializer.toString();
+	}
+	
+/** GETTERS and SETTERS **/
+		
 	public String getName() {
 		return name;
 	}
@@ -37,13 +49,4 @@ public class Additive extends BaseDomain {
 		this.additiveProductionOrderList = additiveProductionOrderList;
 	}
 	
-	public void populateAdditiveFromInput(AdditiveJson input) {
-		this.setName(input.getName());
-	}
-
-	public String toString() {
-		ClassSerializer serializer = new ClassSerializer();
-		serializer.setObj(this);
-		return serializer.toString();
-	}
 }

@@ -92,4 +92,183 @@ public class ProductionOrder extends BaseDomain {
 		serializer.setObj(this);
 		return serializer.toString();
 	}
+
+	
+/** GETTERS and SETTERS **/
+	
+	public String getProduction_order_code() {
+		return production_order_code;
+	}
+
+	public void setProduction_order_code(String production_order_code) {
+		this.production_order_code = production_order_code;
+	}
+
+	public String getProduction_number_lot() {
+		return production_number_lot;
+	}
+
+	public void setProduction_number_lot(String production_number_lot) {
+		this.production_number_lot = production_number_lot;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public RawMaterial getRawMaterial() {
+		return rawMaterial;
+	}
+
+	public void setRawMaterial(RawMaterial rawMaterial) {
+		this.rawMaterial = rawMaterial;
+	}
+
+	public Packaging getPackaging() {
+		return packaging;
+	}
+
+	public void setPackaging(Packaging packaging) {
+		this.packaging = packaging;
+	}
+
+	public MixtureMode getMixtureMode() {
+		return mixtureMode;
+	}
+
+	public void setMixtureMode(MixtureMode mixtureMode) {
+		this.mixtureMode = mixtureMode;
+	}
+
+	public Float getWeight_raw_material() {
+		return weight_raw_material;
+	}
+
+	public void setWeight_raw_material(Float weight_raw_material) {
+		this.weight_raw_material = weight_raw_material;
+	}
+
+	public Integer getTons_raw_material() {
+		return tons_raw_material;
+	}
+
+	public void setTons_raw_material(Integer tons_raw_material) {
+		this.tons_raw_material = tons_raw_material;
+	}
+
+	public Float getDry_residue() {
+		return dry_residue;
+	}
+
+	public void setDry_residue(Float dry_residue) {
+		this.dry_residue = dry_residue;
+	}
+
+	public Float getDensity_raw_material() {
+		return density_raw_material;
+	}
+
+	public void setDensity_raw_material(Float density_raw_material) {
+		this.density_raw_material = density_raw_material;
+	}
+
+	public Float getExpected_mixture_temperature() {
+		return expected_mixture_temperature;
+	}
+
+	public void setExpected_mixture_temperature(Float expected_mixture_temperature) {
+		this.expected_mixture_temperature = expected_mixture_temperature;
+	}
+
+	public Float getExpected_quantity_finished_product() {
+		return expected_quantity_finished_product;
+	}
+
+	public void setExpected_quantity_finished_product(Float expected_quantity_finished_product) {
+		this.expected_quantity_finished_product = expected_quantity_finished_product;
+	}
+
+	public Date getDelivery_date() {
+		return delivery_date;
+	}
+
+	public void setDelivery_date(Date delivery_date) {
+		this.delivery_date = delivery_date;
+	}
+
+	public Date getProduction_order_date() {
+		return production_order_date;
+	}
+
+	public void setProduction_order_date(Date production_order_date) {
+		this.production_order_date = production_order_date;
+	}
+
+	public Date getDdt_date() {
+		return ddt_date;
+	}
+
+	public void setDdt_date(Date ddt_date) {
+		this.ddt_date = ddt_date;
+	}
+
+	public String getDdt_number() {
+		return ddt_number;
+	}
+
+	public void setDdt_number(String ddt_number) {
+		this.ddt_number = ddt_number;
+	}
+
+	public List<SettingPhase> getSettingPhaseList() {
+		return settingPhaseList;
+	}
+
+	public void setSettingPhaseList(List<SettingPhase> settingPhaseList) {
+		this.settingPhaseList = settingPhaseList;
+	}
+
+	public List<SystemPreparationPhase> getSystemPreparationPhaseList() {
+		return systemPreparationPhaseList;
+	}
+
+	public void setSystemPreparationPhaseList(List<SystemPreparationPhase> systemPreparationPhaseList) {
+		this.systemPreparationPhaseList = systemPreparationPhaseList;
+	}
+
+	public List<CleaningPhase> getCleaningPhaseList() {
+		return cleaningPhaseList;
+	}
+
+	public void setCleaningPhaseList(List<CleaningPhase> cleaningPhaseList) {
+		this.cleaningPhaseList = cleaningPhaseList;
+	}
+
+	public List<ValidationPhase> getValidationPhaseList() {
+		return validationPhaseList;
+	}
+
+	public void setValidationPhaseList(List<ValidationPhase> validationPhaseList) {
+		this.validationPhaseList = validationPhaseList;
+	}
+
+	public List<WorkingPhase> getWorkingPhaseList() {
+		return workingPhaseList;
+	}
+
+	public void setWorkingPhaseList(List<WorkingPhase> workingPhaseList) {
+		this.workingPhaseList = workingPhaseList;
+	}
+
+	public List<AdditiveProductionOrder> getAdditiveProductionOrderList() {
+		return additiveProductionOrderList;
+	}
+
+	public void setAdditiveProductionOrderList(List<AdditiveProductionOrder> additiveProductionOrderList) {
+		this.additiveProductionOrderList = additiveProductionOrderList;
+	}
 }

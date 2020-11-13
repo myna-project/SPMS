@@ -67,6 +67,26 @@ public class User extends BaseDomain {
 	@OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
 	private List<WorkingPhaseUser> workingPhaseUserList;
 
+	public void populateUserFromInput(UserJson input, List<Role> roles, Boolean editable) {
+
+		if (editable) {
+			this.setUsername(input.getUsername());
+			this.setName(input.getName());
+			this.setSurname(input.getSurname());
+			this.setEmail(input.getEmail());
+			this.setEnabled((input.getEnabled() != null) ? input.getEnabled() : false);
+			this.setRoleList(roles);
+		}
+		if (input.getPassword() != null)
+			this.setPassword(input.getPassword());
+		if (input.getAvatar() != null)
+			this.setAvatar(Base64.getDecoder().decode(input.getAvatar()));
+		this.setStyle(input.getStyle());
+		this.setLang(input.getLang());
+	}
+	
+/** GETTERS and SETTERS **/
+	
 	public List<SettingPhase> getSettingPhaseList() {
 		return settingPhaseList;
 	}
@@ -185,23 +205,5 @@ public class User extends BaseDomain {
 
 	public void setRoleList(List<Role> roleList) {
 		this.roleList = roleList;
-	}
-
-	public void populateUserFromInput(UserJson input, List<Role> roles, Boolean editable) {
-
-		if (editable) {
-			this.setUsername(input.getUsername());
-			this.setName(input.getName());
-			this.setSurname(input.getSurname());
-			this.setEmail(input.getEmail());
-			this.setEnabled((input.getEnabled() != null) ? input.getEnabled() : false);
-			this.setRoleList(roles);
-		}
-		if (input.getPassword() != null)
-			this.setPassword(input.getPassword());
-		if (input.getAvatar() != null)
-			this.setAvatar(Base64.getDecoder().decode(input.getAvatar()));
-		this.setStyle(input.getStyle());
-		this.setLang(input.getLang());
 	}
 }

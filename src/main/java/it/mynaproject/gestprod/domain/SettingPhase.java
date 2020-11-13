@@ -35,7 +35,24 @@ public class SettingPhase extends BaseDomain {
 	
 	@Column
 	private Integer effective_mixture_mode_id;
+
+	public void populateSettingPhaseFromInput(SettingPhaseJson input, ProductionOrder po, User u) {
+		this.setProductionOrder(po);
+		this.setUser(u);
+		this.setStart_time(input.getStart_time());
+		this.setEnd_time(input.getEnd_time());
+		this.setEffective_mixture_mode_id(input.getEffective_mixture_mode_id());
+		this.setEffective_mixture_temperature(input.getEffective_mixture_temperature());
+	}
+
+	public String toString() {
+		ClassSerializer serializer = new ClassSerializer();
+		serializer.setObj(this);
+		return serializer.toString();
+	}
 	
+/** GETTERS and SETTERS **/
+		
 	public ProductionOrder getProductionOrder() {
 		return productionOrder;
 	}
@@ -82,20 +99,5 @@ public class SettingPhase extends BaseDomain {
 
 	public void setEffective_mixture_mode_id(int effective_mixture_mode_id) {
 		this.effective_mixture_mode_id = effective_mixture_mode_id;
-	}
-
-	public void populateSettingPhaseFromInput(SettingPhaseJson input, ProductionOrder po, User u) {
-		this.setProductionOrder(po);
-		this.setUser(u);
-		this.setStart_time(input.getStart_time());
-		this.setEnd_time(input.getEnd_time());
-		this.setEffective_mixture_mode_id(input.getEffective_mixture_mode_id());
-		this.setEffective_mixture_temperature(input.getEffective_mixture_temperature());
-	}
-
-	public String toString() {
-		ClassSerializer serializer = new ClassSerializer();
-		serializer.setObj(this);
-		return serializer.toString();
 	}
 }

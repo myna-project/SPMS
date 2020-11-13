@@ -29,7 +29,26 @@ public class SystemPreparationPhase extends BaseDomain {
 	
 	@Column
 	private Instant end_time;
+
+	public void setEnd_time(Instant end_time) {
+		this.end_time = end_time;
+	}
+
+	public void populateSystemPreparationPhaseFromInput(SystemPreparationPhaseJson input, ProductionOrder po, User u) {
+		this.setProductionOrder(po);
+		this.setUser(u);
+		this.setStart_time(input.getStart_time());
+		this.setEnd_time(input.getEnd_time());
+	}
+
+	public String toString() {
+		ClassSerializer serializer = new ClassSerializer();
+		serializer.setObj(this);
+		return serializer.toString();
+	}
 	
+/** GETTERS and SETTERS **/
+		
 	public ProductionOrder getProductionOrder() {
 		return productionOrder;
 	}
@@ -56,22 +75,5 @@ public class SystemPreparationPhase extends BaseDomain {
 
 	public Instant getEnd_time() {
 		return end_time;
-	}
-
-	public void setEnd_time(Instant end_time) {
-		this.end_time = end_time;
-	}
-
-	public void populateSystemPreparationPhaseFromInput(SystemPreparationPhaseJson input, ProductionOrder po, User u) {
-		this.setProductionOrder(po);
-		this.setUser(u);
-		this.setStart_time(input.getStart_time());
-		this.setEnd_time(input.getEnd_time());
-	}
-
-	public String toString() {
-		ClassSerializer serializer = new ClassSerializer();
-		serializer.setObj(this);
-		return serializer.toString();
 	}
 }
