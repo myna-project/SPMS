@@ -10,11 +10,20 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 @JsonInclude(Include.NON_EMPTY)
 public class RawMaterialJson {
 	
+	@NotBlank
 	private Integer id;
 	
 	@NotBlank
 	private String name;
+
+	public String toString() {
+		ClassSerializer serializer = new ClassSerializer();
+		serializer.setObj(this);
+		return serializer.toString();
+	}
 	
+/** GETTERS and SETTERS **/
+		
 	public int getId() {
 		return id;
 	}
@@ -29,11 +38,5 @@ public class RawMaterialJson {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String toString() {
-		ClassSerializer serializer = new ClassSerializer();
-		serializer.setObj(this);
-		return serializer.toString();
 	}
 }

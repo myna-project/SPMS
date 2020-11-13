@@ -3,6 +3,8 @@ package it.mynaproject.gestprod.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -11,8 +13,10 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 @JsonInclude(Include.NON_EMPTY)
 public class UserJson {
 
+	@NotBlank
 	private Integer id;
 
+	@NotBlank
 	private String username;
 
 	private String name;
@@ -21,10 +25,12 @@ public class UserJson {
 
 	private String oldPassword;
 
+	@NotBlank
 	private String password;
 
 	private Boolean enabled;
 
+	@NotBlank
 	private String email;
 
 	private String lang;
@@ -34,7 +40,34 @@ public class UserJson {
 	private String style;
 
 	private List<Integer> rolesId = new ArrayList<>();
+	
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("UserJson [username=");
+		builder.append(username);
+		builder.append(", enabled=");
+		builder.append(enabled);
+		builder.append(", email=");
+		builder.append(email);
+		builder.append(", lang=");
+		builder.append(lang);
+		builder.append(", style=");
+		builder.append(style);
+		builder.append(", roles=");
+		builder.append(rolesId);
+		builder.append("]");
+		return builder.toString();
+	}
 
+//  NOT SECURE: could serialize user password 
+//	public String toString() {
+//		ClassSerializer serializer = new ClassSerializer();
+//		serializer.setObj(this);
+//		return serializer.toString();
+//	}
+	
+/** GETTERS and SETTERS **/
+	
 	public Integer getId() {
 		return id;
 	}
@@ -130,29 +163,4 @@ public class UserJson {
 	public void setRoles(List<Integer> list) {
 		this.rolesId = list;
 	}
-	
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("UserJson [username=");
-		builder.append(username);
-		builder.append(", enabled=");
-		builder.append(enabled);
-		builder.append(", email=");
-		builder.append(email);
-		builder.append(", lang=");
-		builder.append(lang);
-		builder.append(", style=");
-		builder.append(style);
-		builder.append(", roles=");
-		builder.append(rolesId);
-		builder.append("]");
-		return builder.toString();
-	}
-
-//  NOT SECURE: could serialize user password 
-//	public String toString() {
-//		ClassSerializer serializer = new ClassSerializer();
-//		serializer.setObj(this);
-//		return serializer.toString();
-//	}
 }

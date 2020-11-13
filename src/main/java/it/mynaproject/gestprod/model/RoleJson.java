@@ -3,6 +3,8 @@ package it.mynaproject.gestprod.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -11,14 +13,24 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 @JsonInclude(Include.NON_EMPTY)
 public class RoleJson {
 
+	@NotBlank
 	private Integer id;
 
+	@NotBlank
 	private String name;
 
 	private String description;
 
 	private List<String> userList = new ArrayList<>();
+	
+	public String toString() {
+		ClassSerializer serializer = new ClassSerializer();
+		serializer.setObj(this);
+		return serializer.toString();
+	}
 
+/** GETTERS and SETTERS **/
+		
 	public Integer getId() {
 		return id;
 	}
@@ -49,12 +61,6 @@ public class RoleJson {
 
 	public void setUsers(List<String> userList) {
 		this.userList = userList;
-	}
-	
-	public String toString() {
-		ClassSerializer serializer = new ClassSerializer();
-		serializer.setObj(this);
-		return serializer.toString();
 	}
 
 // --- original implementation ---

@@ -23,7 +23,15 @@ public class WorkingPhaseUserJson {
 	
 	@NotBlank
 	private Instant end_time;
-
+	
+	public String toString() {
+		ClassSerializer serializer = new ClassSerializer();
+		serializer.setObj(this);
+		return serializer.toString();
+	}
+	
+/** GETTERS and SETTERS **/
+	
 	public Integer getWorking_phase_id() {
 		return working_phase_id;
 	}
@@ -56,9 +64,4 @@ public class WorkingPhaseUserJson {
 		this.end_time = end_time;
 	}
 
-	public String toString() {
-		ClassSerializer serializer = new ClassSerializer();
-		serializer.setObj(this);
-		return serializer.toString();
-	}
 }

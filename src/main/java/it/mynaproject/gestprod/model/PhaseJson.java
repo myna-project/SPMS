@@ -13,6 +13,7 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 @JsonInclude(Include.NON_EMPTY)
 public class PhaseJson {
 	
+	@NotBlank
 	private Integer id;
 	
 	@NotBlank
@@ -26,7 +27,15 @@ public class PhaseJson {
 	
 	@NotBlank
 	private Instant end_time;
-
+	
+	public String toString() {
+		ClassSerializer serializer = new ClassSerializer();
+		serializer.setObj(this);
+		return serializer.toString();
+	}
+	
+/** GETTERS and SETTERS **/
+	
 	public int getId() {
 		return id;
 	}
@@ -65,11 +74,5 @@ public class PhaseJson {
 
 	public void setEnd_time(Instant end_time) {
 		this.end_time = end_time;
-	}
-	
-	public String toString() {
-		ClassSerializer serializer = new ClassSerializer();
-		serializer.setObj(this);
-		return serializer.toString();
 	}
 }

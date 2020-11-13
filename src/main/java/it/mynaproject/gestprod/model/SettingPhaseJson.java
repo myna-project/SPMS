@@ -16,6 +16,19 @@ public class SettingPhaseJson extends PhaseJson {
 	@NotBlank
 	private Integer effective_mixture_mode_id;
 
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		ClassSerializer serializer = new ClassSerializer();
+		serializer.setObj(this);
+		builder.append(serializer.toString());
+		builder.append(" (Superclass: ");
+		builder.append(super.toString());
+		builder.append(" )");
+		return builder.toString();
+	}
+	
+/** GETTERS and SETTERS **/
+
 	public float getEffective_mixture_temperature() {
 		return effective_mixture_temperature;
 	}
@@ -30,16 +43,5 @@ public class SettingPhaseJson extends PhaseJson {
 
 	public void setEffective_mixture_mode_id(int effective_mixture_mode_id) {
 		this.effective_mixture_mode_id = effective_mixture_mode_id;
-	}
-
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		ClassSerializer serializer = new ClassSerializer();
-		serializer.setObj(this);
-		builder.append(serializer.toString());
-		builder.append(" (Superclass: ");
-		builder.append(super.toString());
-		builder.append(" )");
-		return builder.toString();
 	}
 }

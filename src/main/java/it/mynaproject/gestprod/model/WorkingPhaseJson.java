@@ -15,17 +15,19 @@ public class WorkingPhaseJson {
 	@NotBlank
 	private List<WorkingPhaseShiftJson> shifts;
 
+	public String toString() {
+		ClassSerializer serializer = new ClassSerializer();
+		serializer.setObj(this);
+		return serializer.toString();
+	}
+	
+/** GETTERS and SETTERS **/
+	
 	public List<WorkingPhaseShiftJson> getShifts() {
 		return shifts;
 	}
 
 	public void setShifts(List<WorkingPhaseShiftJson> shifts) {
 		this.shifts = shifts;
-	}
-
-	public String toString() {
-		ClassSerializer serializer = new ClassSerializer();
-		serializer.setObj(this);
-		return serializer.toString();
 	}
 }

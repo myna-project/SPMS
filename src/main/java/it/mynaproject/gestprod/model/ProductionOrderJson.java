@@ -1,6 +1,9 @@
 package it.mynaproject.gestprod.model;
 
 import java.util.List;
+
+import javax.validation.constraints.NotBlank;
+
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -11,12 +14,15 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 @JsonInclude(Include.NON_EMPTY)
 public class ProductionOrderJson {
 	
+	@NotBlank
 	private Integer id;
 	
+	@NotBlank
 	private String production_order_code;
 	
 	private String production_number_lot;
 	
+	@NotBlank
 	private Integer raw_material_id;
 	
 	private Float weight_raw_material;
@@ -29,12 +35,14 @@ public class ProductionOrderJson {
 	
 	private Float expected_mixture_temperature;
 	
+	@NotBlank
 	private Integer expected_mixture_mode_id;
 	
 	private Float expected_quantity_finished_product;
 	
 	private Date delivery_date;
 	
+	@NotBlank
 	private Integer packaging_id;
 	
 	private Date production_order_date;
@@ -43,8 +51,17 @@ public class ProductionOrderJson {
 	
 	private String ddt_number;
 	
+	@NotBlank
 	private List<Integer> additivesId; // TODO weight additive
 	
+	public String toString() {
+		ClassSerializer serializer = new ClassSerializer();
+		serializer.setObj(this);
+		return serializer.toString();
+	}
+	
+/** GETTERS and SETTERS **/
+		
 	public List<Integer> getAdditivesId() {
 		return additivesId;
 	}
@@ -179,11 +196,5 @@ public class ProductionOrderJson {
 
 	public void setDdt_number(String ddt_number) {
 		this.ddt_number = ddt_number;
-	}
-	
-	public String toString() {
-		ClassSerializer serializer = new ClassSerializer();
-		serializer.setObj(this);
-		return serializer.toString();
 	}
 }

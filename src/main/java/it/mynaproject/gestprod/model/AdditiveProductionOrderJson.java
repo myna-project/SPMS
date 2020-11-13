@@ -18,7 +18,15 @@ public class AdditiveProductionOrderJson {
 	
 	@NotBlank
 	private Float weight_additive;
+
+	public String toString() {
+		ClassSerializer serializer = new ClassSerializer();
+		serializer.setObj(this);
+		return serializer.toString();
+	}
 	
+/** GETTERS and SETTERS **/
+		
 	public Integer getAdditive_id() {
 		return additive_id;
 	}
@@ -41,11 +49,5 @@ public class AdditiveProductionOrderJson {
 
 	public void setWeight_additive(Float weight_additive) {
 		this.weight_additive = weight_additive;
-	}
-
-	public String toString() {
-		ClassSerializer serializer = new ClassSerializer();
-		serializer.setObj(this);
-		return serializer.toString();
 	}
 }

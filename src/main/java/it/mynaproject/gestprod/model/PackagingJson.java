@@ -10,11 +10,20 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 @JsonInclude(Include.NON_EMPTY)
 public class PackagingJson {
 	
+	@NotBlank
 	private Integer id;
 	
 	@NotBlank
 	private String packaging_mode;
+
+	public String toString() {
+		ClassSerializer serializer = new ClassSerializer();
+		serializer.setObj(this);
+		return serializer.toString();
+	}
 	
+/** GETTERS and SETTERS **/
+		
 	public int getId() {
 		return id;
 	}
@@ -29,11 +38,5 @@ public class PackagingJson {
 
 	public void setPackaging_mode(String packaging_mode) {
 		this.packaging_mode = packaging_mode;
-	}
-
-	public String toString() {
-		ClassSerializer serializer = new ClassSerializer();
-		serializer.setObj(this);
-		return serializer.toString();
 	}
 }

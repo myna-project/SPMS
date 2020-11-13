@@ -10,14 +10,6 @@ public class WorkingPhaseShiftJson extends PhaseJson {
 	
 	private Integer working_phase_id;
 	
-	public int getWorking_phase_id() {
-		return working_phase_id;
-	}
-
-	public void setWorking_phase_id(int working_phase_id) {
-		this.working_phase_id = working_phase_id;
-	}
-
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		ClassSerializer serializer = new ClassSerializer();
@@ -28,4 +20,15 @@ public class WorkingPhaseShiftJson extends PhaseJson {
 		builder.append(" )");
 		return builder.toString();
 	}
+	
+/** GETTERS and SETTERS **/
+		
+	public int getWorking_phase_id() {
+		return working_phase_id;
+	}
+
+	public void setWorking_phase_id(int working_phase_id) {
+		this.working_phase_id = working_phase_id;
+	}
+
 }

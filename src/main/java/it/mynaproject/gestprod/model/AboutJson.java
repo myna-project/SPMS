@@ -11,7 +11,15 @@ public class AboutJson {
 	private String version;
 
 	private String buildtime;
-
+	
+	public String toString() {
+		ClassSerializer serializer = new ClassSerializer();
+		serializer.setObj(this);
+		return serializer.toString();
+	}
+	
+/** GETTERS and SETTERS **/
+	
 	public String getVersion() {
 		return version;
 	}
@@ -28,9 +36,4 @@ public class AboutJson {
 		this.buildtime = buildtime;
 	}
 	
-	public String toString() {
-		ClassSerializer serializer = new ClassSerializer();
-		serializer.setObj(this);
-		return serializer.toString();
-	}
 }
