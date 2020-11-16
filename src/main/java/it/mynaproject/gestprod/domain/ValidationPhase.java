@@ -1,12 +1,7 @@
 package it.mynaproject.gestprod.domain;
 
-import java.time.Instant;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import it.mynaproject.gestprod.model.ValidationPhaseJson;
@@ -14,21 +9,7 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 
 @Entity
 @Table(name = "validation_phases")
-public class ValidationPhase extends BaseDomain {
-	
-	@ManyToOne
-	@JoinColumn(name="production_order_id", referencedColumnName="id")
-	private ProductionOrder productionOrder;
-	
-	@ManyToOne
-	@JoinColumn(name="user_id", referencedColumnName="id")
-	private User user;
-	
-	@Column
-	private Instant start_time;
-	
-	@Column
-	private Instant end_time;
+public class ValidationPhase extends Phase {
 	
 	@Column(nullable=false)
 	private Float humidity_finished_product;
@@ -54,6 +35,9 @@ public class ValidationPhase extends BaseDomain {
 	@Column
 	private Float cyclon_entry_temperature;
 
+	@Column
+	private String note;
+	
 	public void populateValidationPhaseFromInput(ValidationPhaseJson input, ProductionOrder po, User u) {
 		this.setProductionOrder(po);
 		this.setUser(u);
@@ -149,38 +133,4 @@ public class ValidationPhase extends BaseDomain {
 		this.note = note;
 	}
 
-	@Column
-	private String note;
-	
-	public ProductionOrder getProductionOrder() {
-		return productionOrder;
-	}
-
-	public void setProductionOrder(ProductionOrder productionOrder) {
-		this.productionOrder = productionOrder;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Instant getStart_time() {
-		return start_time;
-	}
-
-	public void setStart_time(Instant start_time) {
-		this.start_time = start_time;
-	}
-
-	public Instant getEnd_time() {
-		return end_time;
-	}
-
-	public void setEnd_time(Instant end_time) {
-		this.end_time = end_time;
-	}
 }
