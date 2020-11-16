@@ -23,11 +23,11 @@ public class WorkingPhaseShiftJson extends PhaseJson {
 	
 /** GETTERS and SETTERS **/
 		
-	public int getWorking_phase_id() {
+	public Integer getWorking_phase_id() {
 		return working_phase_id;
 	}
 
-	public void setWorking_phase_id(int working_phase_id) {
+	public void setWorking_phase_id(final Integer working_phase_id) {
 		this.working_phase_id = working_phase_id;
 	}
 

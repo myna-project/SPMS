@@ -85,19 +85,19 @@ public class SettingPhase extends BaseDomain {
 		this.end_time = end_time;
 	}
 
-	public float getEffective_mixture_temperature() {
+	public Float getEffective_mixture_temperature() {
 		return effective_mixture_temperature;
 	}
 
-	public void setEffective_mixture_temperature(float effective_mixture_temperature) {
+	public void setEffective_mixture_temperature(final Float effective_mixture_temperature) {
 		this.effective_mixture_temperature = effective_mixture_temperature;
 	}
 
-	public int getEffective_mixture_mode_id() {
+	public Integer getEffective_mixture_mode_id() {
 		return effective_mixture_mode_id;
 	}
 
-	public void setEffective_mixture_mode_id(int effective_mixture_mode_id) {
+	public void setEffective_mixture_mode_id(final Integer effective_mixture_mode_id) {
 		this.effective_mixture_mode_id = effective_mixture_mode_id;
 	}
 }

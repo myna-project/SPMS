@@ -43,19 +43,19 @@ public class ValidationPhaseJson extends PhaseJson {
 	
 /** GETTERS and SETTERS **/
 
-	public float getHumidity_finished_product() {
+	public Float getHumidity_finished_product() {
 		return humidity_finished_product;
 	}
 
-	public void setHumidity_finished_product(float humidity_finished_product) {
+	public void setHumidity_finished_product(final Float humidity_finished_product) {
 		this.humidity_finished_product = humidity_finished_product;
 	}
 
-	public float getDensity_finished_product() {
+	public Float getDensity_finished_product() {
 		return density_finished_product;
 	}
 
-	public void setDensity_finished_product(float density_finished_product) {
+	public void setDensity_finished_product(final Float density_finished_product) {
 		this.density_finished_product = density_finished_product;
 	}
 
@@ -67,43 +67,43 @@ public class ValidationPhaseJson extends PhaseJson {
 		this.packaging_state = packaging_state;
 	}
 
-	public float getSieve_quantity() {
+	public Float getSieve_quantity() {
 		return sieve_quantity;
 	}
 
-	public void setSieve_quantity(float sieve_quantity) {
+	public void setSieve_quantity(final Float sieve_quantity) {
 		this.sieve_quantity = sieve_quantity;
 	}
 
-	public float getChimney_quantity() {
+	public Float getChimney_quantity() {
 		return chimney_quantity;
 	}
 
-	public void setChimney_quantity(float chimney_quantity) {
+	public void setChimney_quantity(final Float chimney_quantity) {
 		this.chimney_quantity = chimney_quantity;
 	}
 
-	public float getTower_entry_temperature() {
+	public Float getTower_entry_temperature() {
 		return tower_entry_temperature;
 	}
 
-	public void setTower_entry_temperature(float tower_entry_temperature) {
+	public void setTower_entry_temperature(final Float tower_entry_temperature) {
 		this.tower_entry_temperature = tower_entry_temperature;
 	}
 
-	public float getTower_intern_temperature() {
+	public Float getTower_intern_temperature() {
 		return tower_intern_temperature;
 	}
 
-	public void setTower_intern_temperature(float tower_intern_temperature) {
+	public void setTower_intern_temperature(final Float tower_intern_temperature) {
 		this.tower_intern_temperature = tower_intern_temperature;
 	}
 
-	public float getCyclon_entry_temperature() {
+	public Float getCyclon_entry_temperature() {
 		return cyclon_entry_temperature;
 	}
 
-	public void setCyclon_entry_temperature(float cyclon_entry_temperature) {
+	public void setCyclon_entry_temperature(final Float cyclon_entry_temperature) {
 		this.cyclon_entry_temperature = cyclon_entry_temperature;
 	}
 

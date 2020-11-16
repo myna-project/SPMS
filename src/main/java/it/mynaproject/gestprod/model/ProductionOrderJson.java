@@ -70,11 +70,11 @@ public class ProductionOrderJson {
 		this.additivesId = additivesId;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(final Integer id) {
 		this.id = id;
 	}
 
@@ -94,67 +94,67 @@ public class ProductionOrderJson {
 		this.production_number_lot = production_number_lot;
 	}
 
-	public int getRaw_material_id() {
+	public Integer getRaw_material_id() {
 		return raw_material_id;
 	}
 
-	public void setRaw_material_id(int raw_material_id) {
+	public void setRaw_material_id(final Integer raw_material_id) {
 		this.raw_material_id = raw_material_id;
 	}
 
-	public float getWeight_raw_material() {
+	public Float getWeight_raw_material() {
 		return weight_raw_material;
 	}
 
-	public void setWeight_raw_material(float weight_raw_material) {
+	public void setWeight_raw_material(final Float weight_raw_material) {
 		this.weight_raw_material = weight_raw_material;
 	}
 
-	public int getTons_raw_material() {
+	public Integer getTons_raw_material() {
 		return tons_raw_material;
 	}
 
-	public void setTons_raw_material(int tons_raw_material) {
+	public void setTons_raw_material(final Integer tons_raw_material) {
 		this.tons_raw_material = tons_raw_material;
 	}
 
-	public float getDry_residue() {
+	public Float getDry_residue() {
 		return dry_residue;
 	}
 
-	public void setDry_residue(float dry_residue) {
+	public void setDry_residue(final Float dry_residue) {
 		this.dry_residue = dry_residue;
 	}
 
-	public float getDensity_raw_material() {
+	public Float getDensity_raw_material() {
 		return density_raw_material;
 	}
 
-	public void setDensity_raw_material(float density_raw_material) {
+	public void setDensity_raw_material(final Float density_raw_material) {
 		this.density_raw_material = density_raw_material;
 	}
 
-	public float getExpected_mixture_temperature() {
+	public Float getExpected_mixture_temperature() {
 		return expected_mixture_temperature;
 	}
 
-	public void setExpected_mixture_temperature(float expected_mixture_temperature) {
+	public void setExpected_mixture_temperature(final Float expected_mixture_temperature) {
 		this.expected_mixture_temperature = expected_mixture_temperature;
 	}
 
-	public int getExpected_mixture_mode_id() {
+	public Integer getExpected_mixture_mode_id() {
 		return expected_mixture_mode_id;
 	}
 
-	public void setExpected_mixture_mode_id(int expected_mixture_mode_id) {
+	public void setExpected_mixture_mode_id(final Integer expected_mixture_mode_id) {
 		this.expected_mixture_mode_id = expected_mixture_mode_id;
 	}
 
-	public float getExpected_quantity_finished_product() {
+	public Float getExpected_quantity_finished_product() {
 		return expected_quantity_finished_product;
 	}
 
-	public void setExpected_quantity_finished_product(float expected_quantity_finished_product) {
+	public void setExpected_quantity_finished_product(final Float expected_quantity_finished_product) {
 		this.expected_quantity_finished_product = expected_quantity_finished_product;
 	}
 
@@ -166,11 +166,11 @@ public class ProductionOrderJson {
 		this.delivery_date = delivery_date;
 	}
 
-	public int getPackaging_id() {
+	public Integer getPackaging_id() {
 		return packaging_id;
 	}
 
-	public void setPackaging_id(int packaging_id) {
+	public void setPackaging_id(final Integer packaging_id) {
 		this.packaging_id = packaging_id;
 	}
 

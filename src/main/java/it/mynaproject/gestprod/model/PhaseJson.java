@@ -36,27 +36,27 @@ public class PhaseJson {
 	
 /** GETTERS and SETTERS **/
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(final Integer id) {
 		this.id = id;
 	}
 
-	public int getProduction_order_id() {
+	public Integer getProduction_order_id() {
 		return production_order_id;
 	}
 
-	public void setProduction_order_id(int production_order_id) {
+	public void setProduction_order_id(final Integer production_order_id) {
 		this.production_order_id = production_order_id;
 	}
 	
-	public int getUser_id() {
+	public Integer getUser_id() {
 		return user_id;
 	}
 
-	public void setUser_id(int user_id) {
+	public void setUser_id(final Integer user_id) {
 		this.user_id = user_id;
 	}
 	

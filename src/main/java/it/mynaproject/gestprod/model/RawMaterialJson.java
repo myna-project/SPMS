@@ -24,11 +24,11 @@ public class RawMaterialJson {
 	
 /** GETTERS and SETTERS **/
 		
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(final Integer id) {
 		this.id = id;
 	}
 
