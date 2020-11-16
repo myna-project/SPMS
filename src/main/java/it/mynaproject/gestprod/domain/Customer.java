@@ -20,11 +20,7 @@ public class Customer extends BaseDomain {
 	
 	@OneToMany(mappedBy="customer", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
 	private List<ProductionOrder> productionOrders;
-
-	public void populateCustomerFromInput(CustomerJson input) {
-		this.setName(input.getName());
-	}
-
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -32,6 +28,10 @@ public class Customer extends BaseDomain {
 		builder.append(name);
 		builder.append("]");
 		return builder.toString();
+	}
+	
+	public void populateCustomerFromInput(CustomerJson input) {
+		this.setName(input.getName());
 	}
 	
 /** GETTERS and SETTERS **/
@@ -42,6 +42,14 @@ public class Customer extends BaseDomain {
 
 	public void setName(String general_model) {
 		this.name = general_model;
+	}
+
+	public List<ProductionOrder> getProductionOrders() {
+		return productionOrders;
+	}
+
+	public void setProductionOrders(List<ProductionOrder> productionOrders) {
+		this.productionOrders = productionOrders;
 	}
 
 }

@@ -118,6 +118,45 @@ public class UserController {
 
 	/*
 	 *  -------------
+	 *  RESP SECTION
+	 *  -------------
+	 *  These routes must be accessible only for ROLE_RESP
+	 */
+	@ApiResponses({
+		@ApiResponse(code = 400, message = "Bad Request")
+	})
+	@GetMapping(value = "/resp/users")
+	public List<UserJson> getUsersForResp(@RequestParam(required = false) String username) {
+
+		log.info("Request for users with username: {}", username);
+
+		List<UserJson> ujList = new ArrayList<>();
+		for (User user : this.userService.getUsers()) {
+			if ((username == null) ||((username != null) && (user.getUsername().equals(username)))) {
+				UserJson uj = JsonUtil.userToUserJson(user, true);
+				ujList.add(uj);
+			}
+		}
+
+		return ujList;
+	}
+
+	@ApiResponses({
+		@ApiResponse(code = 400, message = "Bad Request"),
+		@ApiResponse(code = 409, message = "Conflict")
+	})
+	@PutMapping(value = "/resp/users/{id}") // TODO necessario?
+	public Object updateProfileForResp(@PathVariable("id") Integer id, @Valid @RequestBody UserJson input) {
+
+		org.springframework.security.core.userdetails.User authUser = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		User user = this.userService.updateUserFromInput(id, input, false, authUser.getUsername());
+
+		return new ResponseEntity<>(JsonUtil.userToUserJson(user, false), new HttpHeaders(), HttpStatus.OK);
+	}
+	
+	/*
+	 *  -------------
 	 *  USER SECTION
 	 *  -------------
 	 *  These routes must be accessible only for ROLE_USER

@@ -2,6 +2,7 @@ package it.mynaproject.gestprod.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import it.mynaproject.gestprod.dao.CustomerDao;
 import it.mynaproject.gestprod.domain.Customer;
-import it.mynaproject.gestprod.exception.NotFoundException;
+import it.mynaproject.gestprod.domain.ProductionOrder;
+import it.mynaproject.gestprod.exception.*;
 import it.mynaproject.gestprod.model.CustomerJson;
 import it.mynaproject.gestprod.service.CustomerService;
 
@@ -30,7 +32,6 @@ public class CustomerServiceImpl implements CustomerService {
 		Customer p = this.customerDao.getCustomer(id);
 		if (p == null)
 			throw new NotFoundException(404, "Customer " + id + " not found");
-
 		return p;
 	}
 
@@ -57,6 +58,10 @@ public class CustomerServiceImpl implements CustomerService {
 
 		log.info("Creating new customer: {}", input.toString());
 
+		if(this.customerDao.getCustomer(input.getId()) != null) {
+			throw new ConflictException(409, 2001, "Customer " + input.getName() + " already registered with id: " + input.getId());
+			
+		}
 		Customer customer = new Customer();
 		customer.populateCustomerFromInput(input);
 
@@ -77,6 +82,8 @@ public class CustomerServiceImpl implements CustomerService {
 
 		log.info("Updating customer with id: {}", id);
 
+//		if(this.customerDao.getCustomer(id) != null) { // TODO deve essere gia` registrato per un update?
+//		}
 		Customer customer = this.getCustomer(id, isAdmin);
 		customer.populateCustomerFromInput(input);
 
@@ -90,7 +97,19 @@ public class CustomerServiceImpl implements CustomerService {
 	public void deleteCustomerById(Integer id) {
 
 		log.info("Deleting customer: {}", id);
-
-		this.customerDao.delete(this.getCustomer(id, true));
+		Customer c = this.customerDao.getCustomer(id);
+		
+		if (c == null) {
+			throw new NotFoundException(404, "Customer " + id + " not found");
+		}
+		
+		Date now = new Date();
+		if (c.getProductionOrders() != null) {
+			for(ProductionOrder po : c.getProductionOrders()) {
+				if(now.after(po.getDelivery_date()))
+					throw new ConflictException(409, 2101, "Cannot delete customer: " + id + ", production order already delivered.");
+			}
+		}
+		this.customerDao.delete(c);
 	}
 }

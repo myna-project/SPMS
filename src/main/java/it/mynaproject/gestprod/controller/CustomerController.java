@@ -58,7 +58,8 @@ public class CustomerController {
 	}
 
 	@ApiResponses({
-		@ApiResponse(code = 400, message = "Bad Request")
+		@ApiResponse(code = 400, message = "Bad Request"),
+		@ApiResponse(code = 404, message = "Resource not found")
 	})
 	@GetMapping(value = "/admin/customers/{id}")
 	public CustomerJson getCustomer(@PathVariable("id") Integer id) {
@@ -101,6 +102,39 @@ public class CustomerController {
 		this.customerService.deleteCustomerById(id);
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
+	}
+	
+	/*
+	 *  -------------
+	 *  RESP SECTION
+	 *  -------------
+	 *  These routes must be accessible only for ROLE_RESP
+	 */
+	@ApiResponses({
+		@ApiResponse(code = 400, message = "Bad Request")
+	})
+	@GetMapping(value = "/resp/customers")
+	public List<CustomerJson> getCustomersForResp() {
+
+		log.info("Request for customers");
+
+		List<CustomerJson> customers = new ArrayList<>();
+
+		for (Customer customer : this.customerService.getCustomers(false))
+			customers.add(JsonUtil.customerToCustomerJson(customer));
+
+		return customers;
+	}
+
+	@ApiResponses({
+		@ApiResponse(code = 400, message = "Bad Request")
+	})
+	@GetMapping(value = "/resp/customers/{id}")
+	public CustomerJson getCustomerForResp(@PathVariable("id") Integer id) {
+
+		log.info("Request for customer with id {}", id);
+
+		return JsonUtil.customerToCustomerJson(this.customerService.getCustomer(id, false));
 	}
 
 	/*

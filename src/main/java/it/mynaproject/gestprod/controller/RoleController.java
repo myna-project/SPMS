@@ -29,7 +29,7 @@ public class RoleController {
 	 *  -------------
 	 *  ADMIN SECTION
 	 *  -------------
-	 *  These routes must be accessible only for ROLE_SUPERADMIN
+	 *  These routes must be accessible only for ROLE_ADMIN
 	 */
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
