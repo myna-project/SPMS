@@ -13,7 +13,13 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 public class WorkingPhaseJson {
 	
 	@NotBlank
-	private List<WorkingPhaseShiftJson> shifts;
+	private Integer id;
+	
+	@NotBlank
+	private Integer production_order_id;
+	
+	@NotBlank
+	private List<WorkingPhaseUserJson> shifts;
 
 	public String toString() {
 		ClassSerializer serializer = new ClassSerializer();
@@ -22,12 +28,28 @@ public class WorkingPhaseJson {
 	}
 	
 /** GETTERS and SETTERS **/
-	
-	public List<WorkingPhaseShiftJson> getShifts() {
-		return shifts;
+
+	public Integer getId() {
+		return id;
 	}
 
-	public void setShifts(List<WorkingPhaseShiftJson> shifts) {
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	public Integer getProduction_order_id() {
+		return production_order_id;
+	}
+
+	public void setProduction_order_id(Integer production_order_id) {
+		this.production_order_id = production_order_id;
+	}
+
+	public List<WorkingPhaseUserJson> getShifts() {
+		return shifts;
+	}
+	
+	public void setShifts(List<WorkingPhaseUserJson> shifts) {
 		this.shifts = shifts;
 	}
 }

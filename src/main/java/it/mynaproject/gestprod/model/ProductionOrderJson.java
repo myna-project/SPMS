@@ -18,6 +18,9 @@ public class ProductionOrderJson {
 	private Integer id;
 	
 	@NotBlank
+	private Integer customer_id;
+	
+	@NotBlank
 	private String production_order_code;
 	
 	private String production_number_lot;
@@ -61,6 +64,15 @@ public class ProductionOrderJson {
 	}
 	
 /** GETTERS and SETTERS **/
+	
+	public Integer getCustomer_id() {
+		return customer_id;
+	}
+
+	public void setCustomer_id(Integer customer_id) {
+		this.customer_id = customer_id;
+	}
+
 		
 	public List<Integer> getAdditivesId() {
 		return additivesId;

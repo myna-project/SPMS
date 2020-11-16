@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import it.mynaproject.gestprod.util.ClassSerializer;
 
 @JsonInclude(Include.NON_EMPTY)
-public class WorkingPhaseShiftJson extends PhaseJson {
+public class WorkingPhaseUserJson extends PhaseJson {
 	
 	private Integer working_phase_id;
 	

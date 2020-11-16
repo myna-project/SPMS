@@ -1,7 +1,6 @@
 package it.mynaproject.gestprod.model;
 
 import java.time.Instant;
-import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
 
