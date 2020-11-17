@@ -55,7 +55,7 @@ public class ProductionOrderJson {
 	private String ddt_number;
 	
 	@NotBlank
-	private List<Integer> additivesId; // TODO weight additive
+	private List<Integer> additivesId;
 	
 	public String toString() {
 		ClassSerializer serializer = new ClassSerializer();
