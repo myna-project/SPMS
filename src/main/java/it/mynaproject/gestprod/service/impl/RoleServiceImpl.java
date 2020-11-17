@@ -54,7 +54,7 @@ public class RoleServiceImpl implements RoleService {
 		log.info("Creating new role: {}", input.toString());
 
 		if (this.roleDao.checkRoleExists(input.getName(), null))
-			throw new ConflictException(409, 2001, "Role " + input.getName() + " already exists");
+			throw new ConflictException(2001, "Role " + input.getName() + " already exists");
 
 		Role role = new Role();
 		role.populateRoleFromInput(input);
@@ -77,7 +77,7 @@ public class RoleServiceImpl implements RoleService {
 		log.info("Updating role with id: {}", id);
 
 		if (this.roleDao.checkRoleExists(input.getName(), id))
-			throw new ConflictException(409, 2001, "Role " + input.getName() + " already exists");
+			throw new ConflictException(2001, "Role " + input.getName() + " already exists");
 
 		Role role = this.getRole(id);
 		role.populateRoleFromInput(input);
@@ -97,7 +97,7 @@ public class RoleServiceImpl implements RoleService {
 		Role r = this.getRole(id);
 
 		if (r.getUsers().size() > 0)
-			throw new ConflictException(409, 2101, "Cannot delete role " + r.getName() + " because it is assigned to one or more users");
+			throw new ConflictException(2101, "Cannot delete role " + r.getName() + " because it is assigned to one or more users");
 
 		this.roleDao.delete(r);
 	}

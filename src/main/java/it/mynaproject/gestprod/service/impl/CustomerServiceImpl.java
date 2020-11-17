@@ -59,7 +59,7 @@ public class CustomerServiceImpl implements CustomerService {
 		log.info("Creating new customer: {}", input.toString());
 
 		if(this.customerDao.getCustomer(input.getId()) != null) {
-			throw new ConflictException(409, 2001, "Customer " + input.getName() + " already registered with id: " + input.getId());
+			throw new ConflictException(2001, "Customer " + input.getName() + " already registered with id: " + input.getId());
 			
 		}
 		Customer customer = new Customer();
@@ -107,7 +107,7 @@ public class CustomerServiceImpl implements CustomerService {
 		if (c.getProductionOrders() != null) {
 			for(ProductionOrder po : c.getProductionOrders()) {
 				if(now.after(po.getDelivery_date()))
-					throw new ConflictException(409, 2101, "Cannot delete customer: " + id + ", production order already delivered.");
+					throw new ConflictException(2101, "Cannot delete customer: " + id + ", production order already delivered.");
 			}
 		}
 		this.customerDao.delete(c);

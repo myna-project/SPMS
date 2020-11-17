@@ -69,10 +69,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		User user = new User();
 
 		if (!checkNameForUser(input.getUsername()))
-			throw new ConflictException(409, 1001, "Username " + input.getUsername() + " not available");
+			throw new ConflictException(1001, "Username " + input.getUsername() + " not available");
 
 		if (this.userDao.checkEmailExists(input.getEmail(), null))
-			throw new ConflictException(409, 1002, "Email address " + input.getEmail() + " already registered");
+			throw new ConflictException(1002, "Email address " + input.getEmail() + " already registered");
 
 		List<Role> roles = new ArrayList<>();
 
@@ -104,18 +104,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		User user = this.getUser(id, isAdmin, username);
 
 		if (!this.checkNameForUser(input.getUsername(), input.getId()))
-			throw new ConflictException(409, 1001, "Username " + input.getUsername() + " not available");
+			throw new ConflictException(1001, "Username " + input.getUsername() + " not available");
 
 		if (this.userDao.checkEmailExists(input.getEmail(), input.getId()))
-			throw new ConflictException(409, 1002, "Email address " + input.getEmail() + " already registered");
+			throw new ConflictException(1002, "Email address " + input.getEmail() + " already registered");
 
 		boolean changePassword = false;
 		if (input.getOldPassword() != null) {
 			if (input.getPassword().equals(input.getOldPassword()))
-				throw new ConflictException(409, 1004, "Old and new password must be different");
+				throw new ConflictException(1004, "Old and new password must be different");
 
 			if (!this.passwordsMatch(user.getPassword(), input.getOldPassword()))
-				throw new ConflictException(409, 1005, "Old password does not match");
+				throw new ConflictException(1005, "Old password does not match");
 
 			changePassword = true;
 		}
