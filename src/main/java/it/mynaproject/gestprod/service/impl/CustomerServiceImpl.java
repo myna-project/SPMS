@@ -82,8 +82,12 @@ public class CustomerServiceImpl implements CustomerService {
 
 		log.info("Updating customer with id: {}", id);
 
-//		if(this.customerDao.getCustomer(id) != null) { // TODO deve essere gia` registrato per un update?
-//		}
+		// TODO non sarebbe meglio avere un accesso lineare ai customer gia` presenti?
+		for(Customer e: this.customerDao.getCustomers()) {
+			if(e.getName().equals(input.getName())) {
+				throw new ConflictException(2001, "Customer name " + input.getName() + " already registered with id: " + input.getId());
+			}
+		}
 		Customer customer = this.getCustomer(id, isAdmin);
 		customer.populateCustomerFromInput(input);
 
