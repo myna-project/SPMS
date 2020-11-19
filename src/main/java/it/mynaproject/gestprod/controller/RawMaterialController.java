@@ -58,8 +58,7 @@ public class RawMaterialController {
 	}
 
 	@ApiResponses({
-		@ApiResponse(code = 400, message = "Bad Request"),
-		@ApiResponse(code = 404, message = "Resource not found")
+		@ApiResponse(code = 400, message = "Bad Request")
 	})
 	@GetMapping(value = "/admin/rawMaterials/{id}")
 	public RawMaterialJson getRawMaterial(@PathVariable("id") Integer id) {
@@ -70,8 +69,7 @@ public class RawMaterialController {
 	}
 
 	@ApiResponses({
-		@ApiResponse(code = 400, message = "Bad Request"),
-		@ApiResponse(code = 409, message = "Conflict")
+		@ApiResponse(code = 400, message = "Bad Request")
 	})
 	@PostMapping(value = "/admin/rawMaterials")
 	public Object postRawMaterial(@Valid @RequestBody RawMaterialJson input, HttpServletRequest request) {
@@ -82,8 +80,7 @@ public class RawMaterialController {
 	}
 
 	@ApiResponses({
-		@ApiResponse(code = 400, message = "Bad Request"),
-		@ApiResponse(code = 409, message = "Conflict")
+		@ApiResponse(code = 400, message = "Bad Request")
 	})
 	@PutMapping(value = "/admin/rawMaterials/{id}")
 	public Object updateRawMaterial(@PathVariable("id") Integer id, @Valid @RequestBody RawMaterialJson input) {

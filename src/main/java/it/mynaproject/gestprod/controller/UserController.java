@@ -76,8 +76,7 @@ public class UserController {
 	}
 
 	@ApiResponses({
-		@ApiResponse(code = 400, message = "Bad Request"),
-		@ApiResponse(code = 409, message = "Conflict")
+		@ApiResponse(code = 400, message = "Bad Request")
 	})
 	@PostMapping(value = "/admin/users")
 	public Object postUser(@Valid @RequestBody UserJson input, HttpServletRequest request) {
@@ -90,8 +89,7 @@ public class UserController {
 	}
 
 	@ApiResponses({
-		@ApiResponse(code = 400, message = "Bad Request"),
-		@ApiResponse(code = 409, message = "Conflict")
+		@ApiResponse(code = 400, message = "Bad Request")
 	})
 	@PutMapping(value = "/admin/users/{id}")
 	public Object updateUser(@PathVariable("id") Integer id, @Valid @RequestBody UserJson input) {
@@ -142,8 +140,7 @@ public class UserController {
 	}
 
 	@ApiResponses({
-		@ApiResponse(code = 400, message = "Bad Request"),
-		@ApiResponse(code = 409, message = "Conflict")
+		@ApiResponse(code = 400, message = "Bad Request")
 	})
 	@PutMapping(value = "/resp/users/{id}") // TODO necessario?
 	public Object updateProfileForResp(@PathVariable("id") Integer id, @Valid @RequestBody UserJson input) {
@@ -181,8 +178,7 @@ public class UserController {
 	}
 
 	@ApiResponses({
-		@ApiResponse(code = 400, message = "Bad Request"),
-		@ApiResponse(code = 409, message = "Conflict")
+		@ApiResponse(code = 400, message = "Bad Request")
 	})
 	@PutMapping(value = "/users/{id}")
 	public Object updateProfileForUser(@PathVariable("id") Integer id, @Valid @RequestBody UserJson input) {

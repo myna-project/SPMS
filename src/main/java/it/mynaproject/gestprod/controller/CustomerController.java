@@ -58,8 +58,7 @@ public class CustomerController {
 	}
 
 	@ApiResponses({
-		@ApiResponse(code = 400, message = "Bad Request"),
-		@ApiResponse(code = 404, message = "Resource not found")
+		@ApiResponse(code = 400, message = "Bad Request")
 	})
 	@GetMapping(value = "/admin/customers/{id}")
 	public CustomerJson getCustomer(@PathVariable("id") Integer id) {
@@ -70,8 +69,7 @@ public class CustomerController {
 	}
 
 	@ApiResponses({
-		@ApiResponse(code = 400, message = "Bad Request"),
-		@ApiResponse(code = 409, message = "Conflict")
+		@ApiResponse(code = 400, message = "Bad Request")
 	})
 	@PostMapping(value = "/admin/customers")
 	public Object postCustomer(@Valid @RequestBody CustomerJson input, HttpServletRequest request) {
@@ -82,8 +80,7 @@ public class CustomerController {
 	}
 
 	@ApiResponses({
-		@ApiResponse(code = 400, message = "Bad Request"),
-		@ApiResponse(code = 409, message = "Conflict")
+		@ApiResponse(code = 400, message = "Bad Request")
 	})
 	@PutMapping(value = "/admin/customers/{id}")
 	public Object updateCustomer(@PathVariable("id") Integer id, @Valid @RequestBody CustomerJson input) {
