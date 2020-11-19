@@ -38,7 +38,7 @@ public class JsonUtil {
 	}
 
 	
-	public static MixtureModeJson mixtureToMixtureModeJson(final MixtureMode d) {
+	public static MixtureModeJson mixtureModeToMixtureModeJson(final MixtureMode d) {
 
 		final MixtureModeJson dj = new MixtureModeJson();
 		dj.setId(d.getId());

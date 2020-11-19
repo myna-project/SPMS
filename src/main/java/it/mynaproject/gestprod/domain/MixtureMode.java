@@ -40,4 +40,13 @@ public class MixtureMode extends BaseDomain {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public List<ProductionOrder> getProductionOrders() {
+		return productionOrders;
+	}
+
+	public void setProductionOrders(List<ProductionOrder> productionOrders) {
+		this.productionOrders = productionOrders;
+	}
+	
 }
