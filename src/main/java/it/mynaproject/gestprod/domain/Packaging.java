@@ -40,4 +40,13 @@ public class Packaging extends BaseDomain {
 	public void setPackaging_mode(String packaging_mode) {
 		this.packaging_mode = packaging_mode;
 	}
+
+	public List<ProductionOrder> getProductionOrders() {
+		return productionOrders;
+	}
+
+	public void setProductionOrders(List<ProductionOrder> productionOrders) {
+		this.productionOrders = productionOrders;
+	}
+	
 }
