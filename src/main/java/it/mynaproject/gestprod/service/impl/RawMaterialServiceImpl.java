@@ -59,7 +59,7 @@ public class RawMaterialServiceImpl implements RawMaterialService {
 		log.info("Creating new rawMaterial: {}", input.toString());
 
 		if(this.rawMaterialDao.getRawMaterial(input.getId()) != null) {
-			throw new ConflictException(3001, "RawMaterial " + input.getName() + " already registered with id: " + input.getId());
+			throw new ConflictException(3101, "RawMaterial " + input.getName() + " already registered with id: " + input.getId());
 			
 		}
 		RawMaterial rawMaterial = new RawMaterial();
