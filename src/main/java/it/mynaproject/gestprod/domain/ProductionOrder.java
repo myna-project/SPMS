@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import it.mynaproject.gestprod.util.ClassSerializer;
+import it.mynaproject.gestprod.model.ProductionOrderJson;
 
 @Entity
 @Table(name = "production_orders")
@@ -92,7 +93,28 @@ public class ProductionOrder extends BaseDomain {
 		serializer.setObj(this);
 		return serializer.toString();
 	}
-
+	
+	public void populateProductionOrderFromInput(final ProductionOrderJson input, final Customer customer, final MixtureMode mixtureMode, final Packaging packaging, final RawMaterial rawMaterial, final List<AdditiveProductionOrder> apol) {
+		this.setDdt_date(input.getDdt_date());
+		this.setDdt_number(input.getDdt_number());
+		this.setDelivery_date(input.getDelivery_date());
+		this.setDensity_raw_material(input.getDensity_raw_material());
+		this.setDry_residue(input.getDry_residue());
+		this.setExpected_mixture_temperature(input.getExpected_mixture_temperature());
+		this.setExpected_quantity_finished_product(input.getExpected_quantity_finished_product());
+		this.setProduction_number_lot(input.getProduction_number_lot());
+		this.setProduction_order_code(input.getProduction_order_code());
+		this.setProduction_order_date(input.getProduction_order_date());
+		this.setTons_raw_material(input.getTons_raw_material());
+		this.setWeight_raw_material(input.getWeight_raw_material());
+		
+		// many-to-one relationships
+		this.setCustomer(customer);
+		this.setMixtureMode(mixtureMode);
+		this.setPackaging(packaging);
+		this.setRawMaterial(rawMaterial);
+		this.setAdditiveProductionOrderList(apol);
+	}
 	
 /** GETTERS and SETTERS **/
 	
