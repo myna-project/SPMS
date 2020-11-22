@@ -66,7 +66,7 @@ public class JsonUtil {
 		return dj;
 	}
 	
-	public static ProductionOrderJson rawMaterialToProductionOrderJson(final ProductionOrder d) {
+	public static ProductionOrderJson productionOrderToProductionOrderJson(final ProductionOrder d) {
 
 		final ProductionOrderJson dj = new ProductionOrderJson();
 		dj.setId(d.getId());
