@@ -38,6 +38,20 @@ public class AdditiveProductionOrder implements java.io.Serializable {
 		return serializer.toString();
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AdditiveProductionOrder other = (AdditiveProductionOrder) obj;
+		if (additive.getId() != other.additive.getId() || productionOrder.getId() != other.productionOrder.getId())
+			return false;
+		return true;
+	}
+	
 /** GETTERS and SETTERS **/
 		
 	public Additive getAdditive() {

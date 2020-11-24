@@ -1,9 +1,13 @@
 package it.mynaproject.gestprod.domain;
 
 import javax.persistence.GeneratedValue;
+
+
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+
+import it.mynaproject.gestprod.util.ClassSerializer;
 
 @MappedSuperclass
 public class BaseDomain {
@@ -18,11 +22,9 @@ public class BaseDomain {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("BaseDomain [id=");
-		builder.append(id);
-		builder.append("]");
-		return builder.toString();
+		ClassSerializer serializer = new ClassSerializer();
+		serializer.setObj(this);
+		return serializer.toString();
 	}
 
 	@Override

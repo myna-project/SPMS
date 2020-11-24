@@ -83,9 +83,8 @@ public class ProductionOrderServiceImpl implements ProductionOrderService { // T
 		Packaging pp = this.packagingService.getPackaging(input.getPackaging_id(), isAdmin);
 		List<AdditiveProductionOrder> apol = new ArrayList<>();
 		
-		// TODO vedi fix su AdditiveProductionOrder
-		for(Integer id : input.getAdditivesId()) {
-			apol.add(this.apoService.getAdditiveProductionOrder(id, isAdmin));
+		for(Integer aid : input.getAdditivesId()) {
+			apol.add(this.apoService.getAdditiveProductionOrder(aid, input.getId(), isAdmin));
 		}
 		
 		ProductionOrder productionOrder = new ProductionOrder();
@@ -123,7 +122,7 @@ public class ProductionOrderServiceImpl implements ProductionOrderService { // T
 		
 		// TODO vedi fix su AdditiveProductionOrder
 		for(Integer aid : input.getAdditivesId()) {
-			apol.add(this.apoService.getAdditiveProductionOrder(aid, isAdmin));
+			apol.add(this.apoService.getAdditiveProductionOrder(aid, input.getId(), isAdmin));
 		}
 		
 		ProductionOrder productionOrder = new ProductionOrder();
