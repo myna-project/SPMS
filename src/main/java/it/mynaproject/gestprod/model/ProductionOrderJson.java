@@ -9,6 +9,7 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import it.mynaproject.gestprod.domain.AdditiveProductionOrder;
 import it.mynaproject.gestprod.util.ClassSerializer;
 
 @JsonInclude(Include.NON_EMPTY)
@@ -54,8 +55,17 @@ public class ProductionOrderJson {
 	
 	private String ddt_number;
 	
-	@NotBlank
-	private List<Integer> additivesId;
+	private List<SettingPhaseJson> setting_phases;
+	
+	private List<SystemPreparationPhaseJson> system_preparation_phases;
+	
+	private List<CleaningPhaseJson> cleaning_phases;
+	
+	private List<WorkingPhaseJson> working_phases;
+	
+	private List<ValidationPhaseJson> validation_phases;
+	
+	private List<AdditiveProductionOrderJson> additives;
 	
 	public String toString() {
 		ClassSerializer serializer = new ClassSerializer();
@@ -65,21 +75,21 @@ public class ProductionOrderJson {
 	
 /** GETTERS and SETTERS **/
 	
+	public List<AdditiveProductionOrderJson> getAdditives() {
+		return additives;
+	}
+
+	public void setAdditives(List<AdditiveProductionOrderJson> additives) {
+		this.additives = additives;
+	}
+
+	
 	public Integer getCustomer_id() {
 		return customer_id;
 	}
 
 	public void setCustomer_id(Integer customer_id) {
 		this.customer_id = customer_id;
-	}
-
-		
-	public List<Integer> getAdditivesId() {
-		return additivesId;
-	}
-
-	public void setAdditivesId(List<Integer> additivesId) {
-		this.additivesId = additivesId;
 	}
 
 	public Integer getId() {
@@ -208,5 +218,45 @@ public class ProductionOrderJson {
 
 	public void setDdt_number(String ddt_number) {
 		this.ddt_number = ddt_number;
+	}
+
+	public List<SettingPhaseJson> getSetting_phases() {
+		return setting_phases;
+	}
+
+	public void setSetting_phases(List<SettingPhaseJson> setting_phases) {
+		this.setting_phases = setting_phases;
+	}
+
+	public List<SystemPreparationPhaseJson> getSystem_preparation_phases() {
+		return system_preparation_phases;
+	}
+
+	public void setSystem_preparation_phases(List<SystemPreparationPhaseJson> system_preparation_phases) {
+		this.system_preparation_phases = system_preparation_phases;
+	}
+
+	public List<CleaningPhaseJson> getCleaning_phases() {
+		return cleaning_phases;
+	}
+
+	public void setCleaning_phases(List<CleaningPhaseJson> cleaning_phases) {
+		this.cleaning_phases = cleaning_phases;
+	}
+
+	public List<WorkingPhaseJson> getWorking_phases() {
+		return working_phases;
+	}
+
+	public void setWorking_phases(List<WorkingPhaseJson> working_phases) {
+		this.working_phases = working_phases;
+	}
+
+	public List<ValidationPhaseJson> getValidation_phases() {
+		return validation_phases;
+	}
+
+	public void setValidation_phases(List<ValidationPhaseJson> validation_phases) {
+		this.validation_phases = validation_phases;
 	}
 }

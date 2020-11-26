@@ -1,7 +1,7 @@
 package it.mynaproject.gestprod.model;
 
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -66,7 +66,7 @@ public class JsonUtil {
 		return dj;
 	}
 	
-	public static ProductionOrderJson productionOrderToProductionOrderJson(final ProductionOrder d) {
+	public static ProductionOrderJson productionOrderToProductionOrderJson(final ProductionOrder d, Boolean dumpPhases) {
 
 		final ProductionOrderJson dj = new ProductionOrderJson();
 		dj.setId(d.getId());
@@ -89,11 +89,49 @@ public class JsonUtil {
 		dj.setPackaging_id(d.getPackaging().getId());
 		dj.setRaw_material_id(d.getRawMaterial().getId());
 		if(d.getAdditiveProductionOrderList() != null) {
-			List<Integer> al = new ArrayList<>();
+			List<AdditiveProductionOrderJson> al = new ArrayList<>();
 			for(AdditiveProductionOrder ap: d.getAdditiveProductionOrderList()) {
-				al.add(ap.getAdditive().getId());
+				al.add(additiveProductionOrderToAdditiveProductionOrderJson(ap));
 			}
-			dj.setAdditivesId(al);
+			dj.setAdditives(al);
+		}
+		
+		if(dumpPhases) {
+			if(d.getSettingPhaseList() != null) {
+				List<SettingPhaseJson> al = new ArrayList<>();
+				for(SettingPhase ap: d.getSettingPhaseList()) {
+					al.add(settingPhaseToSettingPhaseJson(ap));
+				}
+				dj.setSetting_phases(al);
+			}
+			if(d.getSystemPreparationPhaseList() != null) {
+				List<SystemPreparationPhaseJson> al = new ArrayList<>();
+				for(SystemPreparationPhase ap: d.getSystemPreparationPhaseList()) {
+					al.add(systemPreparationPhaseToSystemPreparationPhaseJson(ap));
+				}
+				dj.setSystem_preparation_phases(al);
+			}
+			if(d.getCleaningPhaseList() != null) {
+				List<CleaningPhaseJson> al = new ArrayList<>();
+				for(CleaningPhase ap: d.getCleaningPhaseList()) {
+					al.add(cleaningPhaseToCleaningPhaseJson(ap));
+				}
+				dj.setCleaning_phases(al);
+			}
+			if(d.getWorkingPhaseList() != null) {
+				List<WorkingPhaseJson> al = new ArrayList<>();
+				for(WorkingPhase ap: d.getWorkingPhaseList()) {
+					al.add(workingPhaseToWorkingPhaseJson(ap));
+				}
+				dj.setWorking_phases(al);
+			}
+			if(d.getValidationPhaseList() != null) {
+				List<ValidationPhaseJson> al = new ArrayList<>();
+				for(ValidationPhase ap: d.getValidationPhaseList()) {
+					al.add(validationPhaseToValidationPhaseJson(ap));
+				}
+				dj.setValidation_phases(al);
+			}
 		}
 		
 		return dj;
@@ -174,7 +212,7 @@ public class JsonUtil {
 		return dj;
 	}
 	
-	public static ValidationPhaseJson cleaningPhaseToValidationPhaseJson(final ValidationPhase d) {
+	public static ValidationPhaseJson validationPhaseToValidationPhaseJson(final ValidationPhase d) {
 		
 		final ValidationPhaseJson dj = new ValidationPhaseJson();
 		loadPhaseJson(dj,d);
@@ -201,7 +239,7 @@ public class JsonUtil {
 	}
 	
 	// WorkingPhase composed of list of shifts
-	public static WorkingPhaseJson workingPhaseToWoringPhaseJson(final WorkingPhase d) {
+	public static WorkingPhaseJson workingPhaseToWorkingPhaseJson(final WorkingPhase d) {
 		final WorkingPhaseJson dj = new WorkingPhaseJson();
 		dj.setId(d.getId());
 		dj.setProduction_order_id(d.getProductionOrder().getId());

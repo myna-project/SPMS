@@ -18,6 +18,7 @@ import it.mynaproject.gestprod.domain.Packaging;
 import it.mynaproject.gestprod.domain.ProductionOrder;
 import it.mynaproject.gestprod.domain.RawMaterial;
 import it.mynaproject.gestprod.exception.*;
+import it.mynaproject.gestprod.model.AdditiveProductionOrderJson;
 import it.mynaproject.gestprod.model.ProductionOrderJson;
 import it.mynaproject.gestprod.service.AdditiveProductionOrderService;
 import it.mynaproject.gestprod.service.CustomerService;
@@ -83,8 +84,8 @@ public class ProductionOrderServiceImpl implements ProductionOrderService { // T
 		Packaging pp = this.packagingService.getPackaging(input.getPackaging_id(), isAdmin);
 		List<AdditiveProductionOrder> apol = new ArrayList<>();
 		
-		for(Integer aid : input.getAdditivesId()) {
-			apol.add(this.apoService.getAdditiveProductionOrder(aid, input.getId(), isAdmin));
+		for(AdditiveProductionOrderJson aid : input.getAdditives()) {
+			apol.add(apoService.getAdditiveProductionOrder(aid.getAdditive_id(), aid.getProduction_order_code_id(), isAdmin));
 		}
 		
 		ProductionOrder productionOrder = new ProductionOrder();
@@ -120,9 +121,8 @@ public class ProductionOrderServiceImpl implements ProductionOrderService { // T
 		Packaging pp = this.packagingService.getPackaging(input.getPackaging_id(), isAdmin);
 		List<AdditiveProductionOrder> apol = new ArrayList<>();
 		
-		// TODO vedi fix su AdditiveProductionOrder
-		for(Integer aid : input.getAdditivesId()) {
-			apol.add(this.apoService.getAdditiveProductionOrder(aid, input.getId(), isAdmin));
+		for(AdditiveProductionOrderJson aid : input.getAdditives()) {
+			apol.add(apoService.getAdditiveProductionOrder(aid.getAdditive_id(), aid.getProduction_order_code_id(), isAdmin));
 		}
 		
 		ProductionOrder productionOrder = new ProductionOrder();
