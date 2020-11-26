@@ -1,6 +1,7 @@
 package it.mynaproject.gestprod.service.impl;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Date;
 
@@ -11,12 +12,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.mynaproject.gestprod.dao.ProductionOrderDao;
+import it.mynaproject.gestprod.dao.SettingPhaseDao;
+import it.mynaproject.gestprod.dao.SystemPreparationPhaseDao;
+import it.mynaproject.gestprod.dao.CleaningPhaseDao;
+import it.mynaproject.gestprod.dao.WorkingPhaseDao;
+import it.mynaproject.gestprod.dao.ValidationPhaseDao;
 import it.mynaproject.gestprod.domain.AdditiveProductionOrder;
 import it.mynaproject.gestprod.domain.Customer;
 import it.mynaproject.gestprod.domain.MixtureMode;
 import it.mynaproject.gestprod.domain.Packaging;
 import it.mynaproject.gestprod.domain.ProductionOrder;
 import it.mynaproject.gestprod.domain.RawMaterial;
+import it.mynaproject.gestprod.domain.SettingPhase;
+import it.mynaproject.gestprod.domain.SystemPreparationPhase;
+import it.mynaproject.gestprod.domain.CleaningPhase;
+import it.mynaproject.gestprod.domain.WorkingPhase;
+import it.mynaproject.gestprod.domain.ValidationPhase;
 import it.mynaproject.gestprod.exception.*;
 import it.mynaproject.gestprod.model.AdditiveProductionOrderJson;
 import it.mynaproject.gestprod.model.ProductionOrderJson;
@@ -39,6 +50,12 @@ public class ProductionOrderServiceImpl implements ProductionOrderService { // T
 	private MixtureModeService mixtureModeService;
 	private PackagingService packagingService;
 	private AdditiveProductionOrderService apoService;
+	
+	private SettingPhaseDao settingPhaseDao;
+	private SystemPreparationPhaseDao systemPreparationPhaseDao;
+	private CleaningPhaseDao cleaningPhaseDao;
+	private WorkingPhaseDao workingPhaseDao;
+	private ValidationPhaseDao validationPhaseDao;
 
 	@Transactional(readOnly = true)
 	@Override
@@ -144,13 +161,7 @@ public class ProductionOrderServiceImpl implements ProductionOrderService { // T
 			throw new NotFoundException(404, "ProductionOrder " + id + " not found");
 		}
 		
-//		Date now = new Date();
-//		if (c.getProductionOrders() != null) {
-//			for(ProductionOrder po : c.getProductionOrders()) {
-//				if(now.after(po.getDelivery_date()))
-//					throw new ConflictException(7101, "Cannot delete productionOrder: " + id + ", production order already delivered.");
-//			}
-//		}
 		this.productionOrderDao.delete(c);
 	}
+	
 }

@@ -96,6 +96,7 @@ public class JsonUtil {
 			dj.setAdditives(al);
 		}
 		
+		// if requested, dump all production phases (as their respective json model)
 		if(dumpPhases) {
 			if(d.getSettingPhaseList() != null) {
 				List<SettingPhaseJson> al = new ArrayList<>();
