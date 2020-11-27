@@ -56,7 +56,7 @@ public class SettingPhaseServiceImpl implements SettingPhaseService {
 
 	@Transactional
 	@Override
-	public SettingPhase createSettingPhaseFromJson(SettingPhaseJson input) {
+	public SettingPhase createSettingPhaseFromJson(Integer id, SettingPhaseJson input) {
 
 		log.info("Creating new settingPhase: {}", input.toString());
 
@@ -66,11 +66,11 @@ public class SettingPhaseServiceImpl implements SettingPhaseService {
 		}
 		Boolean isAdmin = false; // TODO fix
 		User u = this.userService.getUser(input.getUser_id(), isAdmin, "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id(), isAdmin);
+		ProductionOrder po = this.productionOrderService.getProductionOrder(id, isAdmin);
 		SettingPhase settingPhase = new SettingPhase();
 		settingPhase.populateSettingPhaseFromInput(input, po, u);
 
-		this.persist(settingPhase);
+		this.persist(settingPhase); // TODO must the modified productionOrder be registered here or in DAO?
 
 		return settingPhase;
 	}

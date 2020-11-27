@@ -56,7 +56,7 @@ public class ValidationPhaseServiceImpl implements ValidationPhaseService {
 
 	@Transactional
 	@Override
-	public ValidationPhase createValidationPhaseFromJson(ValidationPhaseJson input) {
+	public ValidationPhase createValidationPhaseFromJson(Integer id, ValidationPhaseJson input) {
 
 		log.info("Creating new validationPhase: {}", input.toString());
 
@@ -66,7 +66,7 @@ public class ValidationPhaseServiceImpl implements ValidationPhaseService {
 		}
 		Boolean isAdmin = false; // TODO fix
 		User u = this.userService.getUser(input.getUser_id(), isAdmin, "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id(), isAdmin);
+		ProductionOrder po = this.productionOrderService.getProductionOrder(id, isAdmin);
 		ValidationPhase validationPhase = new ValidationPhase();
 		validationPhase.populateValidationPhaseFromInput(input, po, u);
 

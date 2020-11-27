@@ -56,7 +56,7 @@ public class SystemPreparationPhaseServiceImpl implements SystemPreparationPhase
 
 	@Transactional
 	@Override
-	public SystemPreparationPhase createSystemPreparationPhaseFromJson(SystemPreparationPhaseJson input) {
+	public SystemPreparationPhase createSystemPreparationPhaseFromJson(Integer id, SystemPreparationPhaseJson input) {
 
 		log.info("Creating new systemPreparationPhase: {}", input.toString());
 
@@ -66,7 +66,7 @@ public class SystemPreparationPhaseServiceImpl implements SystemPreparationPhase
 		}
 		Boolean isAdmin = false; // TODO fix
 		User u = this.userService.getUser(input.getUser_id(), isAdmin, "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id(), isAdmin);
+		ProductionOrder po = this.productionOrderService.getProductionOrder(id, isAdmin);
 		SystemPreparationPhase systemPreparationPhase = new SystemPreparationPhase();
 		systemPreparationPhase.populateSystemPreparationPhaseFromInput(input, po, u);
 

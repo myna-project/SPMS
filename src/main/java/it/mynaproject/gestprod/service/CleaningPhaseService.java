@@ -7,7 +7,7 @@ public interface CleaningPhaseService {
 
 	public CleaningPhase getCleaningPhase(Integer id, Integer sid, Boolean isAdmin);
 	public void persist(CleaningPhase cleaningPhase);
-	public CleaningPhase createCleaningPhaseFromJson(CleaningPhaseJson input);
+	public CleaningPhase createCleaningPhaseFromJson(Integer id, CleaningPhaseJson input);
 	public void update(CleaningPhase cleaningPhase);
 	public CleaningPhase updateCleaningPhaseFromJson(Integer id, Integer sid, CleaningPhaseJson input, Boolean isAdmin);
 	public void deleteCleaningPhaseById(Integer id);

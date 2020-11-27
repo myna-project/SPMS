@@ -56,7 +56,7 @@ public class CleaningPhaseServiceImpl implements CleaningPhaseService {
 
 	@Transactional
 	@Override
-	public CleaningPhase createCleaningPhaseFromJson(CleaningPhaseJson input) {
+	public CleaningPhase createCleaningPhaseFromJson(Integer id, CleaningPhaseJson input) {
 
 		log.info("Creating new cleaningPhase: {}", input.toString());
 
@@ -66,7 +66,7 @@ public class CleaningPhaseServiceImpl implements CleaningPhaseService {
 		}
 		Boolean isAdmin = false; // TODO fix
 		User u = this.userService.getUser(input.getUser_id(), isAdmin, "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id(), isAdmin);
+		ProductionOrder po = this.productionOrderService.getProductionOrder(id, isAdmin);
 		CleaningPhase cleaningPhase = new CleaningPhase();
 		cleaningPhase.populateCleaningPhaseFromInput(input, po, u);
 
