@@ -246,13 +246,19 @@ public class JsonUtil {
 		dj.setProduction_order_id(d.getProductionOrder().getId());
 		
 		if(d.getWorkingPhaseUserList() != null) {
-			List<WorkingPhaseUserJson> wsl = new ArrayList<>();
 			for(WorkingPhaseUser wu : d.getWorkingPhaseUserList()) {
 				final WorkingPhaseUserJson s = new WorkingPhaseUserJson();
 				loadWorkingPhaseUserJson(s, wu);
+				dj.getShifts().add(s);
 			}
 		}
 		
+		return dj;
+	}
+	
+	public static WorkingPhaseUserJson workingPhaseUserToWorkingPhaseUserJson(final WorkingPhaseUser d) {
+		final WorkingPhaseUserJson dj = new WorkingPhaseUserJson();
+		loadWorkingPhaseUserJson(dj,d);
 		return dj;
 	}
 }

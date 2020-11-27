@@ -23,7 +23,7 @@ public class WorkingPhase extends BaseDomain {
 	@OneToMany(mappedBy="workingPhase", cascade=CascadeType.ALL)
 	private List<WorkingPhaseUser> workingPhaseUserList;
 
-	public void populateWorkingPhaseFromInput(WorkingPhaseJson input, ProductionOrder po, List<User> u) {
+	public void populateWorkingPhaseFromInput(WorkingPhaseJson input, ProductionOrder po) {
 		this.setProductionOrder(po);
 	}
 
