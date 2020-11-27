@@ -33,7 +33,6 @@ public class CleaningPhaseController {
 
 	final private Logger log = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired
 	private CleaningPhaseService cleaningPhaseService;
 	private ProductionOrderService productionOrderService;
 	

@@ -33,7 +33,6 @@ public class SystemPreparationPhaseController {
 
 	final private Logger log = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired
 	private SystemPreparationPhaseService systemPreparationPhaseService;
 	private ProductionOrderService productionOrderService;
 	
