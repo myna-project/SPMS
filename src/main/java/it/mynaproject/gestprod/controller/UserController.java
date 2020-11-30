@@ -139,19 +139,6 @@ public class UserController {
 		return ujList;
 	}
 
-	@ApiResponses({
-		@ApiResponse(code = 400, message = "Bad Request")
-	})
-	@PutMapping(value = "/resp/users/{id}") // TODO necessario?
-	public Object updateProfileForResp(@PathVariable("id") Integer id, @Valid @RequestBody UserJson input) {
-
-		org.springframework.security.core.userdetails.User authUser = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-		User user = this.userService.updateUserFromInput(id, input, false, authUser.getUsername());
-
-		return new ResponseEntity<>(JsonUtil.userToUserJson(user, false), new HttpHeaders(), HttpStatus.OK);
-	}
-	
 	/*
 	 *  -------------
 	 *  USER SECTION
@@ -175,18 +162,5 @@ public class UserController {
 		}
 
 		return ujList;
-	}
-
-	@ApiResponses({
-		@ApiResponse(code = 400, message = "Bad Request")
-	})
-	@PutMapping(value = "/users/{id}")
-	public Object updateProfileForUser(@PathVariable("id") Integer id, @Valid @RequestBody UserJson input) {
-
-		org.springframework.security.core.userdetails.User authUser = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-		User user = this.userService.updateUserFromInput(id, input, false, authUser.getUsername());
-
-		return new ResponseEntity<>(JsonUtil.userToUserJson(user, false), new HttpHeaders(), HttpStatus.OK);
 	}
 }
