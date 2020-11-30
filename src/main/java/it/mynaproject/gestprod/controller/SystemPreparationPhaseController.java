@@ -99,7 +99,7 @@ public class SystemPreparationPhaseController {
 	@DeleteMapping(value = "/admin/productionorders/{id}/systempreparationphases/{sid}")
 	public Object deleteSystemPreparationPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
-		this.systemPreparationPhaseService.deleteSystemPreparationPhaseById(sid); // TODO modify the associated ProductionOrder?
+		this.systemPreparationPhaseService.deleteSystemPreparationPhaseById(sid);
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}
@@ -168,7 +168,7 @@ public class SystemPreparationPhaseController {
 	@DeleteMapping(value = "/resp/productionorders/{id}/systempreparationphases/{sid}")
 	public Object deleteSystemPreparationPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
-		this.systemPreparationPhaseService.deleteSystemPreparationPhaseById(sid); // TODO modify the associated ProductionOrder?
+		this.systemPreparationPhaseService.deleteSystemPreparationPhaseById(sid);
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}
@@ -237,7 +237,7 @@ public class SystemPreparationPhaseController {
 	@DeleteMapping(value = "/productionorders/{id}/systempreparationphases/{sid}")
 	public Object deleteSystemPreparationPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
-		this.systemPreparationPhaseService.deleteSystemPreparationPhaseById(sid); // TODO modify the associated ProductionOrder?
+		this.systemPreparationPhaseService.deleteSystemPreparationPhaseById(sid);
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}

@@ -99,7 +99,7 @@ public class CleaningPhaseController {
 	@DeleteMapping(value = "/admin/productionorders/{id}/cleaningphases/{sid}")
 	public Object deleteCleaningPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
-		this.cleaningPhaseService.deleteCleaningPhaseById(sid); // TODO modify the associated ProductionOrder?
+		this.cleaningPhaseService.deleteCleaningPhaseById(sid);
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}
@@ -168,7 +168,7 @@ public class CleaningPhaseController {
 	@DeleteMapping(value = "/resp/productionorders/{id}/cleaningphases/{sid}")
 	public Object deleteCleaningPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
-		this.cleaningPhaseService.deleteCleaningPhaseById(sid); // TODO modify the associated ProductionOrder?
+		this.cleaningPhaseService.deleteCleaningPhaseById(sid);
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}
@@ -237,7 +237,7 @@ public class CleaningPhaseController {
 	@DeleteMapping(value = "/productionorders/{id}/cleaningphases/{sid}")
 	public Object deleteCleaningPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
-		this.cleaningPhaseService.deleteCleaningPhaseById(sid); // TODO modify the associated ProductionOrder?
+		this.cleaningPhaseService.deleteCleaningPhaseById(sid);
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}

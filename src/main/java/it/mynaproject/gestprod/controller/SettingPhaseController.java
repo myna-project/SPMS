@@ -99,7 +99,7 @@ public class SettingPhaseController {
 	@DeleteMapping(value = "/admin/productionorders/{id}/settingphases/{sid}")
 	public Object deleteSettingPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
-		this.settingPhaseService.deleteSettingPhaseById(sid); // TODO modify the associated ProductionOrder?
+		this.settingPhaseService.deleteSettingPhaseById(sid);
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}
@@ -168,7 +168,7 @@ public class SettingPhaseController {
 	@DeleteMapping(value = "/resp/productionorders/{id}/settingphases/{sid}")
 	public Object deleteSettingPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
-		this.settingPhaseService.deleteSettingPhaseById(sid); // TODO modify the associated ProductionOrder?
+		this.settingPhaseService.deleteSettingPhaseById(sid);
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}
@@ -237,7 +237,7 @@ public class SettingPhaseController {
 	@DeleteMapping(value = "/productionorders/{id}/settingphases/{sid}")
 	public Object deleteSettingPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
-		this.settingPhaseService.deleteSettingPhaseById(sid); // TODO modify the associated ProductionOrder?
+		this.settingPhaseService.deleteSettingPhaseById(sid);
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}

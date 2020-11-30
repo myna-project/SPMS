@@ -99,7 +99,7 @@ public class ValidationPhaseController {
 	@DeleteMapping(value = "/admin/productionorders/{id}/validationphases/{sid}")
 	public Object deleteValidationPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
-		this.validationPhaseService.deleteValidationPhaseById(sid); // TODO modify the associated ProductionOrder?
+		this.validationPhaseService.deleteValidationPhaseById(sid);
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}
@@ -168,7 +168,7 @@ public class ValidationPhaseController {
 	@DeleteMapping(value = "/resp/productionorders/{id}/validationphases/{sid}")
 	public Object deleteValidationPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
-		this.validationPhaseService.deleteValidationPhaseById(sid); // TODO modify the associated ProductionOrder?
+		this.validationPhaseService.deleteValidationPhaseById(sid);
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}
@@ -237,7 +237,7 @@ public class ValidationPhaseController {
 	@DeleteMapping(value = "/productionorders/{id}/validationphases/{sid}")
 	public Object deleteValidationPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
-		this.validationPhaseService.deleteValidationPhaseById(sid); // TODO modify the associated ProductionOrder?
+		this.validationPhaseService.deleteValidationPhaseById(sid);
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}
