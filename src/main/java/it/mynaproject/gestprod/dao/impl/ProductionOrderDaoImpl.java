@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -53,7 +54,9 @@ public class ProductionOrderDaoImpl extends BaseDaoImpl implements ProductionOrd
 		q.setParameter("id", id);
 
 		try {
-			return (ProductionOrder) q.getSingleResult();
+			ProductionOrder p = (ProductionOrder) q.getSingleResult();
+			initializeProductionOrder(p);
+			return p;
 		} catch (NoResultException nre) {
 			return null;
 		}
@@ -64,5 +67,14 @@ public class ProductionOrderDaoImpl extends BaseDaoImpl implements ProductionOrd
 	public List<ProductionOrder> getProductionOrders() {
 
 		return em.createQuery("FROM ProductionOrder").getResultList();
+	}
+	
+	private void initializeProductionOrder(ProductionOrder p) {
+		Hibernate.initialize(p.getAdditiveProductionOrderList());
+		Hibernate.initialize(p.getSettingPhaseList());
+		Hibernate.initialize(p.getSystemPreparationPhaseList());
+		Hibernate.initialize(p.getCleaningPhaseList());
+		Hibernate.initialize(p.getWorkingPhaseList());
+		Hibernate.initialize(p.getValidationPhaseList());
 	}
 }
