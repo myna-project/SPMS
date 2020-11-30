@@ -28,11 +28,11 @@ public class AdditiveProductionOrderServiceImpl implements AdditiveProductionOrd
 	// TODO su tutti ricontrollare codici errore
 	@Transactional(readOnly = true)
 	@Override
-	public AdditiveProductionOrder getAdditiveProductionOrder(Integer additiveId, Integer productionOrderId) {
+	public AdditiveProductionOrder getAdditiveProductionOrder(Integer id) {
 
-		AdditiveProductionOrder p = this.additiveProductionOrderDao.getAdditiveProductionOrder(additiveId, productionOrderId);
+		AdditiveProductionOrder p = this.additiveProductionOrderDao.getAdditiveProductionOrder(id);
 		if (p == null)
-			throw new NotFoundException(404, "AdditiveProductionOrder " + additiveId + ", " + productionOrderId + " not found");
+			throw new NotFoundException(404, "AdditiveProductionOrder " + id + " not found");
 		return p;
 	}
 
@@ -59,8 +59,8 @@ public class AdditiveProductionOrderServiceImpl implements AdditiveProductionOrd
 
 		log.info("Creating new additiveProductionOrder: {}", input.toString());
 
-		if(this.additiveProductionOrderDao.getAdditiveProductionOrder(input.getAdditive_id(), input.getProduction_order_code_id()) != null) { // TODO fix id
-			throw new ConflictException(2001, "AdditiveProductionOrder already registered with id: " + input.getAdditive_id() + ", " + input.getProduction_order_code_id());
+		if(this.additiveProductionOrderDao.getAdditiveProductionOrder(input.getId()) != null) {
+			throw new ConflictException(2001, "AdditiveProductionOrder already registered with id: " + input.getId());
 		}
 		AdditiveProductionOrder additiveProductionOrder = new AdditiveProductionOrder();
 		additiveProductionOrder.populateAdditiveProductionOrderFromInput(input);
@@ -78,16 +78,16 @@ public class AdditiveProductionOrderServiceImpl implements AdditiveProductionOrd
 
 	@Transactional
 	@Override
-	public AdditiveProductionOrder updateAdditiveProductionOrderFromJson(Integer additiveId, Integer productionOrderId, AdditiveProductionOrderJson input) {
+	public AdditiveProductionOrder updateAdditiveProductionOrderFromJson(Integer id, AdditiveProductionOrderJson input) {
 
-		log.info("Updating additiveProductionOrder with id: {}", additiveId, productionOrderId);
+		log.info("Updating additiveProductionOrder with id: {}", id);
 
 		for(AdditiveProductionOrder e: this.additiveProductionOrderDao.getAdditiveProductionOrders()) { // TODO fix comparison over ID
 			if(e.getAdditive().getId().equals(input.getAdditive_id()) && e.getProductionOrder().getId().equals(input.getProduction_order_code_id())) {
 				throw new ConflictException(2001, "AdditiveProductionOrder (additive id: " + input.getAdditive_id() + ", PO id: " + input.getProduction_order_code_id() + ") already registered.");
 			}
 		}
-		AdditiveProductionOrder additiveProductionOrder = this.getAdditiveProductionOrder(additiveId, productionOrderId);
+		AdditiveProductionOrder additiveProductionOrder = this.getAdditiveProductionOrder(id);
 		additiveProductionOrder.populateAdditiveProductionOrderFromInput(input);
 
 		this.update(additiveProductionOrder);
@@ -97,19 +97,19 @@ public class AdditiveProductionOrderServiceImpl implements AdditiveProductionOrd
 
 	@Transactional
 	@Override
-	public void deleteAdditiveProductionOrderById(Integer additiveId, Integer productionOrderId) {
+	public void deleteAdditiveProductionOrderById(Integer id) {
 
-		log.info("Deleting additiveProductionOrder: {}", additiveId, productionOrderId);
-		AdditiveProductionOrder c = this.additiveProductionOrderDao.getAdditiveProductionOrder(additiveId, productionOrderId);
+		log.info("Deleting additiveProductionOrder: {}", id);
+		AdditiveProductionOrder c = this.additiveProductionOrderDao.getAdditiveProductionOrder(id);
 		
 		if (c == null) {
-			throw new NotFoundException(404, "AdditiveProductionOrder " + additiveId + ", " + productionOrderId + " not found");
+			throw new NotFoundException(404, "AdditiveProductionOrder " + id + " not found");
 		}
 		
 		Date now = new Date();
 		ProductionOrder po = c.getProductionOrder(); 
 		if(now.after(po.getDelivery_date()))
-			throw new ConflictException(2101, "Cannot delete additiveProductionOrder: " + additiveId + ", " + productionOrderId + ", production order already delivered.");
+			throw new ConflictException(2101, "Cannot delete additiveProductionOrder: " + id + ", production order already delivered.");
 		this.additiveProductionOrderDao.delete(c);
 	}
 }

@@ -51,12 +51,6 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
 	private PackagingService packagingService;
 	private AdditiveProductionOrderService apoService;
 	
-	private SettingPhaseDao settingPhaseDao;
-	private SystemPreparationPhaseDao systemPreparationPhaseDao;
-	private CleaningPhaseDao cleaningPhaseDao;
-	private WorkingPhaseDao workingPhaseDao;
-	private ValidationPhaseDao validationPhaseDao;
-
 	@Transactional(readOnly = true)
 	@Override
 	public ProductionOrder getProductionOrder(Integer id) {
@@ -101,7 +95,7 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
 		List<AdditiveProductionOrder> apol = new ArrayList<>();
 		
 		for(AdditiveProductionOrderJson aid : input.getAdditives()) {
-			apol.add(apoService.getAdditiveProductionOrder(aid.getAdditive_id(), aid.getProduction_order_code_id()));
+			apol.add(apoService.getAdditiveProductionOrder(aid.getId()));
 		}
 		
 		ProductionOrder productionOrder = new ProductionOrder();
@@ -137,7 +131,7 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
 		List<AdditiveProductionOrder> apol = new ArrayList<>();
 		
 		for(AdditiveProductionOrderJson aid : input.getAdditives()) {
-			apol.add(apoService.getAdditiveProductionOrder(aid.getAdditive_id(), aid.getProduction_order_code_id()));
+			apol.add(apoService.getAdditiveProductionOrder(aid.getId()));
 		}
 		
 		ProductionOrder productionOrder = new ProductionOrder();

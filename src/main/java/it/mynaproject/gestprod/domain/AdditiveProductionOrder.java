@@ -12,14 +12,12 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 
 @Entity
 @Table(name = "additives_production_orders")
-public class AdditiveProductionOrder implements java.io.Serializable {
+public class AdditiveProductionOrder extends BaseDomain {
 	
-	@Id
 	@ManyToOne
 	@JoinColumn(name="additive_id", referencedColumnName="id")
 	private Additive additive;
 	
-	@Id
 	@ManyToOne
 	@JoinColumn(name="production_order_code_id", referencedColumnName="id")
 	private ProductionOrder productionOrder;
@@ -35,20 +33,6 @@ public class AdditiveProductionOrder implements java.io.Serializable {
 		ClassSerializer serializer = new ClassSerializer();
 		serializer.setObj(this);
 		return serializer.toString();
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AdditiveProductionOrder other = (AdditiveProductionOrder) obj;
-		if (additive.getId() != other.additive.getId() || productionOrder.getId() != other.productionOrder.getId())
-			return false;
-		return true;
 	}
 	
 /** GETTERS and SETTERS **/

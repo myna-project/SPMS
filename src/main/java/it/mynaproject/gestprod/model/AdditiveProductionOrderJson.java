@@ -11,6 +11,9 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 @JsonInclude(Include.NON_EMPTY)
 public class AdditiveProductionOrderJson {
 	
+	private Integer id;
+	
+	@NotNull
 	private Integer additive_id;
 	
 	@NotNull
@@ -26,6 +29,14 @@ public class AdditiveProductionOrderJson {
 	}
 	
 /** GETTERS and SETTERS **/
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 		
 	public Integer getAdditive_id() {
 		return additive_id;

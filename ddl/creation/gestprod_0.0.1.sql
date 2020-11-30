@@ -115,6 +115,7 @@ ALTER TABLE production_orders ADD CONSTRAINT expected_mixture_mode_id__mixture_m
 ALTER TABLE production_orders ADD CONSTRAINT packaging_id__packaging__fkey FOREIGN KEY (packaging_id) REFERENCES packaging(id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 CREATE TABLE additives_production_orders (
+	id serial,
     additive_id integer NOT NULL,
     production_order_code_id integer NOT NULL,
     weight_additive double precision
@@ -122,7 +123,7 @@ CREATE TABLE additives_production_orders (
 
 ALTER TABLE additives_production_orders OWNER TO gestprod;
 
-ALTER TABLE additives_production_orders ADD CONSTRAINT additives_production_orders_pkey PRIMARY KEY (additive_id, production_order_code_id);
+ALTER TABLE additives_production_orders ADD CONSTRAINT additives_production_orders_pkey PRIMARY KEY (id);
 
 ALTER TABLE additives_production_orders ADD CONSTRAINT additive_id__additives_fkey FOREIGN KEY (additive_id) REFERENCES additives(id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE additives_production_orders ADD CONSTRAINT production_order_code_id__production_orders__fkey FOREIGN KEY (production_order_code_id) REFERENCES production_orders(id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE;
@@ -172,6 +173,7 @@ ALTER TABLE working_phases ADD CONSTRAINT working_phases_id_pkey PRIMARY KEY (id
 ALTER TABLE working_phases ADD CONSTRAINT production_order_id__production_orders__fkey FOREIGN KEY (production_order_id) REFERENCES production_orders(id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE;
 
 CREATE TABLE working_phases_users (
+	id serial,
     working_phase_id integer NOT NULL,
     user_id integer NOT NULL,
     start_time timestamp with time zone,
@@ -180,7 +182,7 @@ CREATE TABLE working_phases_users (
 
 ALTER TABLE working_phases_users OWNER TO gestprod;
 
-ALTER TABLE working_phases_users ADD CONSTRAINT working_phases_pkey PRIMARY KEY (working_phase_id, user_id, start_time, end_time);
+ALTER TABLE working_phases_users ADD CONSTRAINT working_phases_pkey PRIMARY KEY (id);
 
 ALTER TABLE working_phases_users ADD CONSTRAINT working_phase_id__working_phases__fkey FOREIGN KEY (working_phase_id) REFERENCES working_phases(id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE working_phases_users ADD CONSTRAINT user_id__users_fkey FOREIGN KEY (user_id) REFERENCES users(id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;

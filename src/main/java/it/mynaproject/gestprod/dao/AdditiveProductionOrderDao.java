@@ -9,6 +9,6 @@ public interface AdditiveProductionOrderDao {
 	public void persist(AdditiveProductionOrder additiveProductionOrder);
 	public void update(AdditiveProductionOrder additiveProductionOrder);
 	public void delete(AdditiveProductionOrder additiveProductionOrder);
-	public AdditiveProductionOrder getAdditiveProductionOrder(Integer additiveId, Integer productionOrderId); // TODO come gestire gli id in tabelle con id composti? (multiple @id fields), magari un metodo getID che li combini?
+	public AdditiveProductionOrder getAdditiveProductionOrder(Integer id);
 	public List<AdditiveProductionOrder> getAdditiveProductionOrders();
 }
