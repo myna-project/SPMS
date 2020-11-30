@@ -52,21 +52,6 @@ public class User extends BaseDomain {
 	@JoinTable(name = "users_roles", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
 	private List<Role> roleList;
 	
-	@OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
-	private List<SettingPhase> settingPhaseList;
-	
-	@OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
-	private List<SystemPreparationPhase> systemPreparationPhaseList;
-
-	@OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
-	private List<CleaningPhase> cleaningPhaseList;
-	
-	@OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
-	private List<ValidationPhase> validationPhaseList;
-	
-	@OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
-	private List<WorkingPhaseUser> workingPhaseUserList;
-
 	public void populateUserFromInput(UserJson input, List<Role> roles, Boolean editable) {
 
 		if (editable) {
@@ -87,46 +72,6 @@ public class User extends BaseDomain {
 	
 /** GETTERS and SETTERS **/
 	
-	public List<SettingPhase> getSettingPhaseList() {
-		return settingPhaseList;
-	}
-
-	public void setSettingPhaseList(List<SettingPhase> settingPhaseList) {
-		this.settingPhaseList = settingPhaseList;
-	}
-
-	public List<SystemPreparationPhase> getSystemPreparationPhaseList() {
-		return systemPreparationPhaseList;
-	}
-
-	public void setSystemPreparationPhaseList(List<SystemPreparationPhase> systemPreparationPhaseList) {
-		this.systemPreparationPhaseList = systemPreparationPhaseList;
-	}
-
-	public List<CleaningPhase> getCleaningPhaseList() {
-		return cleaningPhaseList;
-	}
-
-	public void setCleaningPhaseList(List<CleaningPhase> cleaningPhaseList) {
-		this.cleaningPhaseList = cleaningPhaseList;
-	}
-	
-	public List<ValidationPhase> getValidationPhaseList() {
-		return validationPhaseList;
-	}
-
-	public void setValidationPhaseList(List<ValidationPhase> validationPhaseList) {
-		this.validationPhaseList = validationPhaseList;
-	}
-	
-	public List<WorkingPhaseUser> getWorkingPhaseList() {
-		return workingPhaseUserList;
-	}
-
-	public void setWorkingPhaseList(List<WorkingPhaseUser> workingPhaseUserList) {
-		this.workingPhaseUserList = workingPhaseUserList;
-	}
-
 	public String getUsername() {
 		return username;
 	}

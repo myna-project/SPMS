@@ -24,7 +24,6 @@ public class AdditiveProductionOrder implements java.io.Serializable {
 	@JoinColumn(name="production_order_code_id", referencedColumnName="id")
 	private ProductionOrder productionOrder;
 	
-	@Id
 	@Column
 	private Float weight_additive;
 
