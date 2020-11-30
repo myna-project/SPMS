@@ -25,6 +25,7 @@ public class AdditiveProductionOrderServiceImpl implements AdditiveProductionOrd
 	@Autowired
 	private AdditiveProductionOrderDao additiveProductionOrderDao;
 
+	// TODO su tutti ricontrollare codici errore
 	@Transactional(readOnly = true)
 	@Override
 	public AdditiveProductionOrder getAdditiveProductionOrder(Integer additiveId, Integer productionOrderId, Boolean isAdmin) {
@@ -81,7 +82,6 @@ public class AdditiveProductionOrderServiceImpl implements AdditiveProductionOrd
 
 		log.info("Updating additiveProductionOrder with id: {}", additiveId, productionOrderId);
 
-		// TODO non sarebbe meglio avere un accesso lineare ai additiveProductionOrder gia` presenti?
 		for(AdditiveProductionOrder e: this.additiveProductionOrderDao.getAdditiveProductionOrders()) { // TODO fix comparison over ID
 			if(e.getAdditive().getId().equals(input.getAdditive_id()) && e.getProductionOrder().getId().equals(input.getProduction_order_code_id())) {
 				throw new ConflictException(2001, "AdditiveProductionOrder (additive id: " + input.getAdditive_id() + ", PO id: " + input.getProduction_order_code_id() + ") already registered.");

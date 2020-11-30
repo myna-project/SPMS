@@ -35,11 +35,9 @@ public class ValidationPhaseServiceImpl implements ValidationPhaseService {
 		if (p == null)
 			throw new NotFoundException(404, "ProductionOrder " + id + " not found");
 		
-		// TODO is this necessary? Each validation phase should be associated with a unique ProductionOrder
 		for(ValidationPhase sf : this.productionOrderService.getProductionOrder(id, isAdmin).getValidationPhaseList()) {
-			// TODO change every data structure to map instead of list? 
 			if(sf.getId() == sid) {
-				validationPhase = validationPhaseDao.getValidationPhase(sid); // TODO wouldn't sf be sufficient? how do I ensure object in db?
+				validationPhase = sf;
 			}
 		}
 		if (validationPhase == null)
@@ -64,7 +62,7 @@ public class ValidationPhaseServiceImpl implements ValidationPhaseService {
 			throw new ConflictException(8001, "ValidationPhase already registered with id: " + input.getId());
 			
 		}
-		Boolean isAdmin = false; // TODO fix
+		Boolean isAdmin = false;
 		User u = this.userService.getUser(input.getUser_id(), isAdmin, "");
 		ProductionOrder po = this.productionOrderService.getProductionOrder(id, isAdmin);
 		ValidationPhase validationPhase = new ValidationPhase();
@@ -88,7 +86,6 @@ public class ValidationPhaseServiceImpl implements ValidationPhaseService {
 
 		log.info("Updating validationPhase with id: {}", id);
 
-		// TODO non sarebbe meglio avere un accesso lineare ai validationPhase gia` presenti?
 		for(ValidationPhase e: this.validationPhaseDao.getValidationPhases()) {
 			if(e.getId().equals(input.getId())) {
 				throw new ConflictException(8001, "ValidationPhase already registered with id: " + input.getId());

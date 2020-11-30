@@ -34,11 +34,9 @@ public class WorkingPhaseServiceImpl implements WorkingPhaseService {
 		if (p == null)
 			throw new NotFoundException(404, "ProductionOrder " + id + " not found");
 		
-		// TODO is this necessary? Each setting phase should be associated with a unique ProductionOrder
 		for(WorkingPhase sf : this.productionOrderService.getProductionOrder(id, isAdmin).getWorkingPhaseList()) {
-			// TODO change every data structure to map instead of list? 
 			if(sf.getId() == sid) {
-				workingPhase = workingPhaseDao.getWorkingPhase(sid); // TODO wouldn't sf be sufficient? how do I ensure object in db?
+				workingPhase = sf;
 			}
 		}
 		if (workingPhase == null)
@@ -63,12 +61,12 @@ public class WorkingPhaseServiceImpl implements WorkingPhaseService {
 			throw new ConflictException(8001, "WorkingPhase already registered with id: " + input.getId());
 			
 		}
-		Boolean isAdmin = false; // TODO fix
+		Boolean isAdmin = false;
 		ProductionOrder po = this.productionOrderService.getProductionOrder(id, isAdmin);
 		WorkingPhase workingPhase = new WorkingPhase();
 		workingPhase.populateWorkingPhaseFromInput(input, po);
 
-		this.persist(workingPhase); // TODO must the modified productionOrder be registered here or in DAO?
+		this.persist(workingPhase);
 
 		return workingPhase;
 	}
@@ -82,11 +80,10 @@ public class WorkingPhaseServiceImpl implements WorkingPhaseService {
 	
 	@Transactional
 	@Override
-	public WorkingPhase updateWorkingPhaseFromJson(Integer id, Integer sid, WorkingPhaseJson input, Boolean isAdmin) { // TODO non c'e` nel file di definizione, cancellare?
+	public WorkingPhase updateWorkingPhaseFromJson(Integer id, Integer sid, WorkingPhaseJson input, Boolean isAdmin) { 
 
 		log.info("Updating workingPhase with id: {}", id);
 
-		// TODO non sarebbe meglio avere un accesso lineare ai workingPhase gia` presenti?
 		for(WorkingPhase e: this.workingPhaseDao.getWorkingPhases()) {
 			if(e.getId().equals(input.getId())) {
 				throw new ConflictException(8001, "WorkingPhase already registered with id: " + input.getId());

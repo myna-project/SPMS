@@ -35,11 +35,9 @@ public class CleaningPhaseServiceImpl implements CleaningPhaseService {
 		if (p == null)
 			throw new NotFoundException(404, "ProductionOrder " + id + " not found");
 		
-		// TODO is this necessary? Each cleaning phase should be associated with a unique ProductionOrder
 		for(CleaningPhase sf : this.productionOrderService.getProductionOrder(id, isAdmin).getCleaningPhaseList()) {
-			// TODO change every data structure to map instead of list? 
 			if(sf.getId() == sid) {
-				cleaningPhase = cleaningPhaseDao.getCleaningPhase(sid); // TODO wouldn't sf be sufficient? how do I ensure object in db?
+				cleaningPhase = sf;
 			}
 		}
 		if (cleaningPhase == null)
@@ -88,7 +86,6 @@ public class CleaningPhaseServiceImpl implements CleaningPhaseService {
 
 		log.info("Updating cleaningPhase with id: {}", id);
 
-		// TODO non sarebbe meglio avere un accesso lineare ai cleaningPhase gia` presenti?
 		for(CleaningPhase e: this.cleaningPhaseDao.getCleaningPhases()) {
 			if(e.getId().equals(input.getId())) {
 				throw new ConflictException(8001, "CleaningPhase already registered with id: " + input.getId());

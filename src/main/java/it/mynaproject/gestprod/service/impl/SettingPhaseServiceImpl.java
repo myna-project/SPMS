@@ -32,14 +32,9 @@ public class SettingPhaseServiceImpl implements SettingPhaseService {
 		SettingPhase settingPhase = null;
 		ProductionOrder p = this.productionOrderService.getProductionOrder(id, isAdmin);
 		
-		if (p == null)
-			throw new NotFoundException(404, "ProductionOrder " + id + " not found");
-		
-		// TODO is this necessary? Each setting phase should be associated with a unique ProductionOrder
-		for(SettingPhase sf : this.productionOrderService.getProductionOrder(id, isAdmin).getSettingPhaseList()) {
-			// TODO change every data structure to map instead of list? 
+		for(SettingPhase sf : p.getSettingPhaseList()) {
 			if(sf.getId() == sid) {
-				settingPhase = settingPhaseDao.getSettingPhase(sid); // TODO wouldn't sf be sufficient? how do I ensure object in db?
+				settingPhase = sf;
 			}
 		}
 		if (settingPhase == null)
@@ -60,17 +55,15 @@ public class SettingPhaseServiceImpl implements SettingPhaseService {
 
 		log.info("Creating new settingPhase: {}", input.toString());
 
-		if(this.settingPhaseDao.getSettingPhase(input.getId()) != null) {
-			throw new ConflictException(8001, "SettingPhase already registered with id: " + input.getId());
-			
-		}
-		Boolean isAdmin = false; // TODO fix
+		Boolean isAdmin = false; 
+		
+		// TODO da input user e production order, controllare per supportare il cambio PO
 		User u = this.userService.getUser(input.getUser_id(), isAdmin, "");
 		ProductionOrder po = this.productionOrderService.getProductionOrder(id, isAdmin);
 		SettingPhase settingPhase = new SettingPhase();
 		settingPhase.populateSettingPhaseFromInput(input, po, u);
 
-		this.persist(settingPhase); // TODO must the modified productionOrder be registered here or in DAO?
+		this.persist(settingPhase);
 
 		return settingPhase;
 	}
@@ -88,12 +81,6 @@ public class SettingPhaseServiceImpl implements SettingPhaseService {
 
 		log.info("Updating settingPhase with id: {}", id);
 
-		// TODO non sarebbe meglio avere un accesso lineare ai settingPhase gia` presenti?
-		for(SettingPhase e: this.settingPhaseDao.getSettingPhases()) {
-			if(e.getId().equals(input.getId())) {
-				throw new ConflictException(8001, "SettingPhase already registered with id: " + input.getId());
-			}
-		}
 		User u = this.userService.getUser(input.getUser_id(), isAdmin, "");
 		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id(), isAdmin);
 		SettingPhase settingPhase = this.getSettingPhase(id, sid, isAdmin);

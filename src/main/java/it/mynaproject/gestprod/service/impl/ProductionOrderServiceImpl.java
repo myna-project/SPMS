@@ -39,7 +39,7 @@ import it.mynaproject.gestprod.service.ProductionOrderService;
 import it.mynaproject.gestprod.service.RawMaterialService;
 
 @Service
-public class ProductionOrderServiceImpl implements ProductionOrderService { // TODO: fasi di produzione, gestire ID additiveProductionOrder
+public class ProductionOrderServiceImpl implements ProductionOrderService {
 
 	final private Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -94,7 +94,7 @@ public class ProductionOrderServiceImpl implements ProductionOrderService { // T
 			throw new ConflictException(7001, "ProductionOrder " + input.getProduction_order_code() + " already registered with id: " + input.getId());
 		}
 		
-		Boolean isAdmin = false; // TODO fix
+		Boolean isAdmin = false; 
 		Customer c = this.customerService.getCustomer(input.getCustomer_id(), isAdmin);
 		RawMaterial rm = this.rawMaterialService.getRawMaterial(input.getRaw_material_id(), isAdmin);
 		MixtureMode mm = this.mixtureModeService.getMixtureMode(input.getExpected_mixture_mode_id(), isAdmin);
@@ -125,7 +125,6 @@ public class ProductionOrderServiceImpl implements ProductionOrderService { // T
 
 		log.info("Updating productionOrder with id: {}", id);
 
-		// TODO non sarebbe meglio avere un accesso lineare ai productionOrder gia` presenti?
 		for(ProductionOrder e: this.productionOrderDao.getProductionOrders()) {
 			if(e.getId().equals(input.getId())) {
 				throw new ConflictException(7001, "ProductionOrder name " + input.getProduction_order_code() + " already registered with id: " + input.getId());

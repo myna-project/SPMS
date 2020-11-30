@@ -82,7 +82,6 @@ public class AdditiveServiceImpl implements AdditiveService {
 
 		log.info("Updating additive with id: {}", id);
 
-		// TODO non sarebbe meglio avere un accesso lineare ai additive gia` presenti?
 		if(this.additiveDao.getAdditives() != null) {
 			for(Additive e: this.additiveDao.getAdditives()) {
 				if(e.getName().equals(input.getName())) {

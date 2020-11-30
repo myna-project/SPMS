@@ -36,11 +36,9 @@ public class WorkingPhaseUserServiceImpl implements WorkingPhaseUserService {
 		if (p == null)
 			throw new NotFoundException(404, "WorkingPhase " + sid + " not found");
 		
-		// TODO is this necessary? Each setting phase should be associated with a unique ProductionOrder
 		for(WorkingPhaseUser sf : p.getWorkingPhaseUserList()) {
-			// TODO change every data structure to map instead of list? 
 //			if(sf.getId() == tid) { // TODO WorkingPhaseUser has composite ID
-				workingPhaseUser = workingPhaseUserDao.getWorkingPhaseUser(sid); // TODO wouldn't sf be sufficient? how do I ensure object in db?
+				workingPhaseUser = sf;
 			//}
 		}
 		if (workingPhaseUser == null)
@@ -59,7 +57,7 @@ public class WorkingPhaseUserServiceImpl implements WorkingPhaseUserService {
 			throw new NotFoundException(404, "WorkingPhase " + sid + " not found");
 		
 		for(WorkingPhaseUser sf : p.getWorkingPhaseUserList()) {
-				wpul.add(workingPhaseUserDao.getWorkingPhaseUser(sid)); // TODO wouldn't sf be sufficient? how do I ensure object in db?
+				wpul.add(workingPhaseUserDao.getWorkingPhaseUser(sid));
 		}
 		
 		return wpul;
@@ -81,13 +79,13 @@ public class WorkingPhaseUserServiceImpl implements WorkingPhaseUserService {
 			throw new ConflictException(8001, "WorkingPhaseUser already registered with id: " + input.getId());
 			
 		}
-		Boolean isAdmin = false; // TODO fix
+		Boolean isAdmin = false; 
 		User u = this.userService.getUser(input.getUser_id(), isAdmin, "");
 		WorkingPhase w = this.workingPhaseService.getWorkingPhase(id, sid, isAdmin);
 		WorkingPhaseUser workingPhaseUser = new WorkingPhaseUser();
 		workingPhaseUser.populateWorkingPhaseUserFromInput(input, w, u);
 
-		this.persist(workingPhaseUser); // TODO must the modified workingPhase be registered here or in DAO?
+		this.persist(workingPhaseUser);
 
 		return workingPhaseUser;
 	}
@@ -105,7 +103,6 @@ public class WorkingPhaseUserServiceImpl implements WorkingPhaseUserService {
 
 		log.info("Updating workingPhaseUser with id: {}", id);
 
-		// TODO non sarebbe meglio avere un accesso lineare ai workingPhaseUser gia` presenti?
 		for(WorkingPhaseUser e: this.workingPhaseUserDao.getWorkingPhaseUsers()) {
 //			if(e.getId().equals(input.getId())) { // TODO vedi TODO in getWorkingPhaseUser
 				throw new ConflictException(8001, "WorkingPhaseUser already registered with id: " + input.getId());

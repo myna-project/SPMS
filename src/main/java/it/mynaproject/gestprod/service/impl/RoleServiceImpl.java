@@ -87,7 +87,6 @@ public class RoleServiceImpl implements RoleService {
 		return role;
 	}
 	
-//  TODO non ci sono in definizione REST
 	@Transactional
 	@Override
 	public void deleteRoleById(Integer id) {

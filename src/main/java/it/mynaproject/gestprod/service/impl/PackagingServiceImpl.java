@@ -82,7 +82,6 @@ public class PackagingServiceImpl implements PackagingService {
 
 		log.info("Updating packaging with id: {}", id);
 
-		// TODO non sarebbe meglio avere un accesso lineare ai packaging gia` presenti?
 		for(Packaging e: this.packagingDao.getPackagings()) {
 			if(e.getPackaging_mode().equals(input.getPackaging_mode())) {
 				throw new ConflictException(6001, "Packaging mode " + input.getPackaging_mode() + " already registered with id: " + input.getId());

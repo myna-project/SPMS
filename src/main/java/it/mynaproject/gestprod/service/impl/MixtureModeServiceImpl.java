@@ -82,7 +82,6 @@ public class MixtureModeServiceImpl implements MixtureModeService {
 
 		log.info("Updating mixtureMode with id: {}", id);
 
-		// TODO non sarebbe meglio avere un accesso lineare ai mixtureMode gia` presenti?
 		for(MixtureMode e: this.mixtureModeDao.getMixtureModes()) {
 			if(e.getName().equals(input.getName())) {
 				throw new ConflictException(5001, "MixtureMode name " + input.getName() + " already registered with id: " + input.getId());

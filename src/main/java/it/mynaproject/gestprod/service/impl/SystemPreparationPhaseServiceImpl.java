@@ -35,11 +35,9 @@ public class SystemPreparationPhaseServiceImpl implements SystemPreparationPhase
 		if (p == null)
 			throw new NotFoundException(404, "ProductionOrder " + id + " not found");
 		
-		// TODO is this necessary? Each systemPreparation phase should be associated with a unique ProductionOrder
 		for(SystemPreparationPhase sf : this.productionOrderService.getProductionOrder(id, isAdmin).getSystemPreparationPhaseList()) {
-			// TODO change every data structure to map instead of list? 
 			if(sf.getId() == sid) {
-				systemPreparationPhase = systemPreparationPhaseDao.getSystemPreparationPhase(sid); // TODO wouldn't sf be sufficient? how do I ensure object in db?
+				systemPreparationPhase = sf;
 			}
 		}
 		if (systemPreparationPhase == null)
@@ -64,7 +62,7 @@ public class SystemPreparationPhaseServiceImpl implements SystemPreparationPhase
 			throw new ConflictException(8001, "SystemPreparationPhase already registered with id: " + input.getId());
 			
 		}
-		Boolean isAdmin = false; // TODO fix
+		Boolean isAdmin = false;
 		User u = this.userService.getUser(input.getUser_id(), isAdmin, "");
 		ProductionOrder po = this.productionOrderService.getProductionOrder(id, isAdmin);
 		SystemPreparationPhase systemPreparationPhase = new SystemPreparationPhase();
@@ -88,7 +86,6 @@ public class SystemPreparationPhaseServiceImpl implements SystemPreparationPhase
 
 		log.info("Updating systemPreparationPhase with id: {}", id);
 
-		// TODO non sarebbe meglio avere un accesso lineare ai systemPreparationPhase gia` presenti?
 		for(SystemPreparationPhase e: this.systemPreparationPhaseDao.getSystemPreparationPhases()) {
 			if(e.getId().equals(input.getId())) {
 				throw new ConflictException(8001, "SystemPreparationPhase already registered with id: " + input.getId());
