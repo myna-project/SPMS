@@ -98,7 +98,7 @@ public class WorkingPhaseUserController {
 	@DeleteMapping(value = "/admin/productionorders/{id}/workingphases/{sid}/shifts/{tid}")
 	public Object deleteWorkingPhaseUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @PathVariable("tid") Integer tid) {
 
-		this.workingPhaseUserService.deleteWorkingPhaseUserById(tid); // TODO modify the associated ProductionOrder?
+		this.workingPhaseUserService.deleteWorkingPhaseUserById(tid); 
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}
@@ -166,7 +166,7 @@ public class WorkingPhaseUserController {
 	@DeleteMapping(value = "/resp/productionorders/{id}/workingphases/{sid}/shifts/{tid}")
 	public Object deleteWorkingPhaseUserForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @PathVariable("tid") Integer tid) {
 
-		this.workingPhaseUserService.deleteWorkingPhaseUserById(tid); // TODO modify the associated ProductionOrder?
+		this.workingPhaseUserService.deleteWorkingPhaseUserById(tid); 
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}
@@ -234,7 +234,7 @@ public class WorkingPhaseUserController {
 	@DeleteMapping(value = "/productionorders/{id}/workingphases/{sid}/shifts/{tid}")
 	public Object deleteWorkingPhaseUserForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @PathVariable("tid") Integer tid) {
 
-		this.workingPhaseUserService.deleteWorkingPhaseUserById(tid); // TODO modify the associated ProductionOrder?
+		this.workingPhaseUserService.deleteWorkingPhaseUserById(tid);
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}
