@@ -9,7 +9,7 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 
 @JsonInclude(Include.NON_EMPTY)
 public class WorkingPhaseUserJson extends PhaseJson {
-	
+
 	@NotNull
 	private Integer working_phase_id;
 	
@@ -25,7 +25,7 @@ public class WorkingPhaseUserJson extends PhaseJson {
 	}
 	
 /** GETTERS and SETTERS **/
-		
+	
 	public Integer getWorking_phase_id() {
 		return working_phase_id;
 	}

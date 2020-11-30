@@ -15,23 +15,19 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 
 @Entity
 @Table(name = "working_phases_users")
-public class WorkingPhaseUser implements java.io.Serializable {
+public class WorkingPhaseUser extends BaseDomain {
 	
-	@Id
 	@ManyToOne
 	@JoinColumn(name="working_phase_id", referencedColumnName="id")
 	private WorkingPhase workingPhase;
 	
-	@Id
 	@ManyToOne
 	@JoinColumn(name="user_id", referencedColumnName="id")
 	private User user;
 	
-	@Id
 	@Column(nullable=false)
 	private Instant start_time;
 	
-	@Id
 	@Column(nullable=false)
 	private Instant end_time;
 
@@ -47,23 +43,6 @@ public class WorkingPhaseUser implements java.io.Serializable {
 		ClassSerializer serializer = new ClassSerializer();
 		serializer.setObj(this);
 		return serializer.toString();
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		WorkingPhaseUser other = (WorkingPhaseUser) obj;
-		if (workingPhase.getId() != other.workingPhase.getId()
-				|| user.getId() != other.user.getId()
-				|| start_time != other.getStart_time()
-				|| end_time != other.getEnd_time())
-			return false;
-		return true;
 	}
 	
 /** GETTERS and SETTERS **/

@@ -38,9 +38,9 @@ public class WorkingPhaseUserServiceImpl implements WorkingPhaseUserService {
 			throw new NotFoundException(404, "WorkingPhase " + sid + " not found");
 		
 		for(WorkingPhaseUser sf : p.getWorkingPhaseUserList()) {
-//			if(sf.getId() == tid) { // TODO WorkingPhaseUser has composite ID
+			if(sf.getId() == tid) {
 				workingPhaseUser = sf;
-			//}
+			}
 		}
 		if (workingPhaseUser == null)
 			throw new NotFoundException(404, "WorkingPhaseUser " + tid + " not found");
@@ -76,11 +76,6 @@ public class WorkingPhaseUserServiceImpl implements WorkingPhaseUserService {
 
 		log.info("Creating new workingPhaseUser: {}", input.toString());
 
-		if(this.workingPhaseUserDao.getWorkingPhaseUser(input.getId()) != null) {
-			throw new ConflictException(8001, "WorkingPhaseUser already registered with id: " + input.getId());
-			
-		}
-		
 		User u = this.userService.getUser(input.getUser_id(), "");
 		WorkingPhase w = this.workingPhaseService.getWorkingPhase(id, sid);
 		WorkingPhaseUser workingPhaseUser = new WorkingPhaseUser();
@@ -104,11 +99,6 @@ public class WorkingPhaseUserServiceImpl implements WorkingPhaseUserService {
 
 		log.info("Updating workingPhaseUser with id: {}", id);
 
-		for(WorkingPhaseUser e: this.workingPhaseUserDao.getWorkingPhaseUsers()) {
-//			if(e.getId().equals(input.getId())) { // TODO vedi TODO in getWorkingPhaseUser
-				throw new ConflictException(8001, "WorkingPhaseUser already registered with id: " + input.getId());
-//			}
-		}
 		User u = this.userService.getUser(input.getUser_id(), "");
 		WorkingPhase w = this.workingPhaseService.getWorkingPhase(id, sid);
 		WorkingPhaseUser workingPhaseUser = new WorkingPhaseUser();
