@@ -223,3 +223,19 @@ ALTER TABLE validation_phases ADD CONSTRAINT validation_phases_id_pkey PRIMARY K
 
 ALTER TABLE validation_phases ADD CONSTRAINT production_order_id__production_orders__fkey FOREIGN KEY (production_order_id) REFERENCES production_orders(id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE validation_phases ADD CONSTRAINT user_id__users_fkey FOREIGN KEY (user_id) REFERENCES users(id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+--- additional table to store finished product quantity
+
+CREATE TABLE working_phases_measurements (
+	id serial,
+	working_phase_id integer NOT NULL,
+	user_id integer NOT NULL,
+	time timestamp with time zone NOT NULL,
+	finished_product_quantity double precision
+);
+
+ALTER TABLE working_phases_measurements OWNER TO gestprod;
+
+ALTER TABLE working_phases_measurements ADD CONSTRAINT working_phases_measurements_id_pkey PRIMARY KEY (id);
+ALTER TABLE working_phases_measurements ADD CONSTRAINT working_phase_id__working_phases__fkey FOREIGN KEY (working_phase_id) REFERENCES working_phases(id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE;    
+ALTER TABLE working_phases_measurements ADD CONSTRAINT user_id__users_fkey FOREIGN KEY (user_id) REFERENCES users(id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
