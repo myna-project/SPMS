@@ -10,7 +10,6 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 @JsonInclude(Include.NON_EMPTY)
 public class CustomerJson {
 
-	@NotBlank
 	private Integer id;
 
 	@NotBlank

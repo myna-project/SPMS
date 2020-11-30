@@ -13,7 +13,6 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 @JsonInclude(Include.NON_EMPTY)
 public class RoleJson {
 
-	@NotBlank
 	private Integer id;
 
 	@NotBlank

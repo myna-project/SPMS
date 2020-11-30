@@ -1,6 +1,7 @@
 package it.mynaproject.gestprod.model;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -10,13 +11,12 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 @JsonInclude(Include.NON_EMPTY)
 public class AdditiveProductionOrderJson {
 	
-	@NotBlank
 	private Integer additive_id;
 	
-	@NotBlank
+	@NotNull
 	private Integer production_order_code_id;
 	
-	@NotBlank
+	@NotNull
 	private Float weight_additive;
 
 	public String toString() {

@@ -3,6 +3,7 @@ package it.mynaproject.gestprod.model;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import java.util.Date;
 
@@ -15,10 +16,9 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 @JsonInclude(Include.NON_EMPTY)
 public class ProductionOrderJson {
 	
-	@NotBlank
 	private Integer id;
 	
-	@NotBlank
+	@NotNull
 	private Integer customer_id;
 	
 	@NotBlank
@@ -26,7 +26,7 @@ public class ProductionOrderJson {
 	
 	private String production_number_lot;
 	
-	@NotBlank
+	@NotNull
 	private Integer raw_material_id;
 	
 	private Float weight_raw_material;
@@ -39,14 +39,14 @@ public class ProductionOrderJson {
 	
 	private Float expected_mixture_temperature;
 	
-	@NotBlank
+	@NotNull
 	private Integer expected_mixture_mode_id;
 	
 	private Float expected_quantity_finished_product;
 	
 	private Date delivery_date;
 	
-	@NotBlank
+	@NotNull
 	private Integer packaging_id;
 	
 	private Date production_order_date;

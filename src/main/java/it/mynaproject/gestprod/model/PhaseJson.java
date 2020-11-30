@@ -2,7 +2,9 @@ package it.mynaproject.gestprod.model;
 
 import java.time.Instant;
 
+
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -12,19 +14,18 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 @JsonInclude(Include.NON_EMPTY)
 public class PhaseJson {
 	
-	@NotBlank
 	private Integer id;
 	
-	@NotBlank
+	@NotNull
 	private Integer production_order_id;
 	
-	@NotBlank
+	@NotNull
 	private Integer user_id;
 
-	@NotBlank
+	@NotNull
 	private Instant start_time;
 	
-	@NotBlank
+	@NotNull
 	private Instant end_time;
 	
 	public String toString() {
