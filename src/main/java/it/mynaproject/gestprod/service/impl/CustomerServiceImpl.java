@@ -28,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public Customer getCustomer(Integer id, Boolean isAdmin) {
+	public Customer getCustomer(Integer id) {
 
 		Customer p = this.customerDao.getCustomer(id);
 		if (p == null)
@@ -38,7 +38,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<Customer> getCustomers(Boolean isAdmin) {
+	public List<Customer> getCustomers() {
 
 		List<Customer> pList = new ArrayList<Customer>();
 		for (Customer p : this.customerDao.getCustomers())
@@ -79,7 +79,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Transactional
 	@Override
-	public Customer updateCustomerFromJson(Integer id, CustomerJson input, Boolean isAdmin) {
+	public Customer updateCustomerFromJson(Integer id, CustomerJson input) {
 
 		log.info("Updating customer with id: {}", id);
 
@@ -88,7 +88,7 @@ public class CustomerServiceImpl implements CustomerService {
 				throw new ConflictException(2001, "Customer name " + input.getName() + " already registered with id: " + input.getId());
 			}
 		}
-		Customer customer = this.getCustomer(id, isAdmin);
+		Customer customer = this.getCustomer(id);
 		customer.populateCustomerFromInput(input);
 
 		this.update(customer);

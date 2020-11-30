@@ -51,7 +51,7 @@ public class RawMaterialController {
 
 		List<RawMaterialJson> rawMaterials = new ArrayList<>();
 
-		for (RawMaterial rawMaterial : this.rawMaterialService.getRawMaterials(true))
+		for (RawMaterial rawMaterial : this.rawMaterialService.getRawMaterials())
 			rawMaterials.add(JsonUtil.rawMaterialToRawMaterialJson(rawMaterial));
 
 		return rawMaterials;
@@ -65,7 +65,7 @@ public class RawMaterialController {
 
 		log.info("Request for rawMaterial with id {}", id);
 
-		return JsonUtil.rawMaterialToRawMaterialJson(this.rawMaterialService.getRawMaterial(id, true));
+		return JsonUtil.rawMaterialToRawMaterialJson(this.rawMaterialService.getRawMaterial(id));
 	}
 
 	@ApiResponses({
@@ -85,7 +85,7 @@ public class RawMaterialController {
 	@PutMapping(value = "/admin/rawMaterials/{id}")
 	public Object updateRawMaterial(@PathVariable("id") Integer id, @Valid @RequestBody RawMaterialJson input) {
 
-		RawMaterial rawMaterial = this.rawMaterialService.updateRawMaterialFromJson(id, input, true);
+		RawMaterial rawMaterial = this.rawMaterialService.updateRawMaterialFromJson(id, input);
 
 		return new ResponseEntity<>(JsonUtil.rawMaterialToRawMaterialJson(rawMaterial), new HttpHeaders(), HttpStatus.OK);
 	}
@@ -117,7 +117,7 @@ public class RawMaterialController {
 
 		List<RawMaterialJson> rawMaterials = new ArrayList<>();
 
-		for (RawMaterial rawMaterial : this.rawMaterialService.getRawMaterials(false))
+		for (RawMaterial rawMaterial : this.rawMaterialService.getRawMaterials())
 			rawMaterials.add(JsonUtil.rawMaterialToRawMaterialJson(rawMaterial));
 
 		return rawMaterials;
@@ -131,7 +131,7 @@ public class RawMaterialController {
 
 		log.info("Request for rawMaterial with id {}", id);
 
-		return JsonUtil.rawMaterialToRawMaterialJson(this.rawMaterialService.getRawMaterial(id, false));
+		return JsonUtil.rawMaterialToRawMaterialJson(this.rawMaterialService.getRawMaterial(id));
 	}
 
 	/*
@@ -150,7 +150,7 @@ public class RawMaterialController {
 
 		List<RawMaterialJson> rawMaterials = new ArrayList<>();
 
-		for (RawMaterial rawMaterial : this.rawMaterialService.getRawMaterials(false))
+		for (RawMaterial rawMaterial : this.rawMaterialService.getRawMaterials())
 			rawMaterials.add(JsonUtil.rawMaterialToRawMaterialJson(rawMaterial));
 
 		return rawMaterials;
@@ -164,6 +164,6 @@ public class RawMaterialController {
 
 		log.info("Request for rawMaterial with id {}", id);
 
-		return JsonUtil.rawMaterialToRawMaterialJson(this.rawMaterialService.getRawMaterial(id, false));
+		return JsonUtil.rawMaterialToRawMaterialJson(this.rawMaterialService.getRawMaterial(id));
 	}
 }

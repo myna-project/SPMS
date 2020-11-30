@@ -1,5 +1,6 @@
 package it.mynaproject.gestprod.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -29,10 +30,10 @@ public class WorkingPhaseUserServiceImpl implements WorkingPhaseUserService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public WorkingPhaseUser getWorkingPhaseUser(Integer id, Integer sid, Integer tid, Boolean isAdmin) {
+	public WorkingPhaseUser getWorkingPhaseUser(Integer id, Integer sid, Integer tid) {
 		
 		WorkingPhaseUser workingPhaseUser = null;
-		WorkingPhase p = this.workingPhaseService.getWorkingPhase(id, sid, isAdmin);
+		WorkingPhase p = this.workingPhaseService.getWorkingPhase(id, sid);
 		if (p == null)
 			throw new NotFoundException(404, "WorkingPhase " + sid + " not found");
 		
@@ -49,15 +50,15 @@ public class WorkingPhaseUserServiceImpl implements WorkingPhaseUserService {
 	
 	@Transactional(readOnly = true)
 	@Override
-	public List<WorkingPhaseUser> getWorkingPhaseUsers(Integer id, Integer sid, Boolean isAdmin) {
+	public List<WorkingPhaseUser> getWorkingPhaseUsers(Integer id, Integer sid) {
 		
-		List<WorkingPhaseUser> wpul = null;
-		WorkingPhase p = this.workingPhaseService.getWorkingPhase(id, sid, isAdmin);
+		List<WorkingPhaseUser> wpul = new ArrayList<>();
+		WorkingPhase p = this.workingPhaseService.getWorkingPhase(id, sid);
 		if (p == null)
 			throw new NotFoundException(404, "WorkingPhase " + sid + " not found");
 		
 		for(WorkingPhaseUser sf : p.getWorkingPhaseUserList()) {
-				wpul.add(workingPhaseUserDao.getWorkingPhaseUser(sid));
+				wpul.add(sf);
 		}
 		
 		return wpul;
@@ -79,9 +80,9 @@ public class WorkingPhaseUserServiceImpl implements WorkingPhaseUserService {
 			throw new ConflictException(8001, "WorkingPhaseUser already registered with id: " + input.getId());
 			
 		}
-		Boolean isAdmin = false; 
-		User u = this.userService.getUser(input.getUser_id(), isAdmin, "");
-		WorkingPhase w = this.workingPhaseService.getWorkingPhase(id, sid, isAdmin);
+		
+		User u = this.userService.getUser(input.getUser_id(), "");
+		WorkingPhase w = this.workingPhaseService.getWorkingPhase(id, sid);
 		WorkingPhaseUser workingPhaseUser = new WorkingPhaseUser();
 		workingPhaseUser.populateWorkingPhaseUserFromInput(input, w, u);
 
@@ -99,7 +100,7 @@ public class WorkingPhaseUserServiceImpl implements WorkingPhaseUserService {
 	
 	@Transactional
 	@Override
-	public WorkingPhaseUser updateWorkingPhaseUserFromJson(Integer id, Integer sid, Integer tid, WorkingPhaseUserJson input, Boolean isAdmin) {
+	public WorkingPhaseUser updateWorkingPhaseUserFromJson(Integer id, Integer sid, Integer tid, WorkingPhaseUserJson input) {
 
 		log.info("Updating workingPhaseUser with id: {}", id);
 
@@ -108,8 +109,8 @@ public class WorkingPhaseUserServiceImpl implements WorkingPhaseUserService {
 				throw new ConflictException(8001, "WorkingPhaseUser already registered with id: " + input.getId());
 //			}
 		}
-		User u = this.userService.getUser(input.getUser_id(), isAdmin, "");
-		WorkingPhase w = this.workingPhaseService.getWorkingPhase(id, sid, isAdmin);
+		User u = this.userService.getUser(input.getUser_id(), "");
+		WorkingPhase w = this.workingPhaseService.getWorkingPhase(id, sid);
 		WorkingPhaseUser workingPhaseUser = new WorkingPhaseUser();
 		workingPhaseUser.populateWorkingPhaseUserFromInput(input, w, u);
 

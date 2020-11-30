@@ -52,16 +52,15 @@ public class User extends BaseDomain {
 	@JoinTable(name = "users_roles", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
 	private List<Role> roleList;
 	
-	public void populateUserFromInput(UserJson input, List<Role> roles, Boolean editable) {
+	public void populateUserFromInput(UserJson input, List<Role> roles) {
 
-		if (editable) {
-			this.setUsername(input.getUsername());
-			this.setName(input.getName());
-			this.setSurname(input.getSurname());
-			this.setEmail(input.getEmail());
-			this.setEnabled((input.getEnabled() != null) ? input.getEnabled() : false);
-			this.setRoleList(roles);
-		}
+		this.setUsername(input.getUsername());
+		this.setName(input.getName());
+		this.setSurname(input.getSurname());
+		this.setEmail(input.getEmail());
+		this.setEnabled((input.getEnabled() != null) ? input.getEnabled() : false);
+		this.setRoleList(roles);
+
 		if (input.getPassword() != null)
 			this.setPassword(input.getPassword());
 		if (input.getAvatar() != null)

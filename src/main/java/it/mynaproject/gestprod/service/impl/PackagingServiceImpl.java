@@ -27,7 +27,7 @@ public class PackagingServiceImpl implements PackagingService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public Packaging getPackaging(Integer id, Boolean isAdmin) {
+	public Packaging getPackaging(Integer id) {
 
 		Packaging p = this.packagingDao.getPackaging(id);
 		if (p == null)
@@ -37,7 +37,7 @@ public class PackagingServiceImpl implements PackagingService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<Packaging> getPackagings(Boolean isAdmin) {
+	public List<Packaging> getPackagings() {
 
 		List<Packaging> pList = new ArrayList<Packaging>();
 		for (Packaging p : this.packagingDao.getPackagings())
@@ -78,7 +78,7 @@ public class PackagingServiceImpl implements PackagingService {
 
 	@Transactional
 	@Override
-	public Packaging updatePackagingFromJson(Integer id, PackagingJson input, Boolean isAdmin) {
+	public Packaging updatePackagingFromJson(Integer id, PackagingJson input) {
 
 		log.info("Updating packaging with id: {}", id);
 
@@ -87,7 +87,7 @@ public class PackagingServiceImpl implements PackagingService {
 				throw new ConflictException(6001, "Packaging mode " + input.getPackaging_mode() + " already registered with id: " + input.getId());
 			}
 		}
-		Packaging packaging = this.getPackaging(id, isAdmin);
+		Packaging packaging = this.getPackaging(id);
 		packaging.populatePackagingFromInput(input);
 
 		this.update(packaging);

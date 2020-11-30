@@ -7,11 +7,11 @@ import it.mynaproject.gestprod.model.MixtureModeJson;
 
 public interface MixtureModeService {
 
-	public MixtureMode getMixtureMode(Integer id, Boolean isAdmin);
-	public List<MixtureMode> getMixtureModes(Boolean isAdmin);
+	public MixtureMode getMixtureMode(Integer id);
+	public List<MixtureMode> getMixtureModes();
 	public void persist(MixtureMode mixtureMode);
 	public MixtureMode createMixtureModeFromJson(MixtureModeJson input);
 	public void update(MixtureMode mixtureMode);
-	public MixtureMode updateMixtureModeFromJson(Integer id, MixtureModeJson input, Boolean isAdmin);
+	public MixtureMode updateMixtureModeFromJson(Integer id, MixtureModeJson input);
 	public void deleteMixtureModeById(Integer id);
 }

@@ -27,10 +27,10 @@ public class SettingPhaseServiceImpl implements SettingPhaseService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public SettingPhase getSettingPhase(Integer id, Integer sid, Boolean isAdmin) {
+	public SettingPhase getSettingPhase(Integer id, Integer sid) {
 		
 		SettingPhase settingPhase = null;
-		ProductionOrder p = this.productionOrderService.getProductionOrder(id, isAdmin);
+		ProductionOrder p = this.productionOrderService.getProductionOrder(id);
 		
 		for(SettingPhase sf : p.getSettingPhaseList()) {
 			if(sf.getId() == sid) {
@@ -54,12 +54,10 @@ public class SettingPhaseServiceImpl implements SettingPhaseService {
 	public SettingPhase createSettingPhaseFromJson(Integer id, SettingPhaseJson input) {
 
 		log.info("Creating new settingPhase: {}", input.toString());
-
-		Boolean isAdmin = false; 
 		
 		// TODO da input user e production order, controllare per supportare il cambio PO
-		User u = this.userService.getUser(input.getUser_id(), isAdmin, "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(id, isAdmin);
+		User u = this.userService.getUser(input.getUser_id(), "");
+		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
 		SettingPhase settingPhase = new SettingPhase();
 		settingPhase.populateSettingPhaseFromInput(input, po, u);
 
@@ -77,13 +75,13 @@ public class SettingPhaseServiceImpl implements SettingPhaseService {
 	
 	@Transactional
 	@Override
-	public SettingPhase updateSettingPhaseFromJson(Integer id, Integer sid, SettingPhaseJson input, Boolean isAdmin) {
+	public SettingPhase updateSettingPhaseFromJson(Integer id, Integer sid, SettingPhaseJson input) {
 
 		log.info("Updating settingPhase with id: {}", id);
 
-		User u = this.userService.getUser(input.getUser_id(), isAdmin, "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id(), isAdmin);
-		SettingPhase settingPhase = this.getSettingPhase(id, sid, isAdmin);
+		User u = this.userService.getUser(input.getUser_id(), "");
+		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id());
+		SettingPhase settingPhase = this.getSettingPhase(id, sid);
 		settingPhase.populateSettingPhaseFromInput(input, po, u);
 
 		this.update(settingPhase);

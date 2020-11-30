@@ -27,7 +27,7 @@ public class MixtureModeServiceImpl implements MixtureModeService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public MixtureMode getMixtureMode(Integer id, Boolean isAdmin) {
+	public MixtureMode getMixtureMode(Integer id) {
 
 		MixtureMode p = this.mixtureModeDao.getMixtureMode(id);
 		if (p == null)
@@ -37,7 +37,7 @@ public class MixtureModeServiceImpl implements MixtureModeService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<MixtureMode> getMixtureModes(Boolean isAdmin) {
+	public List<MixtureMode> getMixtureModes() {
 
 		List<MixtureMode> pList = new ArrayList<MixtureMode>();
 		for (MixtureMode p : this.mixtureModeDao.getMixtureModes())
@@ -78,7 +78,7 @@ public class MixtureModeServiceImpl implements MixtureModeService {
 
 	@Transactional
 	@Override
-	public MixtureMode updateMixtureModeFromJson(Integer id, MixtureModeJson input, Boolean isAdmin) {
+	public MixtureMode updateMixtureModeFromJson(Integer id, MixtureModeJson input) {
 
 		log.info("Updating mixtureMode with id: {}", id);
 
@@ -87,7 +87,7 @@ public class MixtureModeServiceImpl implements MixtureModeService {
 				throw new ConflictException(5001, "MixtureMode name " + input.getName() + " already registered with id: " + input.getId());
 			}
 		}
-		MixtureMode mixtureMode = this.getMixtureMode(id, isAdmin);
+		MixtureMode mixtureMode = this.getMixtureMode(id);
 		mixtureMode.populateMixtureModeFromInput(input);
 
 		this.update(mixtureMode);

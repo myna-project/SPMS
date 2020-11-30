@@ -51,7 +51,7 @@ public class CustomerController {
 
 		List<CustomerJson> customers = new ArrayList<>();
 
-		for (Customer customer : this.customerService.getCustomers(true))
+		for (Customer customer : this.customerService.getCustomers())
 			customers.add(JsonUtil.customerToCustomerJson(customer));
 
 		return customers;
@@ -65,7 +65,7 @@ public class CustomerController {
 
 		log.info("Request for customer with id {}", id);
 
-		return JsonUtil.customerToCustomerJson(this.customerService.getCustomer(id, true));
+		return JsonUtil.customerToCustomerJson(this.customerService.getCustomer(id));
 	}
 
 	@ApiResponses({
@@ -85,7 +85,7 @@ public class CustomerController {
 	@PutMapping(value = "/admin/customers/{id}")
 	public Object updateCustomer(@PathVariable("id") Integer id, @Valid @RequestBody CustomerJson input) {
 
-		Customer customer = this.customerService.updateCustomerFromJson(id, input, true);
+		Customer customer = this.customerService.updateCustomerFromJson(id, input);
 
 		return new ResponseEntity<>(JsonUtil.customerToCustomerJson(customer), new HttpHeaders(), HttpStatus.OK);
 	}
@@ -117,7 +117,7 @@ public class CustomerController {
 
 		List<CustomerJson> customers = new ArrayList<>();
 
-		for (Customer customer : this.customerService.getCustomers(false))
+		for (Customer customer : this.customerService.getCustomers())
 			customers.add(JsonUtil.customerToCustomerJson(customer));
 
 		return customers;
@@ -131,7 +131,7 @@ public class CustomerController {
 
 		log.info("Request for customer with id {}", id);
 
-		return JsonUtil.customerToCustomerJson(this.customerService.getCustomer(id, false));
+		return JsonUtil.customerToCustomerJson(this.customerService.getCustomer(id));
 	}
 
 	/*
@@ -150,7 +150,7 @@ public class CustomerController {
 
 		List<CustomerJson> customers = new ArrayList<>();
 
-		for (Customer customer : this.customerService.getCustomers(false))
+		for (Customer customer : this.customerService.getCustomers())
 			customers.add(JsonUtil.customerToCustomerJson(customer));
 
 		return customers;
@@ -164,6 +164,6 @@ public class CustomerController {
 
 		log.info("Request for customer with id {}", id);
 
-		return JsonUtil.customerToCustomerJson(this.customerService.getCustomer(id, false));
+		return JsonUtil.customerToCustomerJson(this.customerService.getCustomer(id));
 	}
 }

@@ -50,9 +50,8 @@ public class WorkingPhaseUserController {
 		log.info("Request for workingPhaseUsers in ProductionOrder with id {}", id);
 		
 		List<WorkingPhaseUserJson> ret = new ArrayList<>();
-		Boolean isAdmin = true;
 		
-		for(WorkingPhaseUser sf : this.workingPhaseUserService.getWorkingPhaseUsers(id, sid, isAdmin)) {
+		for(WorkingPhaseUser sf : this.workingPhaseUserService.getWorkingPhaseUsers(id, sid)) {
 			ret.add(JsonUtil.workingPhaseUserToWorkingPhaseUserJson(sf));
 		}
 		return ret;
@@ -65,9 +64,8 @@ public class WorkingPhaseUserController {
 	public WorkingPhaseUserJson getWorkingPhaseUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @PathVariable("tid") Integer tid) {
 
 		log.info("Request for workingPhaseUser with id {}", sid);
-		Boolean isAdmin = true;
 		
-		return JsonUtil.workingPhaseUserToWorkingPhaseUserJson(this.workingPhaseUserService.getWorkingPhaseUser(id, sid, tid, isAdmin));
+		return JsonUtil.workingPhaseUserToWorkingPhaseUserJson(this.workingPhaseUserService.getWorkingPhaseUser(id, sid, tid));
 	}
 	
 	@ApiResponses({
@@ -87,7 +85,7 @@ public class WorkingPhaseUserController {
 	@PutMapping(value = "/admin/productionorders/{id}/workingphases/{sid}/shifts/{tid}")
 	public Object updateWorkingPhaseUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @PathVariable("tid") Integer tid, @Valid @RequestBody WorkingPhaseUserJson input) {
 
-		WorkingPhaseUser workingPhaseUser = this.workingPhaseUserService.updateWorkingPhaseUserFromJson(id, sid, tid, input, true);
+		WorkingPhaseUser workingPhaseUser = this.workingPhaseUserService.updateWorkingPhaseUserFromJson(id, sid, tid, input);
 
 		return new ResponseEntity<>(JsonUtil.workingPhaseUserToWorkingPhaseUserJson(workingPhaseUser), new HttpHeaders(), HttpStatus.OK);
 	}
@@ -118,9 +116,8 @@ public class WorkingPhaseUserController {
 		log.info("Request for workingPhaseUsers in ProductionOrder with id {}", id);
 		
 		List<WorkingPhaseUserJson> ret = new ArrayList<>();
-		Boolean isAdmin = false;
 		
-		for(WorkingPhaseUser sf : this.workingPhaseUserService.getWorkingPhaseUsers(id, sid, isAdmin)) {
+		for(WorkingPhaseUser sf : this.workingPhaseUserService.getWorkingPhaseUsers(id, sid)) {
 			ret.add(JsonUtil.workingPhaseUserToWorkingPhaseUserJson(sf));
 		}
 		return ret;
@@ -133,9 +130,8 @@ public class WorkingPhaseUserController {
 	public WorkingPhaseUserJson getWorkingPhaseUserForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @PathVariable("tid") Integer tid) {
 
 		log.info("Request for workingPhaseUser with id {}", sid);
-		Boolean isAdmin = false;
 		
-		return JsonUtil.workingPhaseUserToWorkingPhaseUserJson(this.workingPhaseUserService.getWorkingPhaseUser(id, sid, tid, isAdmin));
+		return JsonUtil.workingPhaseUserToWorkingPhaseUserJson(this.workingPhaseUserService.getWorkingPhaseUser(id, sid, tid));
 	}
 	
 	@ApiResponses({
@@ -155,7 +151,7 @@ public class WorkingPhaseUserController {
 	@PutMapping(value = "/resp/productionorders/{id}/workingphases/{sid}/shifts/{tid}")
 	public Object updateWorkingPhaseUserForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @PathVariable("tid") Integer tid, @Valid @RequestBody WorkingPhaseUserJson input) {
 
-		WorkingPhaseUser workingPhaseUser = this.workingPhaseUserService.updateWorkingPhaseUserFromJson(id, sid, tid, input, true);
+		WorkingPhaseUser workingPhaseUser = this.workingPhaseUserService.updateWorkingPhaseUserFromJson(id, sid, tid, input);
 
 		return new ResponseEntity<>(JsonUtil.workingPhaseUserToWorkingPhaseUserJson(workingPhaseUser), new HttpHeaders(), HttpStatus.OK);
 	}
@@ -186,9 +182,8 @@ public class WorkingPhaseUserController {
 		log.info("Request for workingPhaseUsers in ProductionOrder with id {}", id);
 		
 		List<WorkingPhaseUserJson> ret = new ArrayList<>();
-		Boolean isAdmin = false;
 		
-		for(WorkingPhaseUser sf : this.workingPhaseUserService.getWorkingPhaseUsers(id, sid, isAdmin)) {
+		for(WorkingPhaseUser sf : this.workingPhaseUserService.getWorkingPhaseUsers(id, sid)) {
 			ret.add(JsonUtil.workingPhaseUserToWorkingPhaseUserJson(sf));
 		}
 		return ret;
@@ -201,9 +196,8 @@ public class WorkingPhaseUserController {
 	public WorkingPhaseUserJson getWorkingPhaseUserForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @PathVariable("tid") Integer tid) {
 
 		log.info("Request for workingPhaseUser with id {}", sid);
-		Boolean isAdmin = false;
 		
-		return JsonUtil.workingPhaseUserToWorkingPhaseUserJson(this.workingPhaseUserService.getWorkingPhaseUser(id, sid, tid, isAdmin));
+		return JsonUtil.workingPhaseUserToWorkingPhaseUserJson(this.workingPhaseUserService.getWorkingPhaseUser(id, sid, tid));
 	}
 	
 	@ApiResponses({
@@ -223,7 +217,7 @@ public class WorkingPhaseUserController {
 	@PutMapping(value = "/productionorders/{id}/workingphases/{sid}/shifts/{tid}")
 	public Object updateWorkingPhaseUserForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @PathVariable("tid") Integer tid, @Valid @RequestBody WorkingPhaseUserJson input) {
 
-		WorkingPhaseUser workingPhaseUser = this.workingPhaseUserService.updateWorkingPhaseUserFromJson(id, sid, tid, input, true);
+		WorkingPhaseUser workingPhaseUser = this.workingPhaseUserService.updateWorkingPhaseUserFromJson(id, sid, tid, input);
 
 		return new ResponseEntity<>(JsonUtil.workingPhaseUserToWorkingPhaseUserJson(workingPhaseUser), new HttpHeaders(), HttpStatus.OK);
 	}

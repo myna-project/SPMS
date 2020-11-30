@@ -7,11 +7,11 @@ import it.mynaproject.gestprod.model.RawMaterialJson;
 
 public interface RawMaterialService {
 
-	public RawMaterial getRawMaterial(Integer id, Boolean isAdmin);
-	public List<RawMaterial> getRawMaterials(Boolean isAdmin);
+	public RawMaterial getRawMaterial(Integer id);
+	public List<RawMaterial> getRawMaterials();
 	public void persist(RawMaterial customer);
 	public RawMaterial createRawMaterialFromJson(RawMaterialJson input);
 	public void update(RawMaterial customer);
-	public RawMaterial updateRawMaterialFromJson(Integer id, RawMaterialJson input, Boolean isAdmin);
+	public RawMaterial updateRawMaterialFromJson(Integer id, RawMaterialJson input);
 	public void deleteRawMaterialById(Integer id);
 }

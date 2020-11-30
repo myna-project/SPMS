@@ -27,15 +27,15 @@ public class SystemPreparationPhaseServiceImpl implements SystemPreparationPhase
 
 	@Transactional(readOnly = true)
 	@Override
-	public SystemPreparationPhase getSystemPreparationPhase(Integer id, Integer sid, Boolean isAdmin) {
+	public SystemPreparationPhase getSystemPreparationPhase(Integer id, Integer sid) {
 		
 		SystemPreparationPhase systemPreparationPhase = null;
-		ProductionOrder p = this.productionOrderService.getProductionOrder(id, isAdmin);
+		ProductionOrder p = this.productionOrderService.getProductionOrder(id);
 		
 		if (p == null)
 			throw new NotFoundException(404, "ProductionOrder " + id + " not found");
 		
-		for(SystemPreparationPhase sf : this.productionOrderService.getProductionOrder(id, isAdmin).getSystemPreparationPhaseList()) {
+		for(SystemPreparationPhase sf : this.productionOrderService.getProductionOrder(id).getSystemPreparationPhaseList()) {
 			if(sf.getId() == sid) {
 				systemPreparationPhase = sf;
 			}
@@ -62,9 +62,8 @@ public class SystemPreparationPhaseServiceImpl implements SystemPreparationPhase
 			throw new ConflictException(8001, "SystemPreparationPhase already registered with id: " + input.getId());
 			
 		}
-		Boolean isAdmin = false;
-		User u = this.userService.getUser(input.getUser_id(), isAdmin, "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(id, isAdmin);
+		User u = this.userService.getUser(input.getUser_id(), "");
+		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
 		SystemPreparationPhase systemPreparationPhase = new SystemPreparationPhase();
 		systemPreparationPhase.populateSystemPreparationPhaseFromInput(input, po, u);
 
@@ -82,7 +81,7 @@ public class SystemPreparationPhaseServiceImpl implements SystemPreparationPhase
 	
 	@Transactional
 	@Override
-	public SystemPreparationPhase updateSystemPreparationPhaseFromJson(Integer id, Integer sid, SystemPreparationPhaseJson input, Boolean isAdmin) {
+	public SystemPreparationPhase updateSystemPreparationPhaseFromJson(Integer id, Integer sid, SystemPreparationPhaseJson input) {
 
 		log.info("Updating systemPreparationPhase with id: {}", id);
 
@@ -91,9 +90,9 @@ public class SystemPreparationPhaseServiceImpl implements SystemPreparationPhase
 				throw new ConflictException(8001, "SystemPreparationPhase already registered with id: " + input.getId());
 			}
 		}
-		User u = this.userService.getUser(input.getUser_id(), isAdmin, "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id(), isAdmin);
-		SystemPreparationPhase systemPreparationPhase = this.getSystemPreparationPhase(id, sid, isAdmin);
+		User u = this.userService.getUser(input.getUser_id(), "");
+		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id());
+		SystemPreparationPhase systemPreparationPhase = this.getSystemPreparationPhase(id, sid);
 		systemPreparationPhase.populateSystemPreparationPhaseFromInput(input, po, u);
 
 		this.update(systemPreparationPhase);

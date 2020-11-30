@@ -51,9 +51,8 @@ public class SystemPreparationPhaseController {
 		log.info("Request for systemPreparationPhases in ProductionOrder with id {}", id);
 		
 		List<SystemPreparationPhaseJson> ret = new ArrayList<>();
-		Boolean isAdmin = true;
 		
-		for(SystemPreparationPhase sf : this.productionOrderService.getProductionOrder(id, isAdmin).getSystemPreparationPhaseList()) {
+		for(SystemPreparationPhase sf : this.productionOrderService.getProductionOrder(id).getSystemPreparationPhaseList()) {
 			ret.add(JsonUtil.systemPreparationPhaseToSystemPreparationPhaseJson(sf));
 		}
 		return ret;
@@ -66,9 +65,8 @@ public class SystemPreparationPhaseController {
 	public SystemPreparationPhaseJson getSystemPreparationPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for systemPreparationPhase with id {}", sid);
-		Boolean isAdmin = true;
 		
-		return JsonUtil.systemPreparationPhaseToSystemPreparationPhaseJson(this.systemPreparationPhaseService.getSystemPreparationPhase(id, sid, isAdmin));
+		return JsonUtil.systemPreparationPhaseToSystemPreparationPhaseJson(this.systemPreparationPhaseService.getSystemPreparationPhase(id, sid));
 	}
 	
 	@ApiResponses({
@@ -88,7 +86,7 @@ public class SystemPreparationPhaseController {
 	@PutMapping(value = "/admin/productionorders/{id}/systempreparationphases/{sid}")
 	public Object updateSystemPreparationPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody SystemPreparationPhaseJson input) {
 
-		SystemPreparationPhase systemPreparationPhase = this.systemPreparationPhaseService.updateSystemPreparationPhaseFromJson(id, sid, input, true);
+		SystemPreparationPhase systemPreparationPhase = this.systemPreparationPhaseService.updateSystemPreparationPhaseFromJson(id, sid, input);
 
 		return new ResponseEntity<>(JsonUtil.systemPreparationPhaseToSystemPreparationPhaseJson(systemPreparationPhase), new HttpHeaders(), HttpStatus.OK);
 	}
@@ -119,9 +117,8 @@ public class SystemPreparationPhaseController {
 		log.info("Request for systemPreparationPhases in ProductionOrder with id {}", id);
 		
 		List<SystemPreparationPhaseJson> ret = new ArrayList<>();
-		Boolean isAdmin = false;
 		
-		for(SystemPreparationPhase sf : this.productionOrderService.getProductionOrder(id, isAdmin).getSystemPreparationPhaseList()) {
+		for(SystemPreparationPhase sf : this.productionOrderService.getProductionOrder(id).getSystemPreparationPhaseList()) {
 			ret.add(JsonUtil.systemPreparationPhaseToSystemPreparationPhaseJson(sf));
 		}
 		return ret;
@@ -134,9 +131,8 @@ public class SystemPreparationPhaseController {
 	public SystemPreparationPhaseJson getSystemPreparationPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for systemPreparationPhase with id {}", sid);
-		Boolean isAdmin = false;
 		
-		return JsonUtil.systemPreparationPhaseToSystemPreparationPhaseJson(this.systemPreparationPhaseService.getSystemPreparationPhase(id, sid, isAdmin));
+		return JsonUtil.systemPreparationPhaseToSystemPreparationPhaseJson(this.systemPreparationPhaseService.getSystemPreparationPhase(id, sid));
 	}
 	
 	@ApiResponses({
@@ -156,8 +152,7 @@ public class SystemPreparationPhaseController {
 	@PutMapping(value = "/resp/productionorders/{id}/systempreparationphases/{sid}")
 	public Object updateSystemPreparationPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody SystemPreparationPhaseJson input) {
 
-		Boolean isAdmin = false;
-		SystemPreparationPhase systemPreparationPhase = this.systemPreparationPhaseService.updateSystemPreparationPhaseFromJson(id, sid, input, isAdmin);
+		SystemPreparationPhase systemPreparationPhase = this.systemPreparationPhaseService.updateSystemPreparationPhaseFromJson(id, sid, input);
 
 		return new ResponseEntity<>(JsonUtil.systemPreparationPhaseToSystemPreparationPhaseJson(systemPreparationPhase), new HttpHeaders(), HttpStatus.OK);
 	}
@@ -188,9 +183,8 @@ public class SystemPreparationPhaseController {
 		log.info("Request for systemPreparationPhases in ProductionOrder with id {}", id);
 		
 		List<SystemPreparationPhaseJson> ret = new ArrayList<>();
-		Boolean isAdmin = false;
 		
-		for(SystemPreparationPhase sf : this.productionOrderService.getProductionOrder(id, isAdmin).getSystemPreparationPhaseList()) {
+		for(SystemPreparationPhase sf : this.productionOrderService.getProductionOrder(id).getSystemPreparationPhaseList()) {
 			ret.add(JsonUtil.systemPreparationPhaseToSystemPreparationPhaseJson(sf));
 		}
 		return ret;
@@ -203,9 +197,8 @@ public class SystemPreparationPhaseController {
 	public SystemPreparationPhaseJson getSystemPreparationPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for systemPreparationPhase with id {}", sid);
-		Boolean isAdmin = false;
 		
-		return JsonUtil.systemPreparationPhaseToSystemPreparationPhaseJson(this.systemPreparationPhaseService.getSystemPreparationPhase(id, sid, isAdmin));
+		return JsonUtil.systemPreparationPhaseToSystemPreparationPhaseJson(this.systemPreparationPhaseService.getSystemPreparationPhase(id, sid));
 	}
 	
 	@ApiResponses({
@@ -225,8 +218,7 @@ public class SystemPreparationPhaseController {
 	@PutMapping(value = "/productionorders/{id}/systempreparationphases/{sid}")
 	public Object updateSystemPreparationPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody SystemPreparationPhaseJson input) {
 
-		Boolean isAdmin = false;
-		SystemPreparationPhase systemPreparationPhase = this.systemPreparationPhaseService.updateSystemPreparationPhaseFromJson(id, sid, input, isAdmin);
+		SystemPreparationPhase systemPreparationPhase = this.systemPreparationPhaseService.updateSystemPreparationPhaseFromJson(id, sid, input);
 
 		return new ResponseEntity<>(JsonUtil.systemPreparationPhaseToSystemPreparationPhaseJson(systemPreparationPhase), new HttpHeaders(), HttpStatus.OK);
 	}

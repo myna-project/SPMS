@@ -26,15 +26,15 @@ public class WorkingPhaseServiceImpl implements WorkingPhaseService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public WorkingPhase getWorkingPhase(Integer id, Integer sid, Boolean isAdmin) {
+	public WorkingPhase getWorkingPhase(Integer id, Integer sid) {
 		
 		WorkingPhase workingPhase = null;
-		ProductionOrder p = this.productionOrderService.getProductionOrder(id, isAdmin);
+		ProductionOrder p = this.productionOrderService.getProductionOrder(id);
 		
 		if (p == null)
 			throw new NotFoundException(404, "ProductionOrder " + id + " not found");
 		
-		for(WorkingPhase sf : this.productionOrderService.getProductionOrder(id, isAdmin).getWorkingPhaseList()) {
+		for(WorkingPhase sf : this.productionOrderService.getProductionOrder(id).getWorkingPhaseList()) {
 			if(sf.getId() == sid) {
 				workingPhase = sf;
 			}
@@ -61,8 +61,8 @@ public class WorkingPhaseServiceImpl implements WorkingPhaseService {
 			throw new ConflictException(8001, "WorkingPhase already registered with id: " + input.getId());
 			
 		}
-		Boolean isAdmin = false;
-		ProductionOrder po = this.productionOrderService.getProductionOrder(id, isAdmin);
+		
+		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
 		WorkingPhase workingPhase = new WorkingPhase();
 		workingPhase.populateWorkingPhaseFromInput(input, po);
 
@@ -80,7 +80,7 @@ public class WorkingPhaseServiceImpl implements WorkingPhaseService {
 	
 	@Transactional
 	@Override
-	public WorkingPhase updateWorkingPhaseFromJson(Integer id, Integer sid, WorkingPhaseJson input, Boolean isAdmin) { 
+	public WorkingPhase updateWorkingPhaseFromJson(Integer id, Integer sid, WorkingPhaseJson input) { 
 
 		log.info("Updating workingPhase with id: {}", id);
 
@@ -89,8 +89,8 @@ public class WorkingPhaseServiceImpl implements WorkingPhaseService {
 				throw new ConflictException(8001, "WorkingPhase already registered with id: " + input.getId());
 			}
 		}
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id(), isAdmin);
-		WorkingPhase workingPhase = this.getWorkingPhase(id, sid, isAdmin);
+		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id());
+		WorkingPhase workingPhase = this.getWorkingPhase(id, sid);
 		workingPhase.populateWorkingPhaseFromInput(input, po);
 
 		this.update(workingPhase);

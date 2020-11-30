@@ -27,15 +27,15 @@ public class CleaningPhaseServiceImpl implements CleaningPhaseService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public CleaningPhase getCleaningPhase(Integer id, Integer sid, Boolean isAdmin) {
+	public CleaningPhase getCleaningPhase(Integer id, Integer sid) {
 		
 		CleaningPhase cleaningPhase = null;
-		ProductionOrder p = this.productionOrderService.getProductionOrder(id, isAdmin);
+		ProductionOrder p = this.productionOrderService.getProductionOrder(id);
 		
 		if (p == null)
 			throw new NotFoundException(404, "ProductionOrder " + id + " not found");
 		
-		for(CleaningPhase sf : this.productionOrderService.getProductionOrder(id, isAdmin).getCleaningPhaseList()) {
+		for(CleaningPhase sf : this.productionOrderService.getProductionOrder(id).getCleaningPhaseList()) {
 			if(sf.getId() == sid) {
 				cleaningPhase = sf;
 			}
@@ -62,9 +62,8 @@ public class CleaningPhaseServiceImpl implements CleaningPhaseService {
 			throw new ConflictException(8001, "CleaningPhase already registered with id: " + input.getId());
 			
 		}
-		Boolean isAdmin = false; // TODO fix
-		User u = this.userService.getUser(input.getUser_id(), isAdmin, "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(id, isAdmin);
+		User u = this.userService.getUser(input.getUser_id(), "");
+		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
 		CleaningPhase cleaningPhase = new CleaningPhase();
 		cleaningPhase.populateCleaningPhaseFromInput(input, po, u);
 
@@ -82,7 +81,7 @@ public class CleaningPhaseServiceImpl implements CleaningPhaseService {
 	
 	@Transactional
 	@Override
-	public CleaningPhase updateCleaningPhaseFromJson(Integer id, Integer sid, CleaningPhaseJson input, Boolean isAdmin) {
+	public CleaningPhase updateCleaningPhaseFromJson(Integer id, Integer sid, CleaningPhaseJson input) {
 
 		log.info("Updating cleaningPhase with id: {}", id);
 
@@ -91,9 +90,9 @@ public class CleaningPhaseServiceImpl implements CleaningPhaseService {
 				throw new ConflictException(8001, "CleaningPhase already registered with id: " + input.getId());
 			}
 		}
-		User u = this.userService.getUser(input.getUser_id(), isAdmin, "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id(), isAdmin);
-		CleaningPhase cleaningPhase = this.getCleaningPhase(id, sid, isAdmin);
+		User u = this.userService.getUser(input.getUser_id(), "");
+		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id());
+		CleaningPhase cleaningPhase = this.getCleaningPhase(id, sid);
 		cleaningPhase.populateCleaningPhaseFromInput(input, po, u);
 
 		this.update(cleaningPhase);

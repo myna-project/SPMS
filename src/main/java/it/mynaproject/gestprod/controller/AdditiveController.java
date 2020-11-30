@@ -51,7 +51,7 @@ public class AdditiveController {
 
 		List<AdditiveJson> additives = new ArrayList<>();
 
-		for (Additive additive : this.additiveService.getAdditives(true))
+		for (Additive additive : this.additiveService.getAdditives())
 			additives.add(JsonUtil.additiveToAdditiveJson(additive));
 
 		return additives;
@@ -65,7 +65,7 @@ public class AdditiveController {
 
 		log.info("Request for additive with id {}", id);
 
-		return JsonUtil.additiveToAdditiveJson(this.additiveService.getAdditive(id, true));
+		return JsonUtil.additiveToAdditiveJson(this.additiveService.getAdditive(id));
 	}
 
 	@ApiResponses({
@@ -85,7 +85,7 @@ public class AdditiveController {
 	@PutMapping(value = "/admin/additives/{id}")
 	public Object updateAdditive(@PathVariable("id") Integer id, @Valid @RequestBody AdditiveJson input) {
 
-		Additive additive = this.additiveService.updateAdditiveFromJson(id, input, true);
+		Additive additive = this.additiveService.updateAdditiveFromJson(id, input);
 
 		return new ResponseEntity<>(JsonUtil.additiveToAdditiveJson(additive), new HttpHeaders(), HttpStatus.OK);
 	}
@@ -117,7 +117,7 @@ public class AdditiveController {
 
 		List<AdditiveJson> additives = new ArrayList<>();
 
-		for (Additive additive : this.additiveService.getAdditives(false))
+		for (Additive additive : this.additiveService.getAdditives())
 			additives.add(JsonUtil.additiveToAdditiveJson(additive));
 
 		return additives;
@@ -131,7 +131,7 @@ public class AdditiveController {
 
 		log.info("Request for additive with id {}", id);
 
-		return JsonUtil.additiveToAdditiveJson(this.additiveService.getAdditive(id, false));
+		return JsonUtil.additiveToAdditiveJson(this.additiveService.getAdditive(id));
 	}
 
 	/*
@@ -150,7 +150,7 @@ public class AdditiveController {
 
 		List<AdditiveJson> additives = new ArrayList<>();
 
-		for (Additive additive : this.additiveService.getAdditives(false))
+		for (Additive additive : this.additiveService.getAdditives())
 			additives.add(JsonUtil.additiveToAdditiveJson(additive));
 
 		return additives;
@@ -164,6 +164,6 @@ public class AdditiveController {
 
 		log.info("Request for additive with id {}", id);
 
-		return JsonUtil.additiveToAdditiveJson(this.additiveService.getAdditive(id, false));
+		return JsonUtil.additiveToAdditiveJson(this.additiveService.getAdditive(id));
 	}
 }

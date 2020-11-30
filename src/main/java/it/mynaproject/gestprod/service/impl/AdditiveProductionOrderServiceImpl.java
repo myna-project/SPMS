@@ -18,7 +18,7 @@ import it.mynaproject.gestprod.model.AdditiveProductionOrderJson;
 import it.mynaproject.gestprod.service.AdditiveProductionOrderService;
 
 @Service
-public class AdditiveProductionOrderServiceImpl implements AdditiveProductionOrderService { // TODO fix codici errore (mancano nella definizione dei servizi
+public class AdditiveProductionOrderServiceImpl implements AdditiveProductionOrderService {
 
 	final private Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -28,7 +28,7 @@ public class AdditiveProductionOrderServiceImpl implements AdditiveProductionOrd
 	// TODO su tutti ricontrollare codici errore
 	@Transactional(readOnly = true)
 	@Override
-	public AdditiveProductionOrder getAdditiveProductionOrder(Integer additiveId, Integer productionOrderId, Boolean isAdmin) {
+	public AdditiveProductionOrder getAdditiveProductionOrder(Integer additiveId, Integer productionOrderId) {
 
 		AdditiveProductionOrder p = this.additiveProductionOrderDao.getAdditiveProductionOrder(additiveId, productionOrderId);
 		if (p == null)
@@ -38,7 +38,7 @@ public class AdditiveProductionOrderServiceImpl implements AdditiveProductionOrd
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<AdditiveProductionOrder> getAdditiveProductionOrders(Boolean isAdmin) {
+	public List<AdditiveProductionOrder> getAdditiveProductionOrders() {
 
 		List<AdditiveProductionOrder> pList = new ArrayList<AdditiveProductionOrder>();
 		for (AdditiveProductionOrder p : this.additiveProductionOrderDao.getAdditiveProductionOrders())
@@ -78,7 +78,7 @@ public class AdditiveProductionOrderServiceImpl implements AdditiveProductionOrd
 
 	@Transactional
 	@Override
-	public AdditiveProductionOrder updateAdditiveProductionOrderFromJson(Integer additiveId, Integer productionOrderId, AdditiveProductionOrderJson input, Boolean isAdmin) {
+	public AdditiveProductionOrder updateAdditiveProductionOrderFromJson(Integer additiveId, Integer productionOrderId, AdditiveProductionOrderJson input) {
 
 		log.info("Updating additiveProductionOrder with id: {}", additiveId, productionOrderId);
 
@@ -87,7 +87,7 @@ public class AdditiveProductionOrderServiceImpl implements AdditiveProductionOrd
 				throw new ConflictException(2001, "AdditiveProductionOrder (additive id: " + input.getAdditive_id() + ", PO id: " + input.getProduction_order_code_id() + ") already registered.");
 			}
 		}
-		AdditiveProductionOrder additiveProductionOrder = this.getAdditiveProductionOrder(additiveId, productionOrderId, isAdmin);
+		AdditiveProductionOrder additiveProductionOrder = this.getAdditiveProductionOrder(additiveId, productionOrderId);
 		additiveProductionOrder.populateAdditiveProductionOrderFromInput(input);
 
 		this.update(additiveProductionOrder);

@@ -27,7 +27,7 @@ public class RawMaterialServiceImpl implements RawMaterialService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public RawMaterial getRawMaterial(Integer id, Boolean isAdmin) {
+	public RawMaterial getRawMaterial(Integer id) {
 
 		RawMaterial p = this.rawMaterialDao.getRawMaterial(id);
 		if (p == null)
@@ -37,7 +37,7 @@ public class RawMaterialServiceImpl implements RawMaterialService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<RawMaterial> getRawMaterials(Boolean isAdmin) {
+	public List<RawMaterial> getRawMaterials() {
 
 		List<RawMaterial> pList = new ArrayList<RawMaterial>();
 		for (RawMaterial p : this.rawMaterialDao.getRawMaterials())
@@ -78,7 +78,7 @@ public class RawMaterialServiceImpl implements RawMaterialService {
 
 	@Transactional
 	@Override
-	public RawMaterial updateRawMaterialFromJson(Integer id, RawMaterialJson input, Boolean isAdmin) {
+	public RawMaterial updateRawMaterialFromJson(Integer id, RawMaterialJson input) {
 
 		log.info("Updating rawMaterial with id: {}", id);
 
@@ -87,7 +87,7 @@ public class RawMaterialServiceImpl implements RawMaterialService {
 				throw new ConflictException(2001, "RawMaterial name " + input.getName() + " already registered with id: " + input.getId());
 			}
 		}
-		RawMaterial rawMaterial = this.getRawMaterial(id, isAdmin);
+		RawMaterial rawMaterial = this.getRawMaterial(id);
 		rawMaterial.populateRawMaterialFromInput(input);
 
 		this.update(rawMaterial);

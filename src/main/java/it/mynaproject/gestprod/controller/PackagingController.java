@@ -51,7 +51,7 @@ public class PackagingController {
 
 		List<PackagingJson> packagings = new ArrayList<>();
 
-		for (Packaging packaging : this.packagingService.getPackagings(true))
+		for (Packaging packaging : this.packagingService.getPackagings())
 			packagings.add(JsonUtil.packagingToPackagingJson(packaging));
 
 		return packagings;
@@ -65,7 +65,7 @@ public class PackagingController {
 
 		log.info("Request for packaging with id {}", id);
 
-		return JsonUtil.packagingToPackagingJson(this.packagingService.getPackaging(id, true));
+		return JsonUtil.packagingToPackagingJson(this.packagingService.getPackaging(id));
 	}
 
 	@ApiResponses({
@@ -85,7 +85,7 @@ public class PackagingController {
 	@PutMapping(value = "/admin/packagings/{id}")
 	public Object updatePackaging(@PathVariable("id") Integer id, @Valid @RequestBody PackagingJson input) {
 
-		Packaging packaging = this.packagingService.updatePackagingFromJson(id, input, true);
+		Packaging packaging = this.packagingService.updatePackagingFromJson(id, input);
 
 		return new ResponseEntity<>(JsonUtil.packagingToPackagingJson(packaging), new HttpHeaders(), HttpStatus.OK);
 	}
@@ -117,7 +117,7 @@ public class PackagingController {
 
 		List<PackagingJson> packagings = new ArrayList<>();
 
-		for (Packaging packaging : this.packagingService.getPackagings(false))
+		for (Packaging packaging : this.packagingService.getPackagings())
 			packagings.add(JsonUtil.packagingToPackagingJson(packaging));
 
 		return packagings;
@@ -131,7 +131,7 @@ public class PackagingController {
 
 		log.info("Request for packaging with id {}", id);
 
-		return JsonUtil.packagingToPackagingJson(this.packagingService.getPackaging(id, false));
+		return JsonUtil.packagingToPackagingJson(this.packagingService.getPackaging(id));
 	}
 
 	/*
@@ -150,7 +150,7 @@ public class PackagingController {
 
 		List<PackagingJson> packagings = new ArrayList<>();
 
-		for (Packaging packaging : this.packagingService.getPackagings(false))
+		for (Packaging packaging : this.packagingService.getPackagings())
 			packagings.add(JsonUtil.packagingToPackagingJson(packaging));
 
 		return packagings;
@@ -164,6 +164,6 @@ public class PackagingController {
 
 		log.info("Request for packaging with id {}", id);
 
-		return JsonUtil.packagingToPackagingJson(this.packagingService.getPackaging(id, false));
+		return JsonUtil.packagingToPackagingJson(this.packagingService.getPackaging(id));
 	}
 }

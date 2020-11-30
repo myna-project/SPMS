@@ -51,9 +51,8 @@ public class ValidationPhaseController {
 		log.info("Request for validationPhases in ProductionOrder with id {}", id);
 		
 		List<ValidationPhaseJson> ret = new ArrayList<>();
-		Boolean isAdmin = true;
 		
-		for(ValidationPhase sf : this.productionOrderService.getProductionOrder(id, isAdmin).getValidationPhaseList()) {
+		for(ValidationPhase sf : this.productionOrderService.getProductionOrder(id).getValidationPhaseList()) {
 			ret.add(JsonUtil.validationPhaseToValidationPhaseJson(sf));
 		}
 		return ret;
@@ -66,9 +65,8 @@ public class ValidationPhaseController {
 	public ValidationPhaseJson getValidationPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for validationPhase with id {}", sid);
-		Boolean isAdmin = true;
 		
-		return JsonUtil.validationPhaseToValidationPhaseJson(this.validationPhaseService.getValidationPhase(id, sid, isAdmin));
+		return JsonUtil.validationPhaseToValidationPhaseJson(this.validationPhaseService.getValidationPhase(id, sid));
 	}
 	
 	@ApiResponses({
@@ -88,7 +86,7 @@ public class ValidationPhaseController {
 	@PutMapping(value = "/admin/productionorders/{id}/validationphases/{sid}")
 	public Object updateValidationPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody ValidationPhaseJson input) {
 
-		ValidationPhase validationPhase = this.validationPhaseService.updateValidationPhaseFromJson(id, sid, input, true);
+		ValidationPhase validationPhase = this.validationPhaseService.updateValidationPhaseFromJson(id, sid, input);
 
 		return new ResponseEntity<>(JsonUtil.validationPhaseToValidationPhaseJson(validationPhase), new HttpHeaders(), HttpStatus.OK);
 	}
@@ -119,9 +117,8 @@ public class ValidationPhaseController {
 		log.info("Request for validationPhases in ProductionOrder with id {}", id);
 		
 		List<ValidationPhaseJson> ret = new ArrayList<>();
-		Boolean isAdmin = false;
 		
-		for(ValidationPhase sf : this.productionOrderService.getProductionOrder(id, isAdmin).getValidationPhaseList()) {
+		for(ValidationPhase sf : this.productionOrderService.getProductionOrder(id).getValidationPhaseList()) {
 			ret.add(JsonUtil.validationPhaseToValidationPhaseJson(sf));
 		}
 		return ret;
@@ -134,9 +131,8 @@ public class ValidationPhaseController {
 	public ValidationPhaseJson getValidationPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for validationPhase with id {}", sid);
-		Boolean isAdmin = false;
 		
-		return JsonUtil.validationPhaseToValidationPhaseJson(this.validationPhaseService.getValidationPhase(id, sid, isAdmin));
+		return JsonUtil.validationPhaseToValidationPhaseJson(this.validationPhaseService.getValidationPhase(id, sid));
 	}
 	
 	@ApiResponses({
@@ -156,8 +152,7 @@ public class ValidationPhaseController {
 	@PutMapping(value = "/resp/productionorders/{id}/validationphases/{sid}")
 	public Object updateValidationPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody ValidationPhaseJson input) {
 
-		Boolean isAdmin = false;
-		ValidationPhase validationPhase = this.validationPhaseService.updateValidationPhaseFromJson(id, sid, input, isAdmin);
+		ValidationPhase validationPhase = this.validationPhaseService.updateValidationPhaseFromJson(id, sid, input);
 
 		return new ResponseEntity<>(JsonUtil.validationPhaseToValidationPhaseJson(validationPhase), new HttpHeaders(), HttpStatus.OK);
 	}
@@ -188,9 +183,8 @@ public class ValidationPhaseController {
 		log.info("Request for validationPhases in ProductionOrder with id {}", id);
 		
 		List<ValidationPhaseJson> ret = new ArrayList<>();
-		Boolean isAdmin = false;
 		
-		for(ValidationPhase sf : this.productionOrderService.getProductionOrder(id, isAdmin).getValidationPhaseList()) {
+		for(ValidationPhase sf : this.productionOrderService.getProductionOrder(id).getValidationPhaseList()) {
 			ret.add(JsonUtil.validationPhaseToValidationPhaseJson(sf));
 		}
 		return ret;
@@ -203,9 +197,8 @@ public class ValidationPhaseController {
 	public ValidationPhaseJson getValidationPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for validationPhase with id {}", sid);
-		Boolean isAdmin = false;
 		
-		return JsonUtil.validationPhaseToValidationPhaseJson(this.validationPhaseService.getValidationPhase(id, sid, isAdmin));
+		return JsonUtil.validationPhaseToValidationPhaseJson(this.validationPhaseService.getValidationPhase(id, sid));
 	}
 	
 	@ApiResponses({
@@ -225,8 +218,7 @@ public class ValidationPhaseController {
 	@PutMapping(value = "/productionorders/{id}/validationphases/{sid}")
 	public Object updateValidationPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody ValidationPhaseJson input) {
 
-		Boolean isAdmin = false;
-		ValidationPhase validationPhase = this.validationPhaseService.updateValidationPhaseFromJson(id, sid, input, isAdmin);
+		ValidationPhase validationPhase = this.validationPhaseService.updateValidationPhaseFromJson(id, sid, input);
 
 		return new ResponseEntity<>(JsonUtil.validationPhaseToValidationPhaseJson(validationPhase), new HttpHeaders(), HttpStatus.OK);
 	}

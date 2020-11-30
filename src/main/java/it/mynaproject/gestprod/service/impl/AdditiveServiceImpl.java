@@ -27,7 +27,7 @@ public class AdditiveServiceImpl implements AdditiveService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public Additive getAdditive(Integer id, Boolean isAdmin) {
+	public Additive getAdditive(Integer id) {
 
 		Additive p = this.additiveDao.getAdditive(id);
 		if (p == null)
@@ -37,7 +37,7 @@ public class AdditiveServiceImpl implements AdditiveService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<Additive> getAdditives(Boolean isAdmin) {
+	public List<Additive> getAdditives() {
 
 		List<Additive> pList = new ArrayList<Additive>();
 		for (Additive p : this.additiveDao.getAdditives())
@@ -78,7 +78,7 @@ public class AdditiveServiceImpl implements AdditiveService {
 
 	@Transactional
 	@Override
-	public Additive updateAdditiveFromJson(Integer id, AdditiveJson input, Boolean isAdmin) {
+	public Additive updateAdditiveFromJson(Integer id, AdditiveJson input) {
 
 		log.info("Updating additive with id: {}", id);
 
@@ -89,7 +89,7 @@ public class AdditiveServiceImpl implements AdditiveService {
 				}
 			}
 		}
-		Additive additive = this.getAdditive(id, isAdmin);
+		Additive additive = this.getAdditive(id);
 		additive.populateAdditiveFromInput(input);
 
 		this.update(additive);

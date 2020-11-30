@@ -51,9 +51,8 @@ public class SettingPhaseController {
 		log.info("Request for settingPhases in ProductionOrder with id {}", id);
 		
 		List<SettingPhaseJson> ret = new ArrayList<>();
-		Boolean isAdmin = true;
 		
-		for(SettingPhase sf : this.productionOrderService.getProductionOrder(id, isAdmin).getSettingPhaseList()) {
+		for(SettingPhase sf : this.productionOrderService.getProductionOrder(id).getSettingPhaseList()) {
 			ret.add(JsonUtil.settingPhaseToSettingPhaseJson(sf));
 		}
 		return ret;
@@ -66,9 +65,8 @@ public class SettingPhaseController {
 	public SettingPhaseJson getSettingPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for settingPhase with id {}", sid);
-		Boolean isAdmin = true;
 		
-		return JsonUtil.settingPhaseToSettingPhaseJson(this.settingPhaseService.getSettingPhase(id, sid, isAdmin));
+		return JsonUtil.settingPhaseToSettingPhaseJson(this.settingPhaseService.getSettingPhase(id, sid));
 	}
 	
 	@ApiResponses({
@@ -88,7 +86,7 @@ public class SettingPhaseController {
 	@PutMapping(value = "/admin/productionorders/{id}/settingphases/{sid}")
 	public Object updateSettingPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody SettingPhaseJson input) {
 
-		SettingPhase settingPhase = this.settingPhaseService.updateSettingPhaseFromJson(id, sid, input, true);
+		SettingPhase settingPhase = this.settingPhaseService.updateSettingPhaseFromJson(id, sid, input);
 
 		return new ResponseEntity<>(JsonUtil.settingPhaseToSettingPhaseJson(settingPhase), new HttpHeaders(), HttpStatus.OK);
 	}
@@ -119,9 +117,8 @@ public class SettingPhaseController {
 		log.info("Request for settingPhases in ProductionOrder with id {}", id);
 		
 		List<SettingPhaseJson> ret = new ArrayList<>();
-		Boolean isAdmin = false;
 		
-		for(SettingPhase sf : this.productionOrderService.getProductionOrder(id, isAdmin).getSettingPhaseList()) {
+		for(SettingPhase sf : this.productionOrderService.getProductionOrder(id).getSettingPhaseList()) {
 			ret.add(JsonUtil.settingPhaseToSettingPhaseJson(sf));
 		}
 		return ret;
@@ -134,9 +131,8 @@ public class SettingPhaseController {
 	public SettingPhaseJson getSettingPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for settingPhase with id {}", sid);
-		Boolean isAdmin = false;
 		
-		return JsonUtil.settingPhaseToSettingPhaseJson(this.settingPhaseService.getSettingPhase(id, sid, isAdmin));
+		return JsonUtil.settingPhaseToSettingPhaseJson(this.settingPhaseService.getSettingPhase(id, sid));
 	}
 	
 	@ApiResponses({
@@ -156,8 +152,7 @@ public class SettingPhaseController {
 	@PutMapping(value = "/resp/productionorders/{id}/settingphases/{sid}")
 	public Object updateSettingPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody SettingPhaseJson input) {
 
-		Boolean isAdmin = false;
-		SettingPhase settingPhase = this.settingPhaseService.updateSettingPhaseFromJson(id, sid, input, isAdmin);
+		SettingPhase settingPhase = this.settingPhaseService.updateSettingPhaseFromJson(id, sid, input);
 
 		return new ResponseEntity<>(JsonUtil.settingPhaseToSettingPhaseJson(settingPhase), new HttpHeaders(), HttpStatus.OK);
 	}
@@ -188,9 +183,8 @@ public class SettingPhaseController {
 		log.info("Request for settingPhases in ProductionOrder with id {}", id);
 		
 		List<SettingPhaseJson> ret = new ArrayList<>();
-		Boolean isAdmin = false;
 		
-		for(SettingPhase sf : this.productionOrderService.getProductionOrder(id, isAdmin).getSettingPhaseList()) {
+		for(SettingPhase sf : this.productionOrderService.getProductionOrder(id).getSettingPhaseList()) {
 			ret.add(JsonUtil.settingPhaseToSettingPhaseJson(sf));
 		}
 		return ret;
@@ -203,9 +197,8 @@ public class SettingPhaseController {
 	public SettingPhaseJson getSettingPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for settingPhase with id {}", sid);
-		Boolean isAdmin = false;
 		
-		return JsonUtil.settingPhaseToSettingPhaseJson(this.settingPhaseService.getSettingPhase(id, sid, isAdmin));
+		return JsonUtil.settingPhaseToSettingPhaseJson(this.settingPhaseService.getSettingPhase(id, sid));
 	}
 	
 	@ApiResponses({
@@ -225,8 +218,7 @@ public class SettingPhaseController {
 	@PutMapping(value = "/productionorders/{id}/settingphases/{sid}")
 	public Object updateSettingPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody SettingPhaseJson input) {
 
-		Boolean isAdmin = false;
-		SettingPhase settingPhase = this.settingPhaseService.updateSettingPhaseFromJson(id, sid, input, isAdmin);
+		SettingPhase settingPhase = this.settingPhaseService.updateSettingPhaseFromJson(id, sid, input);
 
 		return new ResponseEntity<>(JsonUtil.settingPhaseToSettingPhaseJson(settingPhase), new HttpHeaders(), HttpStatus.OK);
 	}

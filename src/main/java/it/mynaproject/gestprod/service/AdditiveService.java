@@ -7,11 +7,11 @@ import it.mynaproject.gestprod.model.AdditiveJson;
 
 public interface AdditiveService {
 
-	public Additive getAdditive(Integer id, Boolean isAdmin);
-	public List<Additive> getAdditives(Boolean isAdmin);
+	public Additive getAdditive(Integer id);
+	public List<Additive> getAdditives();
 	public void persist(Additive additive);
 	public Additive createAdditiveFromJson(AdditiveJson input);
 	public void update(Additive additive);
-	public Additive updateAdditiveFromJson(Integer id, AdditiveJson input, Boolean isAdmin);
+	public Additive updateAdditiveFromJson(Integer id, AdditiveJson input);
 	public void deleteAdditiveById(Integer id);
 }

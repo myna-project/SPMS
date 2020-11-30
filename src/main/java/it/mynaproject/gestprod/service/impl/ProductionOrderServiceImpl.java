@@ -59,7 +59,7 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public ProductionOrder getProductionOrder(Integer id, Boolean isAdmin) {
+	public ProductionOrder getProductionOrder(Integer id) {
 
 		ProductionOrder p = this.productionOrderDao.getProductionOrder(id);
 		if (p == null)
@@ -69,7 +69,7 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<ProductionOrder> getProductionOrders(Boolean isAdmin) {
+	public List<ProductionOrder> getProductionOrders() {
 
 		List<ProductionOrder> pList = new ArrayList<ProductionOrder>();
 		for (ProductionOrder p : this.productionOrderDao.getProductionOrders())
@@ -94,15 +94,14 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
 			throw new ConflictException(7001, "ProductionOrder " + input.getProduction_order_code() + " already registered with id: " + input.getId());
 		}
 		
-		Boolean isAdmin = false; 
-		Customer c = this.customerService.getCustomer(input.getCustomer_id(), isAdmin);
-		RawMaterial rm = this.rawMaterialService.getRawMaterial(input.getRaw_material_id(), isAdmin);
-		MixtureMode mm = this.mixtureModeService.getMixtureMode(input.getExpected_mixture_mode_id(), isAdmin);
-		Packaging pp = this.packagingService.getPackaging(input.getPackaging_id(), isAdmin);
+		Customer c = this.customerService.getCustomer(input.getCustomer_id());
+		RawMaterial rm = this.rawMaterialService.getRawMaterial(input.getRaw_material_id());
+		MixtureMode mm = this.mixtureModeService.getMixtureMode(input.getExpected_mixture_mode_id());
+		Packaging pp = this.packagingService.getPackaging(input.getPackaging_id());
 		List<AdditiveProductionOrder> apol = new ArrayList<>();
 		
 		for(AdditiveProductionOrderJson aid : input.getAdditives()) {
-			apol.add(apoService.getAdditiveProductionOrder(aid.getAdditive_id(), aid.getProduction_order_code_id(), isAdmin));
+			apol.add(apoService.getAdditiveProductionOrder(aid.getAdditive_id(), aid.getProduction_order_code_id()));
 		}
 		
 		ProductionOrder productionOrder = new ProductionOrder();
@@ -121,7 +120,7 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
 
 	@Transactional
 	@Override
-	public ProductionOrder updateProductionOrderFromJson(Integer id, ProductionOrderJson input, Boolean isAdmin) {
+	public ProductionOrder updateProductionOrderFromJson(Integer id, ProductionOrderJson input) {
 
 		log.info("Updating productionOrder with id: {}", id);
 
@@ -131,14 +130,14 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
 			}
 		}
 		
-		Customer c = this.customerService.getCustomer(input.getCustomer_id(), isAdmin);
-		RawMaterial rm = this.rawMaterialService.getRawMaterial(input.getRaw_material_id(), isAdmin);
-		MixtureMode mm = this.mixtureModeService.getMixtureMode(input.getExpected_mixture_mode_id(), isAdmin);
-		Packaging pp = this.packagingService.getPackaging(input.getPackaging_id(), isAdmin);
+		Customer c = this.customerService.getCustomer(input.getCustomer_id());
+		RawMaterial rm = this.rawMaterialService.getRawMaterial(input.getRaw_material_id());
+		MixtureMode mm = this.mixtureModeService.getMixtureMode(input.getExpected_mixture_mode_id());
+		Packaging pp = this.packagingService.getPackaging(input.getPackaging_id());
 		List<AdditiveProductionOrder> apol = new ArrayList<>();
 		
 		for(AdditiveProductionOrderJson aid : input.getAdditives()) {
-			apol.add(apoService.getAdditiveProductionOrder(aid.getAdditive_id(), aid.getProduction_order_code_id(), isAdmin));
+			apol.add(apoService.getAdditiveProductionOrder(aid.getAdditive_id(), aid.getProduction_order_code_id()));
 		}
 		
 		ProductionOrder productionOrder = new ProductionOrder();

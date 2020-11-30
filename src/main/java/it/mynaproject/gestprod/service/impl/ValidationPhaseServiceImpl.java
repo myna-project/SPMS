@@ -27,15 +27,15 @@ public class ValidationPhaseServiceImpl implements ValidationPhaseService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public ValidationPhase getValidationPhase(Integer id, Integer sid, Boolean isAdmin) {
+	public ValidationPhase getValidationPhase(Integer id, Integer sid) {
 		
 		ValidationPhase validationPhase = null;
-		ProductionOrder p = this.productionOrderService.getProductionOrder(id, isAdmin);
+		ProductionOrder p = this.productionOrderService.getProductionOrder(id);
 		
 		if (p == null)
 			throw new NotFoundException(404, "ProductionOrder " + id + " not found");
 		
-		for(ValidationPhase sf : this.productionOrderService.getProductionOrder(id, isAdmin).getValidationPhaseList()) {
+		for(ValidationPhase sf : this.productionOrderService.getProductionOrder(id).getValidationPhaseList()) {
 			if(sf.getId() == sid) {
 				validationPhase = sf;
 			}
@@ -62,9 +62,9 @@ public class ValidationPhaseServiceImpl implements ValidationPhaseService {
 			throw new ConflictException(8001, "ValidationPhase already registered with id: " + input.getId());
 			
 		}
-		Boolean isAdmin = false;
-		User u = this.userService.getUser(input.getUser_id(), isAdmin, "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(id, isAdmin);
+		
+		User u = this.userService.getUser(input.getUser_id(), "");
+		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
 		ValidationPhase validationPhase = new ValidationPhase();
 		validationPhase.populateValidationPhaseFromInput(input, po, u);
 
@@ -82,7 +82,7 @@ public class ValidationPhaseServiceImpl implements ValidationPhaseService {
 	
 	@Transactional
 	@Override
-	public ValidationPhase updateValidationPhaseFromJson(Integer id, Integer sid, ValidationPhaseJson input, Boolean isAdmin) {
+	public ValidationPhase updateValidationPhaseFromJson(Integer id, Integer sid, ValidationPhaseJson input) {
 
 		log.info("Updating validationPhase with id: {}", id);
 
@@ -91,9 +91,9 @@ public class ValidationPhaseServiceImpl implements ValidationPhaseService {
 				throw new ConflictException(8001, "ValidationPhase already registered with id: " + input.getId());
 			}
 		}
-		User u = this.userService.getUser(input.getUser_id(), isAdmin, "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id(), isAdmin);
-		ValidationPhase validationPhase = this.getValidationPhase(id, sid, isAdmin);
+		User u = this.userService.getUser(input.getUser_id(), "");
+		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id());
+		ValidationPhase validationPhase = this.getValidationPhase(id, sid);
 		validationPhase.populateValidationPhaseFromInput(input, po, u);
 
 		this.update(validationPhase);

@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public User getUser(Integer id, Boolean isAdmin, String username) {
+	public User getUser(Integer id, String username) {
 
 		User u = this.userDao.getUser(id);
 		if (u == null)
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Transactional
 	@Override
-	public User createUserFromInput(UserJson input, Boolean isAdmin, String username) {
+	public User createUserFromInput(UserJson input, String username) {
 
 		log.info("Creating new user: {}", input.toString().replaceFirst("password=.*,", ""));
 
@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		for (Integer id : input.getRoles())
 			roles.add(this.roleService.getRole(id));
 
-		user.populateUserFromInput(input, roles, isAdmin);
+		user.populateUserFromInput(input, roles);
 
 		this.persist(user);
 
@@ -97,11 +97,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Transactional
 	@Override
-	public User updateUserFromInput(Integer id, UserJson input, Boolean isAdmin, String username) {
+	public User updateUserFromInput(Integer id, UserJson input, String username) {
 
 		log.info("Updating user with id {} from input: {}", id, input.toString().replaceFirst("password=.*,", ""));
 
-		User user = this.getUser(id, isAdmin, username);
+		User user = this.getUser(id, username);
 
 		if (!this.checkNameForUser(input.getUsername(), input.getId()))
 			throw new ConflictException(1001, "Username " + input.getUsername() + " not available");
@@ -124,7 +124,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		for (Integer idRole : input.getRoles())
 			roles.add(this.roleService.getRole(idRole));
 
-		user.populateUserFromInput(input, roles, isAdmin);
+		user.populateUserFromInput(input, roles);
 
 		this.update(user, changePassword);
 
@@ -133,11 +133,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Transactional
 	@Override
-	public void deleteUserById(Integer id, Boolean isAdmin, String username) {
+	public void deleteUserById(Integer id, String username) {
 
 		log.info("Deleting user: {}", id);
 
-		this.userDao.delete(this.getUser(id, isAdmin, username));
+		this.userDao.delete(this.getUser(id, username));
 	}
 
 	@Transactional(readOnly = true)

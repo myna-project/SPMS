@@ -51,7 +51,7 @@ public class MixtureModeController {
 
 		List<MixtureModeJson> mixtureModes = new ArrayList<>();
 
-		for (MixtureMode mixtureMode : this.mixtureModeService.getMixtureModes(true))
+		for (MixtureMode mixtureMode : this.mixtureModeService.getMixtureModes())
 			mixtureModes.add(JsonUtil.mixtureModeToMixtureModeJson(mixtureMode));
 
 		return mixtureModes;
@@ -65,7 +65,7 @@ public class MixtureModeController {
 
 		log.info("Request for mixtureMode with id {}", id);
 
-		return JsonUtil.mixtureModeToMixtureModeJson(this.mixtureModeService.getMixtureMode(id, true));
+		return JsonUtil.mixtureModeToMixtureModeJson(this.mixtureModeService.getMixtureMode(id));
 	}
 
 	@ApiResponses({
@@ -85,7 +85,7 @@ public class MixtureModeController {
 	@PutMapping(value = "/admin/mixtureModes/{id}")
 	public Object updateMixtureMode(@PathVariable("id") Integer id, @Valid @RequestBody MixtureModeJson input) {
 
-		MixtureMode mixtureMode = this.mixtureModeService.updateMixtureModeFromJson(id, input, true);
+		MixtureMode mixtureMode = this.mixtureModeService.updateMixtureModeFromJson(id, input);
 
 		return new ResponseEntity<>(JsonUtil.mixtureModeToMixtureModeJson(mixtureMode), new HttpHeaders(), HttpStatus.OK);
 	}
@@ -117,7 +117,7 @@ public class MixtureModeController {
 
 		List<MixtureModeJson> mixtureModes = new ArrayList<>();
 
-		for (MixtureMode mixtureMode : this.mixtureModeService.getMixtureModes(false))
+		for (MixtureMode mixtureMode : this.mixtureModeService.getMixtureModes())
 			mixtureModes.add(JsonUtil.mixtureModeToMixtureModeJson(mixtureMode));
 
 		return mixtureModes;
@@ -131,7 +131,7 @@ public class MixtureModeController {
 
 		log.info("Request for mixtureMode with id {}", id);
 
-		return JsonUtil.mixtureModeToMixtureModeJson(this.mixtureModeService.getMixtureMode(id, false));
+		return JsonUtil.mixtureModeToMixtureModeJson(this.mixtureModeService.getMixtureMode(id));
 	}
 
 	/*
@@ -150,7 +150,7 @@ public class MixtureModeController {
 
 		List<MixtureModeJson> mixtureModes = new ArrayList<>();
 
-		for (MixtureMode mixtureMode : this.mixtureModeService.getMixtureModes(false))
+		for (MixtureMode mixtureMode : this.mixtureModeService.getMixtureModes())
 			mixtureModes.add(JsonUtil.mixtureModeToMixtureModeJson(mixtureMode));
 
 		return mixtureModes;
@@ -164,6 +164,6 @@ public class MixtureModeController {
 
 		log.info("Request for mixtureMode with id {}", id);
 
-		return JsonUtil.mixtureModeToMixtureModeJson(this.mixtureModeService.getMixtureMode(id, false));
+		return JsonUtil.mixtureModeToMixtureModeJson(this.mixtureModeService.getMixtureMode(id));
 	}
 }

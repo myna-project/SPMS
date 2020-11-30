@@ -72,7 +72,7 @@ public class UserController {
 
 		org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		return JsonUtil.userToUserJson(this.userService.getUser(id, true, user.getUsername()), true);
+		return JsonUtil.userToUserJson(this.userService.getUser(id, user.getUsername()), true);
 	}
 
 	@ApiResponses({
@@ -83,7 +83,7 @@ public class UserController {
 
 		org.springframework.security.core.userdetails.User authUser = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		User user = this.userService.createUserFromInput(input, true, authUser.getUsername());
+		User user = this.userService.createUserFromInput(input, authUser.getUsername());
 
 		return new ResponseEntity<>(JsonUtil.userToUserJson(user, true), new HttpHeaders(), HttpStatus.CREATED);
 	}
@@ -96,7 +96,7 @@ public class UserController {
 
 		org.springframework.security.core.userdetails.User authUser = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		User user = this.userService.updateUserFromInput(id, input, true, authUser.getUsername());
+		User user = this.userService.updateUserFromInput(id, input, authUser.getUsername());
 
 		return new ResponseEntity<>(JsonUtil.userToUserJson(user, true), new HttpHeaders(), HttpStatus.OK);
 	}
@@ -109,7 +109,7 @@ public class UserController {
 
 		org.springframework.security.core.userdetails.User authUser = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		this.userService.deleteUserById(id, true, authUser.getUsername());
+		this.userService.deleteUserById(id, authUser.getUsername());
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}

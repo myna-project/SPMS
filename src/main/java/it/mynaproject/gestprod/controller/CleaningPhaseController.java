@@ -51,9 +51,8 @@ public class CleaningPhaseController {
 		log.info("Request for cleaningPhases in ProductionOrder with id {}", id);
 		
 		List<CleaningPhaseJson> ret = new ArrayList<>();
-		Boolean isAdmin = true;
 		
-		for(CleaningPhase sf : this.productionOrderService.getProductionOrder(id, isAdmin).getCleaningPhaseList()) {
+		for(CleaningPhase sf : this.productionOrderService.getProductionOrder(id).getCleaningPhaseList()) {
 			ret.add(JsonUtil.cleaningPhaseToCleaningPhaseJson(sf));
 		}
 		return ret;
@@ -66,9 +65,8 @@ public class CleaningPhaseController {
 	public CleaningPhaseJson getCleaningPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for cleaningPhase with id {}", sid);
-		Boolean isAdmin = true;
 		
-		return JsonUtil.cleaningPhaseToCleaningPhaseJson(this.cleaningPhaseService.getCleaningPhase(id, sid, isAdmin));
+		return JsonUtil.cleaningPhaseToCleaningPhaseJson(this.cleaningPhaseService.getCleaningPhase(id, sid));
 	}
 	
 	@ApiResponses({
@@ -88,7 +86,7 @@ public class CleaningPhaseController {
 	@PutMapping(value = "/admin/productionorders/{id}/cleaningphases/{sid}")
 	public Object updateCleaningPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody CleaningPhaseJson input) {
 
-		CleaningPhase cleaningPhase = this.cleaningPhaseService.updateCleaningPhaseFromJson(id, sid, input, true);
+		CleaningPhase cleaningPhase = this.cleaningPhaseService.updateCleaningPhaseFromJson(id, sid, input);
 
 		return new ResponseEntity<>(JsonUtil.cleaningPhaseToCleaningPhaseJson(cleaningPhase), new HttpHeaders(), HttpStatus.OK);
 	}
@@ -119,9 +117,8 @@ public class CleaningPhaseController {
 		log.info("Request for cleaningPhases in ProductionOrder with id {}", id);
 		
 		List<CleaningPhaseJson> ret = new ArrayList<>();
-		Boolean isAdmin = false;
 		
-		for(CleaningPhase sf : this.productionOrderService.getProductionOrder(id, isAdmin).getCleaningPhaseList()) {
+		for(CleaningPhase sf : this.productionOrderService.getProductionOrder(id).getCleaningPhaseList()) {
 			ret.add(JsonUtil.cleaningPhaseToCleaningPhaseJson(sf));
 		}
 		return ret;
@@ -134,9 +131,8 @@ public class CleaningPhaseController {
 	public CleaningPhaseJson getCleaningPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for cleaningPhase with id {}", sid);
-		Boolean isAdmin = false;
 		
-		return JsonUtil.cleaningPhaseToCleaningPhaseJson(this.cleaningPhaseService.getCleaningPhase(id, sid, isAdmin));
+		return JsonUtil.cleaningPhaseToCleaningPhaseJson(this.cleaningPhaseService.getCleaningPhase(id, sid));
 	}
 	
 	@ApiResponses({
@@ -156,8 +152,7 @@ public class CleaningPhaseController {
 	@PutMapping(value = "/resp/productionorders/{id}/cleaningphases/{sid}")
 	public Object updateCleaningPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody CleaningPhaseJson input) {
 
-		Boolean isAdmin = false;
-		CleaningPhase cleaningPhase = this.cleaningPhaseService.updateCleaningPhaseFromJson(id, sid, input, isAdmin);
+		CleaningPhase cleaningPhase = this.cleaningPhaseService.updateCleaningPhaseFromJson(id, sid, input);
 
 		return new ResponseEntity<>(JsonUtil.cleaningPhaseToCleaningPhaseJson(cleaningPhase), new HttpHeaders(), HttpStatus.OK);
 	}
@@ -188,9 +183,8 @@ public class CleaningPhaseController {
 		log.info("Request for cleaningPhases in ProductionOrder with id {}", id);
 		
 		List<CleaningPhaseJson> ret = new ArrayList<>();
-		Boolean isAdmin = false;
 		
-		for(CleaningPhase sf : this.productionOrderService.getProductionOrder(id, isAdmin).getCleaningPhaseList()) {
+		for(CleaningPhase sf : this.productionOrderService.getProductionOrder(id).getCleaningPhaseList()) {
 			ret.add(JsonUtil.cleaningPhaseToCleaningPhaseJson(sf));
 		}
 		return ret;
@@ -203,9 +197,8 @@ public class CleaningPhaseController {
 	public CleaningPhaseJson getCleaningPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for cleaningPhase with id {}", sid);
-		Boolean isAdmin = false;
 		
-		return JsonUtil.cleaningPhaseToCleaningPhaseJson(this.cleaningPhaseService.getCleaningPhase(id, sid, isAdmin));
+		return JsonUtil.cleaningPhaseToCleaningPhaseJson(this.cleaningPhaseService.getCleaningPhase(id, sid));
 	}
 	
 	@ApiResponses({
@@ -225,8 +218,7 @@ public class CleaningPhaseController {
 	@PutMapping(value = "/productionorders/{id}/cleaningphases/{sid}")
 	public Object updateCleaningPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody CleaningPhaseJson input) {
 
-		Boolean isAdmin = false;
-		CleaningPhase cleaningPhase = this.cleaningPhaseService.updateCleaningPhaseFromJson(id, sid, input, isAdmin);
+		CleaningPhase cleaningPhase = this.cleaningPhaseService.updateCleaningPhaseFromJson(id, sid, input);
 
 		return new ResponseEntity<>(JsonUtil.cleaningPhaseToCleaningPhaseJson(cleaningPhase), new HttpHeaders(), HttpStatus.OK);
 	}
