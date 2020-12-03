@@ -58,10 +58,6 @@ public class SystemPreparationPhaseServiceImpl implements SystemPreparationPhase
 
 		log.info("Creating new systemPreparationPhase: {}", input.toString());
 
-		if(this.systemPreparationPhaseDao.getSystemPreparationPhase(input.getId()) != null) {
-			throw new ConflictException(8001, "SystemPreparationPhase already registered with id: " + input.getId());
-			
-		}
 		User u = this.userService.getUser(input.getUser_id(), "");
 		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
 		SystemPreparationPhase systemPreparationPhase = new SystemPreparationPhase();
@@ -85,11 +81,6 @@ public class SystemPreparationPhaseServiceImpl implements SystemPreparationPhase
 
 		log.info("Updating systemPreparationPhase with id: {}", id);
 
-		for(SystemPreparationPhase e: this.systemPreparationPhaseDao.getSystemPreparationPhases()) {
-			if(e.getId().equals(input.getId())) {
-				throw new ConflictException(8001, "SystemPreparationPhase already registered with id: " + input.getId());
-			}
-		}
 		User u = this.userService.getUser(input.getUser_id(), "");
 		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id());
 		SystemPreparationPhase systemPreparationPhase = this.getSystemPreparationPhase(id, sid);

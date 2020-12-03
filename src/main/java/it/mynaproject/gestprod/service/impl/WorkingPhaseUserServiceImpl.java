@@ -16,7 +16,6 @@ import it.mynaproject.gestprod.service.WorkingPhaseService;
 import it.mynaproject.gestprod.domain.WorkingPhaseUser;
 import it.mynaproject.gestprod.domain.User;
 import it.mynaproject.gestprod.domain.WorkingPhase;
-import it.mynaproject.gestprod.exception.ConflictException;
 import it.mynaproject.gestprod.exception.NotFoundException;
 import it.mynaproject.gestprod.model.WorkingPhaseUserJson;
 

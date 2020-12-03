@@ -58,10 +58,11 @@ public class AdditiveServiceImpl implements AdditiveService {
 
 		log.info("Creating new additive: {}", input.toString());
 
-		if(this.additiveDao.getAdditive(input.getId()) != null) {
-			throw new ConflictException(4001, "Additive " + input.getName() + " already registered with id: " + input.getId());
-			
+		Additive c = this.additiveDao.checkAdditiveExists(input.getName(), null);
+		if(c != null) {
+			throw new ConflictException(4001, "Additive " + input.getName() + " already registered with id: " + c.getId());
 		}
+		
 		Additive additive = new Additive();
 		additive.populateAdditiveFromInput(input);
 
@@ -82,13 +83,11 @@ public class AdditiveServiceImpl implements AdditiveService {
 
 		log.info("Updating additive with id: {}", id);
 
-		if(this.additiveDao.getAdditives() != null) {
-			for(Additive e: this.additiveDao.getAdditives()) {
-				if(e.getName().equals(input.getName())) {
-					throw new ConflictException(4001, "Additive name " + input.getName() + " already registered with id: " + input.getId());
-				}
-			}
+		Additive c = this.additiveDao.checkAdditiveExists(input.getName(), id);
+		if(c != null) {
+			throw new ConflictException(4001, "Additive " + input.getName() + " already registered with id: " + c.getId());
 		}
+		
 		Additive additive = this.getAdditive(id);
 		additive.populateAdditiveFromInput(input);
 

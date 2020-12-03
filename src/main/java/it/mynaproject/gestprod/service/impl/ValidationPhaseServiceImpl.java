@@ -58,11 +58,6 @@ public class ValidationPhaseServiceImpl implements ValidationPhaseService {
 
 		log.info("Creating new validationPhase: {}", input.toString());
 
-		if(this.validationPhaseDao.getValidationPhase(input.getId()) != null) {
-			throw new ConflictException(8001, "ValidationPhase already registered with id: " + input.getId());
-			
-		}
-		
 		User u = this.userService.getUser(input.getUser_id(), "");
 		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
 		ValidationPhase validationPhase = new ValidationPhase();
@@ -86,11 +81,6 @@ public class ValidationPhaseServiceImpl implements ValidationPhaseService {
 
 		log.info("Updating validationPhase with id: {}", id);
 
-		for(ValidationPhase e: this.validationPhaseDao.getValidationPhases()) {
-			if(e.getId().equals(input.getId())) {
-				throw new ConflictException(8001, "ValidationPhase already registered with id: " + input.getId());
-			}
-		}
 		User u = this.userService.getUser(input.getUser_id(), "");
 		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id());
 		ValidationPhase validationPhase = this.getValidationPhase(id, sid);

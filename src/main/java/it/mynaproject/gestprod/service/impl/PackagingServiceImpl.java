@@ -58,9 +58,9 @@ public class PackagingServiceImpl implements PackagingService {
 
 		log.info("Creating new packaging: {}", input.toString());
 
-		if(this.packagingDao.getPackaging(input.getId()) != null) {
-			throw new ConflictException(6001, "Packaging " + input.getPackaging_mode() + " already registered with id: " + input.getId());
-			
+		Packaging c = this.packagingDao.checkPackagingExists(input.getPackaging_mode(), null);
+		if(c != null) {
+			throw new ConflictException(6001, "Packaging " + input.getPackaging_mode() + " already registered with id: " + c.getId());
 		}
 		Packaging packaging = new Packaging();
 		packaging.populatePackagingFromInput(input);
@@ -82,10 +82,9 @@ public class PackagingServiceImpl implements PackagingService {
 
 		log.info("Updating packaging with id: {}", id);
 
-		for(Packaging e: this.packagingDao.getPackagings()) {
-			if(e.getPackaging_mode().equals(input.getPackaging_mode())) {
-				throw new ConflictException(6001, "Packaging mode " + input.getPackaging_mode() + " already registered with id: " + input.getId());
-			}
+		Packaging c = this.packagingDao.checkPackagingExists(input.getPackaging_mode(), id);
+		if(c != null) {
+			throw new ConflictException(6001, "Packaging " + input.getPackaging_mode() + " already registered with id: " + c.getId());
 		}
 		Packaging packaging = this.getPackaging(id);
 		packaging.populatePackagingFromInput(input);

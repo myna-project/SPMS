@@ -57,11 +57,6 @@ public class WorkingPhaseServiceImpl implements WorkingPhaseService {
 
 		log.info("Creating new workingPhase: {}", input.toString());
 
-		if(this.workingPhaseDao.getWorkingPhase(input.getId()) != null) {
-			throw new ConflictException(8001, "WorkingPhase already registered with id: " + input.getId());
-			
-		}
-		
 		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
 		WorkingPhase workingPhase = new WorkingPhase();
 		workingPhase.populateWorkingPhaseFromInput(input, po);
@@ -84,11 +79,6 @@ public class WorkingPhaseServiceImpl implements WorkingPhaseService {
 
 		log.info("Updating workingPhase with id: {}", id);
 
-		for(WorkingPhase e: this.workingPhaseDao.getWorkingPhases()) {
-			if(e.getId().equals(input.getId())) {
-				throw new ConflictException(8001, "WorkingPhase already registered with id: " + input.getId());
-			}
-		}
 		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id());
 		WorkingPhase workingPhase = this.getWorkingPhase(id, sid);
 		workingPhase.populateWorkingPhaseFromInput(input, po);

@@ -7,6 +7,7 @@ import javax.persistence.Query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 import it.mynaproject.gestprod.dao.PackagingDao;
@@ -64,5 +65,22 @@ public class PackagingDaoImpl extends BaseDaoImpl implements PackagingDao {
 	public List<Packaging> getPackagings() {
 
 		return em.createQuery("FROM Packaging").getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Packaging checkPackagingExists(String name, @Nullable Integer id) {
+
+		Query q = em.createQuery("FROM Packaging WHERE packaging_mode LIKE :name");
+		q.setParameter("name", name);
+
+		List<Packaging> packagings = (List<Packaging>) q.getResultList();
+
+		Packaging packagingExists = null;
+		for (Packaging r : packagings)
+			if (((id != null) && (r.getId() != id)) || (id == null))
+				packagingExists = r;
+
+		return packagingExists;
 	}
 }

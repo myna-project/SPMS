@@ -7,6 +7,7 @@ import javax.persistence.Query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 import it.mynaproject.gestprod.dao.RawMaterialDao;
@@ -64,5 +65,22 @@ public class RawMaterialDaoImpl extends BaseDaoImpl implements RawMaterialDao {
 	public List<RawMaterial> getRawMaterials() {
 
 		return em.createQuery("FROM RawMaterial").getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public RawMaterial checkRawMaterialExists(String name, @Nullable Integer id) {
+
+		Query q = em.createQuery("FROM RawMaterial WHERE name LIKE :name");
+		q.setParameter("name", name);
+
+		List<RawMaterial> rawMaterials = (List<RawMaterial>) q.getResultList();
+
+		RawMaterial rawMaterialExists = null;
+		for (RawMaterial r : rawMaterials)
+			if (((id != null) && (r.getId() != id)) || (id == null))
+				rawMaterialExists = r;
+
+		return rawMaterialExists;
 	}
 }

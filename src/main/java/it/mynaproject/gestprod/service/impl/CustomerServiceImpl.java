@@ -52,17 +52,18 @@ public class CustomerServiceImpl implements CustomerService {
 	public void persist(Customer customer) {
 		this.customerDao.persist(customer);
 	}
-
+	
 	@Transactional
 	@Override
 	public Customer createCustomerFromJson(CustomerJson input) {
 
 		log.info("Creating new customer: {}", input.toString());
 
-		// TODO check sul nome non sull'id (id non c'e` in post) ---> fai un metodo checkUniqueName(nome, id (opzionale, su update))
-		if(this.customerDao.getCustomer(input.getId()) != null) {
-			throw new ConflictException(2001, "Customer " + input.getName() + " already registered with id: " + input.getId());
+		Customer c = this.customerDao.checkCustomerExists(input.getName(), null);
+		if(c != null) {
+			throw new ConflictException(2001, "Customer " + input.getName() + " already registered with id: " + c.getId());
 		}
+		
 		Customer customer = new Customer();
 		customer.populateCustomerFromInput(input);
 
@@ -83,11 +84,11 @@ public class CustomerServiceImpl implements CustomerService {
 
 		log.info("Updating customer with id: {}", id);
 
-		for(Customer e: this.customerDao.getCustomers()) {
-			if(e.getName().equals(input.getName())) {
-				throw new ConflictException(2001, "Customer name " + input.getName() + " already registered with id: " + input.getId());
-			}
+		Customer c = this.customerDao.checkCustomerExists(input.getName(), id);
+		if(c != null) {
+			throw new ConflictException(2001, "Customer " + input.getName() + " already registered with id: " + c.getId());
 		}
+		
 		Customer customer = this.getCustomer(id);
 		customer.populateCustomerFromInput(input);
 
@@ -116,4 +117,5 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		this.customerDao.delete(c);
 	}
+	
 }

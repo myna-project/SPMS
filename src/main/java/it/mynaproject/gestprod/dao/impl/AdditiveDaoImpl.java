@@ -7,6 +7,7 @@ import javax.persistence.Query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 import it.mynaproject.gestprod.dao.AdditiveDao;
@@ -64,5 +65,23 @@ public class AdditiveDaoImpl extends BaseDaoImpl implements AdditiveDao {
 	public List<Additive> getAdditives() {
 
 		return em.createQuery("FROM Additive").getResultList();
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Additive checkAdditiveExists(String name, @Nullable Integer id) {
+
+		Query q = em.createQuery("FROM Additive WHERE name LIKE :name");
+		q.setParameter("name", name);
+
+		List<Additive> additives = (List<Additive>) q.getResultList();
+
+		Additive additiveExists = null;
+		for (Additive r : additives)
+			if (((id != null) && (r.getId() != id)) || (id == null))
+				additiveExists = r;
+
+		return additiveExists;
 	}
 }

@@ -84,8 +84,9 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
 
 		log.info("Creating new productionOrder: {}", input.toString());
 
-		if(this.productionOrderDao.getProductionOrder(input.getId()) != null) {
-			throw new ConflictException(7001, "ProductionOrder " + input.getProduction_order_code() + " already registered with id: " + input.getId());
+		ProductionOrder p = this.productionOrderDao.checkProductionOrderExists(input.getProduction_order_code(), null);
+		if(p != null) {
+			throw new ConflictException(7001, "ProductionOrder " + input.getProduction_order_code() + " already registered with id: " + p.getId());
 		}
 		
 		Customer c = this.customerService.getCustomer(input.getCustomer_id());
@@ -118,10 +119,9 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
 
 		log.info("Updating productionOrder with id: {}", id);
 
-		for(ProductionOrder e: this.productionOrderDao.getProductionOrders()) {
-			if(e.getId().equals(input.getId())) {
-				throw new ConflictException(7001, "ProductionOrder name " + input.getProduction_order_code() + " already registered with id: " + input.getId());
-			}
+		ProductionOrder p = this.productionOrderDao.checkProductionOrderExists(input.getProduction_order_code(), id);
+		if(p != null) {
+			throw new ConflictException(7001, "ProductionOrder " + input.getProduction_order_code() + " already registered with id: " + p.getId());
 		}
 		
 		Customer c = this.customerService.getCustomer(input.getCustomer_id());

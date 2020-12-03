@@ -7,6 +7,7 @@ import javax.persistence.Query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 import it.mynaproject.gestprod.dao.CustomerDao;
@@ -64,5 +65,22 @@ public class CustomerDaoImpl extends BaseDaoImpl implements CustomerDao {
 	public List<Customer> getCustomers() {
 
 		return em.createQuery("FROM Customer").getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Customer checkCustomerExists(String name, @Nullable Integer id) {
+
+		Query q = em.createQuery("FROM Customer WHERE name LIKE :name");
+		q.setParameter("name", name);
+
+		List<Customer> customers = (List<Customer>) q.getResultList();
+
+		Customer customerExists = null;
+		for (Customer r : customers)
+			if (((id != null) && (r.getId() != id)) || (id == null))
+				customerExists = r;
+
+		return customerExists;
 	}
 }

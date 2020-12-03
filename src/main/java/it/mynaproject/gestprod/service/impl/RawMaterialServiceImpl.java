@@ -58,10 +58,11 @@ public class RawMaterialServiceImpl implements RawMaterialService {
 
 		log.info("Creating new rawMaterial: {}", input.toString());
 
-		if(this.rawMaterialDao.getRawMaterial(input.getId()) != null) {
-			throw new ConflictException(3101, "RawMaterial " + input.getName() + " already registered with id: " + input.getId());
-			
+		RawMaterial c = this.rawMaterialDao.checkRawMaterialExists(input.getName(), null);
+		if(c != null) {
+			throw new ConflictException(3001, "RawMaterial " + input.getName() + " already registered with id: " + c.getId());
 		}
+		
 		RawMaterial rawMaterial = new RawMaterial();
 		rawMaterial.populateRawMaterialFromInput(input);
 
@@ -81,12 +82,12 @@ public class RawMaterialServiceImpl implements RawMaterialService {
 	public RawMaterial updateRawMaterialFromJson(Integer id, RawMaterialJson input) {
 
 		log.info("Updating rawMaterial with id: {}", id);
-
-		for(RawMaterial e: this.rawMaterialDao.getRawMaterials()) {
-			if(e.getName().equals(input.getName())) {
-				throw new ConflictException(2001, "RawMaterial name " + input.getName() + " already registered with id: " + input.getId());
-			}
+		
+		RawMaterial c = this.rawMaterialDao.checkRawMaterialExists(input.getName(), id);
+		if(c != null) {
+			throw new ConflictException(3001, "RawMaterial " + input.getName() + " already registered with id: " + c.getId());
 		}
+
 		RawMaterial rawMaterial = this.getRawMaterial(id);
 		rawMaterial.populateRawMaterialFromInput(input);
 

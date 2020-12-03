@@ -8,6 +8,7 @@ import javax.persistence.Query;
 import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 import it.mynaproject.gestprod.dao.ProductionOrderDao;
@@ -76,5 +77,22 @@ public class ProductionOrderDaoImpl extends BaseDaoImpl implements ProductionOrd
 		Hibernate.initialize(p.getCleaningPhaseList());
 		Hibernate.initialize(p.getWorkingPhaseList());
 		Hibernate.initialize(p.getValidationPhaseList());
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public ProductionOrder checkProductionOrderExists(String name, @Nullable Integer id) {
+
+		Query q = em.createQuery("FROM ProductionOrder WHERE production_order_code LIKE :name");
+		q.setParameter("name", name);
+
+		List<ProductionOrder> productionOrders = (List<ProductionOrder>) q.getResultList();
+
+		ProductionOrder productionOrderExists = null;
+		for (ProductionOrder r : productionOrders)
+			if (((id != null) && (r.getId() != id)) || (id == null))
+				productionOrderExists = r;
+
+		return productionOrderExists;
 	}
 }

@@ -7,6 +7,7 @@ import javax.persistence.Query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 import it.mynaproject.gestprod.dao.MixtureModeDao;
@@ -64,5 +65,22 @@ public class MixtureModeDaoImpl extends BaseDaoImpl implements MixtureModeDao {
 	public List<MixtureMode> getMixtureModes() {
 
 		return em.createQuery("FROM MixtureMode").getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public MixtureMode checkMixtureModeExists(String name, @Nullable Integer id) {
+
+		Query q = em.createQuery("FROM MixtureMode WHERE name LIKE :name");
+		q.setParameter("name", name);
+
+		List<MixtureMode> mixtureModes = (List<MixtureMode>) q.getResultList();
+
+		MixtureMode mixtureModeExists = null;
+		for (MixtureMode r : mixtureModes)
+			if (((id != null) && (r.getId() != id)) || (id == null))
+				mixtureModeExists = r;
+
+		return mixtureModeExists;
 	}
 }

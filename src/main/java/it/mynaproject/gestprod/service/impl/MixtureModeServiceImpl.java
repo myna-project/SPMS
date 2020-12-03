@@ -58,9 +58,9 @@ public class MixtureModeServiceImpl implements MixtureModeService {
 
 		log.info("Creating new mixtureMode: {}", input.toString());
 
-		if(this.mixtureModeDao.getMixtureMode(input.getId()) != null) {
-			throw new ConflictException(5001, "MixtureMode " + input.getName() + " already registered with id: " + input.getId());
-			
+		MixtureMode c = this.mixtureModeDao.checkMixtureModeExists(input.getName(), null);
+		if(c != null) {
+			throw new ConflictException(5001, "MixtureMode " + input.getName() + " already registered with id: " + c.getId());
 		}
 		MixtureMode mixtureMode = new MixtureMode();
 		mixtureMode.populateMixtureModeFromInput(input);
@@ -82,11 +82,11 @@ public class MixtureModeServiceImpl implements MixtureModeService {
 
 		log.info("Updating mixtureMode with id: {}", id);
 
-		for(MixtureMode e: this.mixtureModeDao.getMixtureModes()) {
-			if(e.getName().equals(input.getName())) {
-				throw new ConflictException(5001, "MixtureMode name " + input.getName() + " already registered with id: " + input.getId());
-			}
+		MixtureMode c = this.mixtureModeDao.checkMixtureModeExists(input.getName(), id);
+		if(c != null) {
+			throw new ConflictException(5001, "MixtureMode " + input.getName() + " already registered with id: " + c.getId());
 		}
+		
 		MixtureMode mixtureMode = this.getMixtureMode(id);
 		mixtureMode.populateMixtureModeFromInput(input);
 
