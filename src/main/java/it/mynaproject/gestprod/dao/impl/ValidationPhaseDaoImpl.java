@@ -12,8 +12,6 @@ import org.springframework.stereotype.Repository;
 import it.mynaproject.gestprod.dao.ValidationPhaseDao;
 import it.mynaproject.gestprod.domain.ValidationPhase;
 
-// TODO fix sql queries on table names
-
 @Repository
 public class ValidationPhaseDaoImpl extends BaseDaoImpl implements ValidationPhaseDao {
 

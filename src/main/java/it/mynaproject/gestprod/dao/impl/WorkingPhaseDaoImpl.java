@@ -12,8 +12,6 @@ import org.springframework.stereotype.Repository;
 import it.mynaproject.gestprod.dao.WorkingPhaseDao;
 import it.mynaproject.gestprod.domain.WorkingPhase;
 
-// TODO fix sql queries on table names
-
 @Repository
 public class WorkingPhaseDaoImpl extends BaseDaoImpl implements WorkingPhaseDao {
 

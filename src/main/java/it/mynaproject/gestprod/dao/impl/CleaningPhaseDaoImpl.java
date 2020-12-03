@@ -12,8 +12,6 @@ import org.springframework.stereotype.Repository;
 import it.mynaproject.gestprod.dao.CleaningPhaseDao;
 import it.mynaproject.gestprod.domain.CleaningPhase;
 
-// TODO fix sql queries on table names
-
 @Repository
 public class CleaningPhaseDaoImpl extends BaseDaoImpl implements CleaningPhaseDao {
 
