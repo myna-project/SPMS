@@ -55,9 +55,8 @@ public class SettingPhaseServiceImpl implements SettingPhaseService {
 
 		log.info("Creating new settingPhase: {}", input.toString());
 		
-		// TODO da input user e production order, controllare per supportare il cambio PO
 		User u = this.userService.getUser(input.getUser_id(), "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
+		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id());
 		SettingPhase settingPhase = new SettingPhase();
 		settingPhase.populateSettingPhaseFromInput(input, po, u);
 

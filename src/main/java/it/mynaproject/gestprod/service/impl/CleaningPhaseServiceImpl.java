@@ -59,7 +59,7 @@ public class CleaningPhaseServiceImpl implements CleaningPhaseService {
 		log.info("Creating new cleaningPhase: {}", input.toString());
 
 		User u = this.userService.getUser(input.getUser_id(), "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
+		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id());
 		CleaningPhase cleaningPhase = new CleaningPhase();
 		cleaningPhase.populateCleaningPhaseFromInput(input, po, u);
 

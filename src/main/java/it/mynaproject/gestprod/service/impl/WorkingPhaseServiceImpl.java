@@ -57,7 +57,7 @@ public class WorkingPhaseServiceImpl implements WorkingPhaseService {
 
 		log.info("Creating new workingPhase: {}", input.toString());
 
-		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
+		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id());
 		WorkingPhase workingPhase = new WorkingPhase();
 		workingPhase.populateWorkingPhaseFromInput(input, po);
 

@@ -59,7 +59,7 @@ public class SystemPreparationPhaseServiceImpl implements SystemPreparationPhase
 		log.info("Creating new systemPreparationPhase: {}", input.toString());
 
 		User u = this.userService.getUser(input.getUser_id(), "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
+		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id());
 		SystemPreparationPhase systemPreparationPhase = new SystemPreparationPhase();
 		systemPreparationPhase.populateSystemPreparationPhaseFromInput(input, po, u);
 
