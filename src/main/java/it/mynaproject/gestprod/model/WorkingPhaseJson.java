@@ -20,6 +20,8 @@ public class WorkingPhaseJson {
 	
 	private List<WorkingPhaseUserJson> shifts;
 
+	private List<WorkingPhaseMeasureJson> measures;
+	
 	public String toString() {
 		ClassSerializer serializer = new ClassSerializer();
 		serializer.setObj(this);
@@ -50,5 +52,13 @@ public class WorkingPhaseJson {
 	
 	public void setShifts(List<WorkingPhaseUserJson> shifts) {
 		this.shifts = shifts;
+	}
+	
+	public List<WorkingPhaseMeasureJson> getMeasures() {
+		return measures;
+	}
+
+	public void setMeasures(List<WorkingPhaseMeasureJson> measures) {
+		this.measures = measures;
 	}
 }

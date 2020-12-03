@@ -23,6 +23,9 @@ public class WorkingPhase extends BaseDomain {
 	@OneToMany(mappedBy="workingPhase", cascade=CascadeType.ALL)
 	private List<WorkingPhaseUser> workingPhaseUserList;
 
+	@OneToMany(mappedBy="workingPhase", cascade=CascadeType.ALL)
+	private List<WorkingPhaseMeasure> workingPhaseMeasureList;
+	
 	public void populateWorkingPhaseFromInput(WorkingPhaseJson input, ProductionOrder po) {
 		this.setProductionOrder(po);
 	}
@@ -49,5 +52,13 @@ public class WorkingPhase extends BaseDomain {
 
 	public void setWorkingPhaseUserList(List<WorkingPhaseUser> workingPhaseUserList) {
 		this.workingPhaseUserList = workingPhaseUserList;
+	}
+	
+	public List<WorkingPhaseMeasure> getWorkingPhaseMeasureList() {
+		return workingPhaseMeasureList;
+	}
+
+	public void setWorkingPhaseMeasureList(List<WorkingPhaseMeasure> workingPhaseMeasureList) {
+		this.workingPhaseMeasureList = workingPhaseMeasureList;
 	}
 }

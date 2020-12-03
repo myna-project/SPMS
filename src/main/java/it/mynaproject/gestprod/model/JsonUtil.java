@@ -21,6 +21,7 @@ public class JsonUtil {
 	public static AdditiveProductionOrderJson additiveProductionOrderToAdditiveProductionOrderJson(final AdditiveProductionOrder d) {
 
 		final AdditiveProductionOrderJson dj = new AdditiveProductionOrderJson();
+		dj.setId(d.getId());
 		dj.setAdditive_id(d.getAdditive().getId());
 		dj.setProduction_order_code_id(d.getProductionOrder().getId());
 		dj.setWeight_additive(d.getWeight_additive());
@@ -233,10 +234,20 @@ public class JsonUtil {
 	
 	// handle a single shift
 	private static void loadWorkingPhaseUserJson(WorkingPhaseUserJson dj, WorkingPhaseUser d) {
+		dj.setId(d.getId());
 		dj.setWorking_phase_id(d.getWorkingPhase().getId());
 		dj.setUser_id(d.getUser().getId());
 		dj.setStart_time(d.getStart_time());
 		dj.setEnd_time(d.getEnd_time());
+	}
+	
+	// handle a single measure
+	private static void loadWorkingPhaseMeasureJson(WorkingPhaseMeasureJson dj, WorkingPhaseMeasure d) {
+		dj.setId(d.getId());
+		dj.setWorking_phase_id(d.getWorkingPhase().getId());
+		dj.setUser_id(d.getUser().getId());
+		dj.setTime(d.getTime());
+		dj.setFinished_product_quantity(d.getFinished_product_quantity());
 	}
 	
 	// WorkingPhase composed of list of shifts
@@ -253,12 +264,25 @@ public class JsonUtil {
 			}
 		}
 		
+		if(d.getWorkingPhaseMeasureList() != null) {
+			for(WorkingPhaseMeasure wm : d.getWorkingPhaseMeasureList()) {
+				final WorkingPhaseMeasureJson s = new WorkingPhaseMeasureJson();
+				loadWorkingPhaseMeasureJson(s, wm);
+				dj.getMeasures().add(s);
+			}
+		}
 		return dj;
 	}
 	
 	public static WorkingPhaseUserJson workingPhaseUserToWorkingPhaseUserJson(final WorkingPhaseUser d) {
 		final WorkingPhaseUserJson dj = new WorkingPhaseUserJson();
 		loadWorkingPhaseUserJson(dj,d);
+		return dj;
+	}
+	
+	public static WorkingPhaseMeasureJson workingPhaseMeasureToWorkingPhaseMeasureJson(final WorkingPhaseMeasure d) {
+		final WorkingPhaseMeasureJson dj = new WorkingPhaseMeasureJson();
+		loadWorkingPhaseMeasureJson(dj,d);
 		return dj;
 	}
 }
