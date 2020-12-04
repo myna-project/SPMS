@@ -75,7 +75,7 @@ public class WorkingPhaseMeasureServiceImpl implements WorkingPhaseMeasureServic
 
 		log.info("Creating new workingPhaseMeasure: {}", input.toString());
 
-		User u = this.userService.getUser(input.getUser_id(), "");
+		User u = this.userService.getUser(input.getUser().getId(), "");
 		WorkingPhase w = this.workingPhaseService.getWorkingPhase(id, sid);
 		WorkingPhaseMeasure workingPhaseMeasure = new WorkingPhaseMeasure();
 		workingPhaseMeasure.populateWorkingPhaseMeasureFromInput(input, w, u);
@@ -98,7 +98,7 @@ public class WorkingPhaseMeasureServiceImpl implements WorkingPhaseMeasureServic
 
 		log.info("Updating workingPhaseMeasure with id: {}", id);
 
-		User u = this.userService.getUser(input.getUser_id(), "");
+		User u = this.userService.getUser(input.getUser().getId(), "");
 		WorkingPhase w = this.workingPhaseService.getWorkingPhase(id, sid);
 		WorkingPhaseMeasure workingPhaseMeasure = new WorkingPhaseMeasure();
 		workingPhaseMeasure.populateWorkingPhaseMeasureFromInput(input, w, u);

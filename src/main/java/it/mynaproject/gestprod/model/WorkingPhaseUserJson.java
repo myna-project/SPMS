@@ -11,7 +11,7 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 public class WorkingPhaseUserJson extends PhaseJson {
 
 	@NotNull
-	private Integer working_phase_id;
+	private WorkingPhaseJson workingPhase;
 	
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -25,13 +25,12 @@ public class WorkingPhaseUserJson extends PhaseJson {
 	}
 	
 /** GETTERS and SETTERS **/
-	
-	public Integer getWorking_phase_id() {
-		return working_phase_id;
+
+	public WorkingPhaseJson getWorkingPhase() {
+		return workingPhase;
 	}
 
-	public void setWorking_phase_id(final Integer working_phase_id) {
-		this.working_phase_id = working_phase_id;
+	public void setWorkingPhase(WorkingPhaseJson workingPhase) {
+		this.workingPhase = workingPhase;
 	}
-
 }

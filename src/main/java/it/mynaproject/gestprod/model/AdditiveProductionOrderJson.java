@@ -14,10 +14,10 @@ public class AdditiveProductionOrderJson {
 	private Integer id;
 	
 	@NotNull
-	private Integer additive_id;
+	private AdditiveJson additive;
 	
 	@NotNull
-	private Integer production_order_code_id;
+	private ProductionOrderJson productionOrder;
 	
 	@NotNull
 	private Float weight_additive;
@@ -37,21 +37,21 @@ public class AdditiveProductionOrderJson {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-		
-	public Integer getAdditive_id() {
-		return additive_id;
+	
+	public AdditiveJson getAdditive() {
+		return additive;
 	}
 
-	public void setAdditive_id(Integer additive_id) {
-		this.additive_id = additive_id;
+	public void setAdditive(AdditiveJson additive) {
+		this.additive = additive;
 	}
 
-	public Integer getProduction_order_code_id() {
-		return production_order_code_id;
+	public ProductionOrderJson getProductionOrder() {
+		return productionOrder;
 	}
 
-	public void setProduction_order_code_id(Integer production_order_code_id) {
-		this.production_order_code_id = production_order_code_id;
+	public void setProductionOrder(ProductionOrderJson productionOrder) {
+		this.productionOrder = productionOrder;
 	}
 
 	public Float getWeight_additive() {

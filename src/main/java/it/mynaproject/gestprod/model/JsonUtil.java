@@ -22,8 +22,8 @@ public class JsonUtil {
 
 		final AdditiveProductionOrderJson dj = new AdditiveProductionOrderJson();
 		dj.setId(d.getId());
-		dj.setAdditive_id(d.getAdditive().getId());
-		dj.setProduction_order_code_id(d.getProductionOrder().getId());
+		dj.setAdditive(additiveToAdditiveJson(d.getAdditive()));
+		dj.setProductionOrder(productionOrderToProductionOrderJson(d.getProductionOrder(), true));
 		dj.setWeight_additive(d.getWeight_additive());
 
 		return dj;
@@ -85,10 +85,10 @@ public class JsonUtil {
 		dj.setWeight_raw_material(d.getWeight_raw_material());
 		
 		// many-to-one relationships
-		dj.setCustomer_id(d.getCustomer().getId());
-		dj.setExpected_mixture_mode_id(d.getMixtureMode().getId());
-		dj.setPackaging_id(d.getPackaging().getId());
-		dj.setRaw_material_id(d.getRawMaterial().getId());
+		dj.setCustomer(customerToCustomerJson(d.getCustomer()));
+		dj.setExpectedMixtureMode(mixtureModeToMixtureModeJson(d.getMixtureMode()));
+		dj.setPackaging(packagingToPackagingJson(d.getPackaging()));
+		dj.setRawMaterial(rawMaterialToRawMaterialJson(d.getRawMaterial()));
 		if(d.getAdditiveProductionOrderList() != null) {
 			List<AdditiveProductionOrderJson> al = new ArrayList<>();
 			for(AdditiveProductionOrder ap: d.getAdditiveProductionOrderList()) {
@@ -183,7 +183,7 @@ public class JsonUtil {
 	// to be used on all classes except WorkingPhase (because of shifts)
 	private static void loadPhaseJson(PhaseJson dj, final Phase d) {
 		dj.setId(d.getId());
-		dj.setProduction_order_id(d.getProductionOrder().getId());
+		dj.setProductionOrder(productionOrderToProductionOrderJson(d.getProductionOrder(), true));
 		dj.setStart_time(d.getStart_time());
 		dj.setEnd_time(dj.getEnd_time());
 	}
@@ -235,8 +235,8 @@ public class JsonUtil {
 	// handle a single shift
 	private static void loadWorkingPhaseUserJson(WorkingPhaseUserJson dj, WorkingPhaseUser d) {
 		dj.setId(d.getId());
-		dj.setWorking_phase_id(d.getWorkingPhase().getId());
-		dj.setUser_id(d.getUser().getId());
+		dj.setWorkingPhase(workingPhaseToWorkingPhaseJson(d.getWorkingPhase()));
+		dj.setUser(userToUserJson(d.getUser(),true));
 		dj.setStart_time(d.getStart_time());
 		dj.setEnd_time(d.getEnd_time());
 	}
@@ -244,8 +244,8 @@ public class JsonUtil {
 	// handle a single measure
 	private static void loadWorkingPhaseMeasureJson(WorkingPhaseMeasureJson dj, WorkingPhaseMeasure d) {
 		dj.setId(d.getId());
-		dj.setWorking_phase_id(d.getWorkingPhase().getId());
-		dj.setUser_id(d.getUser().getId());
+		dj.setWorkingPhase(workingPhaseToWorkingPhaseJson(d.getWorkingPhase()));
+		dj.setUser(userToUserJson(d.getUser(),true));
 		dj.setTime(d.getTime());
 		dj.setFinished_product_quantity(d.getFinished_product_quantity());
 	}
@@ -254,7 +254,7 @@ public class JsonUtil {
 	public static WorkingPhaseJson workingPhaseToWorkingPhaseJson(final WorkingPhase d) {
 		final WorkingPhaseJson dj = new WorkingPhaseJson();
 		dj.setId(d.getId());
-		dj.setProduction_order_id(d.getProductionOrder().getId());
+		dj.setProductionOrder(productionOrderToProductionOrderJson(d.getProductionOrder(), true));
 		
 		if(d.getWorkingPhaseUserList() != null) {
 			for(WorkingPhaseUser wu : d.getWorkingPhaseUserList()) {

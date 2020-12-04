@@ -19,7 +19,7 @@ public class ProductionOrderJson {
 	private Integer id;
 	
 	@NotNull
-	private Integer customer_id;
+	private CustomerJson customer;
 	
 	@NotBlank
 	private String production_order_code;
@@ -27,7 +27,7 @@ public class ProductionOrderJson {
 	private String production_number_lot;
 	
 	@NotNull
-	private Integer raw_material_id;
+	private RawMaterialJson rawMaterial;
 	
 	private Float weight_raw_material;
 	
@@ -40,14 +40,14 @@ public class ProductionOrderJson {
 	private Float expected_mixture_temperature;
 	
 	@NotNull
-	private Integer expected_mixture_mode_id;
+	private MixtureModeJson expectedMixtureMode;
 	
 	private Float expected_quantity_finished_product;
 	
 	private Date delivery_date;
 	
 	@NotNull
-	private Integer packaging_id;
+	private PackagingJson packaging;
 	
 	private Date production_order_date;
 	
@@ -83,15 +83,6 @@ public class ProductionOrderJson {
 		this.additives = additives;
 	}
 
-	
-	public Integer getCustomer_id() {
-		return customer_id;
-	}
-
-	public void setCustomer_id(Integer customer_id) {
-		this.customer_id = customer_id;
-	}
-
 	public Integer getId() {
 		return id;
 	}
@@ -114,14 +105,6 @@ public class ProductionOrderJson {
 
 	public void setProduction_number_lot(String production_number_lot) {
 		this.production_number_lot = production_number_lot;
-	}
-
-	public Integer getRaw_material_id() {
-		return raw_material_id;
-	}
-
-	public void setRaw_material_id(final Integer raw_material_id) {
-		this.raw_material_id = raw_material_id;
 	}
 
 	public Float getWeight_raw_material() {
@@ -164,14 +147,6 @@ public class ProductionOrderJson {
 		this.expected_mixture_temperature = expected_mixture_temperature;
 	}
 
-	public Integer getExpected_mixture_mode_id() {
-		return expected_mixture_mode_id;
-	}
-
-	public void setExpected_mixture_mode_id(final Integer expected_mixture_mode_id) {
-		this.expected_mixture_mode_id = expected_mixture_mode_id;
-	}
-
 	public Float getExpected_quantity_finished_product() {
 		return expected_quantity_finished_product;
 	}
@@ -186,14 +161,6 @@ public class ProductionOrderJson {
 
 	public void setDelivery_date(Date delivery_date) {
 		this.delivery_date = delivery_date;
-	}
-
-	public Integer getPackaging_id() {
-		return packaging_id;
-	}
-
-	public void setPackaging_id(final Integer packaging_id) {
-		this.packaging_id = packaging_id;
 	}
 
 	public Date getProduction_order_date() {
@@ -258,5 +225,37 @@ public class ProductionOrderJson {
 
 	public void setValidation_phases(List<ValidationPhaseJson> validation_phases) {
 		this.validation_phases = validation_phases;
+	}
+
+	public CustomerJson getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(CustomerJson customer) {
+		this.customer = customer;
+	}
+
+	public RawMaterialJson getRawMaterial() {
+		return rawMaterial;
+	}
+
+	public void setRawMaterial(RawMaterialJson rawMaterial) {
+		this.rawMaterial = rawMaterial;
+	}
+
+	public MixtureModeJson getExpectedMixtureMode() {
+		return expectedMixtureMode;
+	}
+
+	public void setExpectedMixtureMode(MixtureModeJson expectedMixtureMode) {
+		this.expectedMixtureMode = expectedMixtureMode;
+	}
+
+	public PackagingJson getPackaging() {
+		return packaging;
+	}
+
+	public void setPackaging(PackagingJson packaging) {
+		this.packaging = packaging;
 	}
 }

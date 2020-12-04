@@ -15,10 +15,10 @@ public class WorkingPhaseMeasureJson {
 	private Integer id;
 	
 	@NotNull
-	private Integer working_phase_id;
+	private WorkingPhaseJson workingPhase;
 	
 	@NotNull
-	private Integer user_id;
+	private UserJson user;
 	
 	@NotNull
 	private Instant time;
@@ -44,15 +44,6 @@ public class WorkingPhaseMeasureJson {
 		this.id = id;
 	}
 
-	
-	public Integer getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(Integer user_id) {
-		this.user_id = user_id;
-	}
-
 	public Instant getTime() {
 		return time;
 	}
@@ -69,12 +60,19 @@ public class WorkingPhaseMeasureJson {
 		this.finished_product_quantity = finished_product_quantity;
 	}
 
-	public Integer getWorking_phase_id() {
-		return working_phase_id;
+	public WorkingPhaseJson getWorkingPhase() {
+		return workingPhase;
 	}
 
-	public void setWorking_phase_id(final Integer working_phase_id) {
-		this.working_phase_id = working_phase_id;
+	public void setWorkingPhase(WorkingPhaseJson workingPhase) {
+		this.workingPhase = workingPhase;
 	}
 
+	public UserJson getUser() {
+		return user;
+	}
+
+	public void setUser(UserJson user) {
+		this.user = user;
+	}
 }

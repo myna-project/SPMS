@@ -57,7 +57,7 @@ public class WorkingPhaseServiceImpl implements WorkingPhaseService {
 
 		log.info("Creating new workingPhase: {}", input.toString());
 
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id());
+		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
 		WorkingPhase workingPhase = new WorkingPhase();
 		workingPhase.populateWorkingPhaseFromInput(input, po);
 
@@ -79,7 +79,7 @@ public class WorkingPhaseServiceImpl implements WorkingPhaseService {
 
 		log.info("Updating workingPhase with id: {}", id);
 
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id());
+		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
 		WorkingPhase workingPhase = this.getWorkingPhase(id, sid);
 		workingPhase.populateWorkingPhaseFromInput(input, po);
 

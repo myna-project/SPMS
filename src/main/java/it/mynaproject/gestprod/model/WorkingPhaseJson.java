@@ -16,7 +16,7 @@ public class WorkingPhaseJson {
 	private Integer id;
 	
 	@NotNull
-	private Integer production_order_id;
+	private ProductionOrderJson productionOrder;
 	
 	private List<WorkingPhaseUserJson> shifts;
 
@@ -38,12 +38,12 @@ public class WorkingPhaseJson {
 		this.id = id;
 	}
 	
-	public Integer getProduction_order_id() {
-		return production_order_id;
+	public ProductionOrderJson getProductionOrder() {
+		return productionOrder;
 	}
 
-	public void setProduction_order_id(Integer production_order_id) {
-		this.production_order_id = production_order_id;
+	public void setProductionOrder(ProductionOrderJson productionOrder) {
+		this.productionOrder = productionOrder;
 	}
 
 	public List<WorkingPhaseUserJson> getShifts() {

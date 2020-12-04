@@ -55,8 +55,8 @@ public class SettingPhaseServiceImpl implements SettingPhaseService {
 
 		log.info("Creating new settingPhase: {}", input.toString());
 		
-		User u = this.userService.getUser(input.getUser_id(), "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id());
+		User u = this.userService.getUser(input.getUser().getId(), "");
+		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
 		SettingPhase settingPhase = new SettingPhase();
 		settingPhase.populateSettingPhaseFromInput(input, po, u);
 
@@ -78,8 +78,8 @@ public class SettingPhaseServiceImpl implements SettingPhaseService {
 
 		log.info("Updating settingPhase with id: {}", id);
 
-		User u = this.userService.getUser(input.getUser_id(), "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id());
+		User u = this.userService.getUser(input.getUser().getId(), "");
+		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
 		SettingPhase settingPhase = this.getSettingPhase(id, sid);
 		settingPhase.populateSettingPhaseFromInput(input, po, u);
 

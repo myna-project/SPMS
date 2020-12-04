@@ -89,10 +89,10 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
 			throw new ConflictException(7001, "ProductionOrder " + input.getProduction_order_code() + " already registered with id: " + p.getId());
 		}
 		
-		Customer c = this.customerService.getCustomer(input.getCustomer_id());
-		RawMaterial rm = this.rawMaterialService.getRawMaterial(input.getRaw_material_id());
-		MixtureMode mm = this.mixtureModeService.getMixtureMode(input.getExpected_mixture_mode_id());
-		Packaging pp = this.packagingService.getPackaging(input.getPackaging_id());
+		Customer c = this.customerService.getCustomer(input.getCustomer().getId());
+		RawMaterial rm = this.rawMaterialService.getRawMaterial(input.getRawMaterial().getId());
+		MixtureMode mm = this.mixtureModeService.getMixtureMode(input.getExpectedMixtureMode().getId());
+		Packaging pp = this.packagingService.getPackaging(input.getPackaging().getId());
 		List<AdditiveProductionOrder> apol = new ArrayList<>();
 		
 		for(AdditiveProductionOrderJson aid : input.getAdditives()) {
@@ -124,10 +124,10 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
 			throw new ConflictException(7001, "ProductionOrder " + input.getProduction_order_code() + " already registered with id: " + p.getId());
 		}
 		
-		Customer c = this.customerService.getCustomer(input.getCustomer_id());
-		RawMaterial rm = this.rawMaterialService.getRawMaterial(input.getRaw_material_id());
-		MixtureMode mm = this.mixtureModeService.getMixtureMode(input.getExpected_mixture_mode_id());
-		Packaging pp = this.packagingService.getPackaging(input.getPackaging_id());
+		Customer c = this.customerService.getCustomer(input.getCustomer().getId());
+		RawMaterial rm = this.rawMaterialService.getRawMaterial(input.getRawMaterial().getId());
+		MixtureMode mm = this.mixtureModeService.getMixtureMode(input.getExpectedMixtureMode().getId());
+		Packaging pp = this.packagingService.getPackaging(input.getPackaging().getId());
 		List<AdditiveProductionOrder> apol = new ArrayList<>();
 		
 		for(AdditiveProductionOrderJson aid : input.getAdditives()) {

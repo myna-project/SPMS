@@ -75,7 +75,7 @@ public class WorkingPhaseUserServiceImpl implements WorkingPhaseUserService {
 
 		log.info("Creating new workingPhaseUser: {}", input.toString());
 
-		User u = this.userService.getUser(input.getUser_id(), "");
+		User u = this.userService.getUser(input.getUser().getId(), "");
 		WorkingPhase w = this.workingPhaseService.getWorkingPhase(id, sid);
 		WorkingPhaseUser workingPhaseUser = new WorkingPhaseUser();
 		workingPhaseUser.populateWorkingPhaseUserFromInput(input, w, u);
@@ -98,7 +98,7 @@ public class WorkingPhaseUserServiceImpl implements WorkingPhaseUserService {
 
 		log.info("Updating workingPhaseUser with id: {}", id);
 
-		User u = this.userService.getUser(input.getUser_id(), "");
+		User u = this.userService.getUser(input.getUser().getId(), "");
 		WorkingPhase w = this.workingPhaseService.getWorkingPhase(id, sid);
 		WorkingPhaseUser workingPhaseUser = new WorkingPhaseUser();
 		workingPhaseUser.populateWorkingPhaseUserFromInput(input, w, u);

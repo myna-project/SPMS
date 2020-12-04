@@ -58,8 +58,8 @@ public class CleaningPhaseServiceImpl implements CleaningPhaseService {
 
 		log.info("Creating new cleaningPhase: {}", input.toString());
 
-		User u = this.userService.getUser(input.getUser_id(), "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id());
+		User u = this.userService.getUser(input.getUser().getId(), "");
+		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
 		CleaningPhase cleaningPhase = new CleaningPhase();
 		cleaningPhase.populateCleaningPhaseFromInput(input, po, u);
 
@@ -81,8 +81,8 @@ public class CleaningPhaseServiceImpl implements CleaningPhaseService {
 
 		log.info("Updating cleaningPhase with id: {}", id);
 
-		User u = this.userService.getUser(input.getUser_id(), "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id());
+		User u = this.userService.getUser(input.getUser().getId(), "");
+		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
 		CleaningPhase cleaningPhase = this.getCleaningPhase(id, sid);
 		cleaningPhase.populateCleaningPhaseFromInput(input, po, u);
 

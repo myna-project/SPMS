@@ -58,8 +58,8 @@ public class ValidationPhaseServiceImpl implements ValidationPhaseService {
 
 		log.info("Creating new validationPhase: {}", input.toString());
 
-		User u = this.userService.getUser(input.getUser_id(), "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id());
+		User u = this.userService.getUser(input.getUser().getId(), "");
+		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
 		ValidationPhase validationPhase = new ValidationPhase();
 		validationPhase.populateValidationPhaseFromInput(input, po, u);
 
@@ -81,8 +81,8 @@ public class ValidationPhaseServiceImpl implements ValidationPhaseService {
 
 		log.info("Updating validationPhase with id: {}", id);
 
-		User u = this.userService.getUser(input.getUser_id(), "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProduction_order_id());
+		User u = this.userService.getUser(input.getUser().getId(), "");
+		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
 		ValidationPhase validationPhase = this.getValidationPhase(id, sid);
 		validationPhase.populateValidationPhaseFromInput(input, po, u);
 

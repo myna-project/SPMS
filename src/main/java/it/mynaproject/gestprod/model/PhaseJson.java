@@ -17,10 +17,10 @@ public class PhaseJson {
 	private Integer id;
 	
 	@NotNull
-	private Integer production_order_id;
+	private ProductionOrderJson productionOrder;
 	
 	@NotNull
-	private Integer user_id;
+	private UserJson user;
 
 	@NotNull
 	private Instant start_time;
@@ -43,23 +43,23 @@ public class PhaseJson {
 	public void setId(final Integer id) {
 		this.id = id;
 	}
-
-	public Integer getProduction_order_id() {
-		return production_order_id;
-	}
-
-	public void setProduction_order_id(final Integer production_order_id) {
-		this.production_order_id = production_order_id;
-	}
 	
-	public Integer getUser_id() {
-		return user_id;
+	public ProductionOrderJson getProductionOrder() {
+		return productionOrder;
 	}
 
-	public void setUser_id(final Integer user_id) {
-		this.user_id = user_id;
+	public void setProductionOrder(ProductionOrderJson productionOrder) {
+		this.productionOrder = productionOrder;
 	}
-	
+
+	public UserJson getUser() {
+		return user;
+	}
+
+	public void setUser(UserJson user) {
+		this.user = user;
+	}
+
 	public Instant getStart_time() {
 		return start_time;
 	}
