@@ -1,5 +1,7 @@
 package it.mynaproject.gestprod.service.impl;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,7 +59,7 @@ public class WorkingPhaseServiceImpl implements WorkingPhaseService {
 
 		log.info("Creating new workingPhase: {}", input.toString());
 
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
+		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
 		WorkingPhase workingPhase = new WorkingPhase();
 		workingPhase.populateWorkingPhaseFromInput(input, po);
 
@@ -75,17 +77,29 @@ public class WorkingPhaseServiceImpl implements WorkingPhaseService {
 	
 	@Transactional
 	@Override
-	public WorkingPhase updateWorkingPhaseFromJson(Integer id, Integer sid, WorkingPhaseJson input) { 
+	public WorkingPhase updateWorkingPhaseFromJson(Integer id, Integer sid, WorkingPhaseJson input) {
 
-		log.info("Updating workingPhase with id: {}", id);
+		log.info("Updating settingPhase with id: {}", id);
 
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
-		WorkingPhase workingPhase = this.getWorkingPhase(id, sid);
-		workingPhase.populateWorkingPhaseFromInput(input, po);
+		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
+		List<WorkingPhase> sflist = po.getWorkingPhaseList();
+		WorkingPhase settingPhase = null; // alternative: can we look for the setting phase using DAO?
+		if(sflist != null) {
+			for(WorkingPhase sf : sflist) {
+				if(sf.getId() == sid) {
+					settingPhase = sf;
+				}
+			}
+		}
+		if(settingPhase == null)
+			throw new NotFoundException(404, "WorkingPhase " + sid + " not found");
+		
+		ProductionOrder npo = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
+		settingPhase.populateWorkingPhaseFromInput(input, npo);
+		
+		this.update(settingPhase);
 
-		this.update(workingPhase);
-
-		return workingPhase;
+		return settingPhase;
 	}
 	
 	@Transactional

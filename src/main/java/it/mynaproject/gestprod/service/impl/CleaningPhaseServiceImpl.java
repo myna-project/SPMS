@@ -1,5 +1,7 @@
 package it.mynaproject.gestprod.service.impl;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,7 +61,7 @@ public class CleaningPhaseServiceImpl implements CleaningPhaseService {
 		log.info("Creating new cleaningPhase: {}", input.toString());
 
 		User u = this.userService.getUser(input.getUser().getId(), "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
+		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
 		CleaningPhase cleaningPhase = new CleaningPhase();
 		cleaningPhase.populateCleaningPhaseFromInput(input, po, u);
 
@@ -81,11 +83,23 @@ public class CleaningPhaseServiceImpl implements CleaningPhaseService {
 
 		log.info("Updating cleaningPhase with id: {}", id);
 
+		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
+		List<CleaningPhase> sflist = po.getCleaningPhaseList();
+		CleaningPhase cleaningPhase = null; // alternative: can we look for the cleaning phase using DAO?
+		if(sflist != null) {
+			for(CleaningPhase sf : sflist) {
+				if(sf.getId() == sid) {
+					cleaningPhase = sf;
+				}
+			}
+		}
+		if(cleaningPhase == null)
+			throw new NotFoundException(404, "CleaningPhase " + sid + " not found");
+		
 		User u = this.userService.getUser(input.getUser().getId(), "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
-		CleaningPhase cleaningPhase = this.getCleaningPhase(id, sid);
-		cleaningPhase.populateCleaningPhaseFromInput(input, po, u);
-
+		ProductionOrder npo = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
+		cleaningPhase.populateCleaningPhaseFromInput(input, npo, u);
+		
 		this.update(cleaningPhase);
 
 		return cleaningPhase;

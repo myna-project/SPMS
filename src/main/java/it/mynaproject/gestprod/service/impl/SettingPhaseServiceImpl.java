@@ -1,5 +1,7 @@
 package it.mynaproject.gestprod.service.impl;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,7 +58,7 @@ public class SettingPhaseServiceImpl implements SettingPhaseService {
 		log.info("Creating new settingPhase: {}", input.toString());
 		
 		User u = this.userService.getUser(input.getUser().getId(), "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
+		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
 		SettingPhase settingPhase = new SettingPhase();
 		settingPhase.populateSettingPhaseFromInput(input, po, u);
 
@@ -78,11 +80,23 @@ public class SettingPhaseServiceImpl implements SettingPhaseService {
 
 		log.info("Updating settingPhase with id: {}", id);
 
+		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
+		List<SettingPhase> sflist = po.getSettingPhaseList();
+		SettingPhase settingPhase = null; // alternative: can we look for the setting phase using DAO?
+		if(sflist != null) {
+			for(SettingPhase sf : sflist) {
+				if(sf.getId() == sid) {
+					settingPhase = sf;
+				}
+			}
+		}
+		if(settingPhase == null)
+			throw new NotFoundException(404, "SettingPhase " + sid + " not found");
+		
 		User u = this.userService.getUser(input.getUser().getId(), "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
-		SettingPhase settingPhase = this.getSettingPhase(id, sid);
-		settingPhase.populateSettingPhaseFromInput(input, po, u);
-
+		ProductionOrder npo = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
+		settingPhase.populateSettingPhaseFromInput(input, npo, u);
+		
 		this.update(settingPhase);
 
 		return settingPhase;

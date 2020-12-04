@@ -1,5 +1,7 @@
 package it.mynaproject.gestprod.service.impl;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,7 +61,7 @@ public class ValidationPhaseServiceImpl implements ValidationPhaseService {
 		log.info("Creating new validationPhase: {}", input.toString());
 
 		User u = this.userService.getUser(input.getUser().getId(), "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
+		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
 		ValidationPhase validationPhase = new ValidationPhase();
 		validationPhase.populateValidationPhaseFromInput(input, po, u);
 
@@ -81,11 +83,23 @@ public class ValidationPhaseServiceImpl implements ValidationPhaseService {
 
 		log.info("Updating validationPhase with id: {}", id);
 
+		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
+		List<ValidationPhase> sflist = po.getValidationPhaseList();
+		ValidationPhase validationPhase = null; // alternative: can we look for the validation phase using DAO?
+		if(sflist != null) {
+			for(ValidationPhase sf : sflist) {
+				if(sf.getId() == sid) {
+					validationPhase = sf;
+				}
+			}
+		}
+		if(validationPhase == null)
+			throw new NotFoundException(404, "ValidationPhase " + sid + " not found");
+		
 		User u = this.userService.getUser(input.getUser().getId(), "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
-		ValidationPhase validationPhase = this.getValidationPhase(id, sid);
-		validationPhase.populateValidationPhaseFromInput(input, po, u);
-
+		ProductionOrder npo = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
+		validationPhase.populateValidationPhaseFromInput(input, npo, u);
+		
 		this.update(validationPhase);
 
 		return validationPhase;

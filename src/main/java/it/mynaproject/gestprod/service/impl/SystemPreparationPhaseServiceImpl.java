@@ -1,5 +1,7 @@
 package it.mynaproject.gestprod.service.impl;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,7 +61,7 @@ public class SystemPreparationPhaseServiceImpl implements SystemPreparationPhase
 		log.info("Creating new systemPreparationPhase: {}", input.toString());
 
 		User u = this.userService.getUser(input.getUser().getId(), "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
+		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
 		SystemPreparationPhase systemPreparationPhase = new SystemPreparationPhase();
 		systemPreparationPhase.populateSystemPreparationPhaseFromInput(input, po, u);
 
@@ -81,11 +83,23 @@ public class SystemPreparationPhaseServiceImpl implements SystemPreparationPhase
 
 		log.info("Updating systemPreparationPhase with id: {}", id);
 
+		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
+		List<SystemPreparationPhase> sflist = po.getSystemPreparationPhaseList();
+		SystemPreparationPhase systemPreparationPhase = null; // alternative: can we look for the systemPreparation phase using DAO?
+		if(sflist != null) {
+			for(SystemPreparationPhase sf : sflist) {
+				if(sf.getId() == sid) {
+					systemPreparationPhase = sf;
+				}
+			}
+		}
+		if(systemPreparationPhase == null)
+			throw new NotFoundException(404, "SystemPreparationPhase " + sid + " not found");
+		
 		User u = this.userService.getUser(input.getUser().getId(), "");
-		ProductionOrder po = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
-		SystemPreparationPhase systemPreparationPhase = this.getSystemPreparationPhase(id, sid);
-		systemPreparationPhase.populateSystemPreparationPhaseFromInput(input, po, u);
-
+		ProductionOrder npo = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
+		systemPreparationPhase.populateSystemPreparationPhaseFromInput(input, npo, u);
+		
 		this.update(systemPreparationPhase);
 
 		return systemPreparationPhase;
