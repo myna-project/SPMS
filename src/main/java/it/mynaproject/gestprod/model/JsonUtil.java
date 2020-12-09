@@ -183,7 +183,7 @@ public class JsonUtil {
 	// to be used on all classes except WorkingPhase (because of shifts)
 	private static void loadPhaseJson(PhaseJson dj, final Phase d) {
 		dj.setId(d.getId());
-		dj.setProductionOrder(productionOrderToProductionOrderJson(d.getProductionOrder(), true));
+		dj.setProductionOrder(productionOrderToProductionOrderJson(d.getProductionOrder(), false));
 		dj.setStart_time(d.getStart_time());
 		dj.setEnd_time(dj.getEnd_time());
 	}
@@ -254,7 +254,7 @@ public class JsonUtil {
 	public static WorkingPhaseJson workingPhaseToWorkingPhaseJson(final WorkingPhase d) {
 		final WorkingPhaseJson dj = new WorkingPhaseJson();
 		dj.setId(d.getId());
-		dj.setProductionOrder(productionOrderToProductionOrderJson(d.getProductionOrder(), true));
+		dj.setProductionOrder(productionOrderToProductionOrderJson(d.getProductionOrder(), false));
 		
 		if(d.getWorkingPhaseUserList() != null) {
 			for(WorkingPhaseUser wu : d.getWorkingPhaseUserList()) {
