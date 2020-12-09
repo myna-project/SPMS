@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -43,6 +44,11 @@ public class WorkingPhaseDaoImpl extends BaseDaoImpl implements WorkingPhaseDao 
 		em.remove(em.merge(workingPhase));
 		em.flush();
 	}
+	
+	private void initializeWorkingPhase(WorkingPhase w) {
+		Hibernate.initialize(w.getWorkingPhaseUserList());
+		Hibernate.initialize(w.getWorkingPhaseMeasureList());
+	}
 
 	@Override
 	public WorkingPhase getWorkingPhase(Integer id) {
@@ -53,7 +59,9 @@ public class WorkingPhaseDaoImpl extends BaseDaoImpl implements WorkingPhaseDao 
 		q.setParameter("id", id);
 
 		try {
-			return (WorkingPhase) q.getSingleResult();
+			WorkingPhase w = (WorkingPhase) q.getSingleResult();
+			initializeWorkingPhase(w);
+			return w;
 		} catch (NoResultException nre) {
 			return null;
 		}
@@ -63,6 +71,10 @@ public class WorkingPhaseDaoImpl extends BaseDaoImpl implements WorkingPhaseDao 
 	@Override
 	public List<WorkingPhase> getWorkingPhases() {
 
-		return em.createQuery("FROM WorkingPhase").getResultList();
+		List<WorkingPhase> wList = em.createQuery("FROM WorkingPhase").getResultList();
+		for(WorkingPhase w : wList) {
+			initializeWorkingPhase(w);
+		}
+		return wList;
 	}
 }

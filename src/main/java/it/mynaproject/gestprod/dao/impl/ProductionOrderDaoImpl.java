@@ -67,7 +67,11 @@ public class ProductionOrderDaoImpl extends BaseDaoImpl implements ProductionOrd
 	@Override
 	public List<ProductionOrder> getProductionOrders() {
 
-		return em.createQuery("FROM ProductionOrder").getResultList();
+		List<ProductionOrder> pList = em.createQuery("FROM ProductionOrder").getResultList();
+		for(ProductionOrder p : pList) {
+			initializeProductionOrder(p);
+		}
+		return pList;
 	}
 	
 	private void initializeProductionOrder(ProductionOrder p) {
