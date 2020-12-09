@@ -45,7 +45,7 @@ public class ValidationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/admin/productionorders/{id}/validationphases")
+	@GetMapping(value = "/admin/productionOrders/{id}/validationPhases")
 	public List<ValidationPhaseJson> getValidationPhases(@PathVariable("id") Integer id) {
 
 		log.info("Request for validationPhases in ProductionOrder with id {}", id);
@@ -61,7 +61,7 @@ public class ValidationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/admin/productionorders/{id}/validationphases/{sid}")
+	@GetMapping(value = "/admin/productionOrders/{id}/validationPhases/{sid}")
 	public ValidationPhaseJson getValidationPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for validationPhase with id {}", sid);
@@ -72,7 +72,7 @@ public class ValidationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PostMapping(value = "/admin/productionorders/{id}/validationphases")
+	@PostMapping(value = "/admin/productionOrders/{id}/validationPhases")
 	public Object postValidationPhase(@PathVariable("id") Integer id, @Valid @RequestBody ValidationPhaseJson input, HttpServletRequest request) {
 
 		ValidationPhase validationPhase = this.validationPhaseService.createValidationPhaseFromJson(id, input);
@@ -83,7 +83,7 @@ public class ValidationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PutMapping(value = "/admin/productionorders/{id}/validationphases/{sid}")
+	@PutMapping(value = "/admin/productionOrders/{id}/validationPhases/{sid}")
 	public Object updateValidationPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody ValidationPhaseJson input) {
 
 		ValidationPhase validationPhase = this.validationPhaseService.updateValidationPhaseFromJson(id, sid, input);
@@ -94,7 +94,7 @@ public class ValidationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@DeleteMapping(value = "/admin/productionorders/{id}/validationphases/{sid}")
+	@DeleteMapping(value = "/admin/productionOrders/{id}/validationPhases/{sid}")
 	public Object deleteValidationPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		this.validationPhaseService.deleteValidationPhaseById(sid);
@@ -111,7 +111,7 @@ public class ValidationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/resp/productionorders/{id}/validationphases")
+	@GetMapping(value = "/resp/productionOrders/{id}/validationPhases")
 	public List<ValidationPhaseJson> getValidationPhasesForResp(@PathVariable("id") Integer id) {
 
 		log.info("Request for validationPhases in ProductionOrder with id {}", id);
@@ -127,7 +127,7 @@ public class ValidationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/resp/productionorders/{id}/validationphases/{sid}")
+	@GetMapping(value = "/resp/productionOrders/{id}/validationPhases/{sid}")
 	public ValidationPhaseJson getValidationPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for validationPhase with id {}", sid);
@@ -138,7 +138,7 @@ public class ValidationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PostMapping(value = "/resp/productionorders/{id}/validationphases")
+	@PostMapping(value = "/resp/productionOrders/{id}/validationPhases")
 	public Object postValidationPhaseForResp(@PathVariable("id") Integer id, @Valid @RequestBody ValidationPhaseJson input, HttpServletRequest request) {
 
 		ValidationPhase validationPhase = this.validationPhaseService.createValidationPhaseFromJson(id, input);
@@ -149,7 +149,7 @@ public class ValidationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PutMapping(value = "/resp/productionorders/{id}/validationphases/{sid}")
+	@PutMapping(value = "/resp/productionOrders/{id}/validationPhases/{sid}")
 	public Object updateValidationPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody ValidationPhaseJson input) {
 
 		ValidationPhase validationPhase = this.validationPhaseService.updateValidationPhaseFromJson(id, sid, input);
@@ -160,7 +160,7 @@ public class ValidationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@DeleteMapping(value = "/resp/productionorders/{id}/validationphases/{sid}")
+	@DeleteMapping(value = "/resp/productionOrders/{id}/validationPhases/{sid}")
 	public Object deleteValidationPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		this.validationPhaseService.deleteValidationPhaseById(sid);
@@ -177,7 +177,7 @@ public class ValidationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/productionorders/{id}/validationphases")
+	@GetMapping(value = "/productionOrders/{id}/validationPhases")
 	public List<ValidationPhaseJson> getValidationPhasesForUser(@PathVariable("id") Integer id) {
 
 		log.info("Request for validationPhases in ProductionOrder with id {}", id);
@@ -193,7 +193,7 @@ public class ValidationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/productionorders/{id}/validationphases/{sid}")
+	@GetMapping(value = "/productionOrders/{id}/validationPhases/{sid}")
 	public ValidationPhaseJson getValidationPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for validationPhase with id {}", sid);
@@ -204,7 +204,7 @@ public class ValidationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PostMapping(value = "/productionorders/{id}/validationphases")
+	@PostMapping(value = "/productionOrders/{id}/validationPhases")
 	public Object postValidationPhaseForUser(@PathVariable("id") Integer id, @Valid @RequestBody ValidationPhaseJson input, HttpServletRequest request) {
 
 		ValidationPhase validationPhase = this.validationPhaseService.createValidationPhaseFromJson(id, input);
@@ -215,7 +215,7 @@ public class ValidationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PutMapping(value = "/productionorders/{id}/validationphases/{sid}")
+	@PutMapping(value = "/productionOrders/{id}/validationPhases/{sid}")
 	public Object updateValidationPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody ValidationPhaseJson input) {
 
 		ValidationPhase validationPhase = this.validationPhaseService.updateValidationPhaseFromJson(id, sid, input);
@@ -226,7 +226,7 @@ public class ValidationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@DeleteMapping(value = "/productionorders/{id}/validationphases/{sid}")
+	@DeleteMapping(value = "/productionOrders/{id}/validationPhases/{sid}")
 	public Object deleteValidationPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		this.validationPhaseService.deleteValidationPhaseById(sid);

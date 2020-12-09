@@ -44,7 +44,7 @@ public class ProductionOrderController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/admin/productionorders")
+	@GetMapping(value = "/admin/productionOrders")
 	public List<ProductionOrderJson> getProductionOrders() {
 
 		log.info("Request for productionOrders");
@@ -61,7 +61,7 @@ public class ProductionOrderController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/admin/productionorders/{id}")
+	@GetMapping(value = "/admin/productionOrders/{id}")
 	public ProductionOrderJson getProductionOrder(@PathVariable("id") Integer id) {
 
 		log.info("Request for productionOrder with id {}", id);
@@ -73,7 +73,7 @@ public class ProductionOrderController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PostMapping(value = "/admin/productionorders")
+	@PostMapping(value = "/admin/productionOrders")
 	public Object postProductionOrder(@Valid @RequestBody ProductionOrderJson input, HttpServletRequest request) {
 
 		ProductionOrder productionOrder = this.productionOrderService.createProductionOrderFromJson(input);
@@ -85,7 +85,7 @@ public class ProductionOrderController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PutMapping(value = "/admin/productionorders/{id}")
+	@PutMapping(value = "/admin/productionOrders/{id}")
 	public Object updateProductionOrder(@PathVariable("id") Integer id, @Valid @RequestBody ProductionOrderJson input) {
 
 		ProductionOrder productionOrder = this.productionOrderService.updateProductionOrderFromJson(id, input);
@@ -97,7 +97,7 @@ public class ProductionOrderController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@DeleteMapping(value = "/admin/productionorders/{id}")
+	@DeleteMapping(value = "/admin/productionOrders/{id}")
 	public Object deleteProductionOrder(@PathVariable("id") Integer id) {
 
 		this.productionOrderService.deleteProductionOrderById(id);
@@ -114,7 +114,7 @@ public class ProductionOrderController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/resp/productionorders")
+	@GetMapping(value = "/resp/productionOrders")
 	public List<ProductionOrderJson> getProductionOrdersForResp() {
 
 		log.info("Request for productionOrders");
@@ -131,7 +131,7 @@ public class ProductionOrderController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/resp/productionorders/{id}")
+	@GetMapping(value = "/resp/productionOrders/{id}")
 	public ProductionOrderJson getProductionOrderForResp(@PathVariable("id") Integer id) {
 
 		log.info("Request for productionOrder with id {}", id);
@@ -149,7 +149,7 @@ public class ProductionOrderController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/productionorders")
+	@GetMapping(value = "/productionOrders")
 	public List<ProductionOrderJson> getProductionOrdersForUser() {
 
 		log.info("Request for productionOrders");
@@ -166,7 +166,7 @@ public class ProductionOrderController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/productionorders/{id}")
+	@GetMapping(value = "/productionOrders/{id}")
 	public ProductionOrderJson getProductionOrderForUser(@PathVariable("id") Integer id) {
 
 		log.info("Request for productionOrder with id {}", id);

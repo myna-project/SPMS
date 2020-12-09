@@ -45,7 +45,7 @@ public class SystemPreparationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/admin/productionorders/{id}/systempreparationphases")
+	@GetMapping(value = "/admin/productionOrders/{id}/systemPreparationPhases")
 	public List<SystemPreparationPhaseJson> getSystemPreparationPhases(@PathVariable("id") Integer id) {
 
 		log.info("Request for systemPreparationPhases in ProductionOrder with id {}", id);
@@ -61,7 +61,7 @@ public class SystemPreparationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/admin/productionorders/{id}/systempreparationphases/{sid}")
+	@GetMapping(value = "/admin/productionOrders/{id}/systemPreparationPhases/{sid}")
 	public SystemPreparationPhaseJson getSystemPreparationPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for systemPreparationPhase with id {}", sid);
@@ -72,7 +72,7 @@ public class SystemPreparationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PostMapping(value = "/admin/productionorders/{id}/systempreparationphases")
+	@PostMapping(value = "/admin/productionOrders/{id}/systemPreparationPhases")
 	public Object postSystemPreparationPhase(@PathVariable("id") Integer id, @Valid @RequestBody SystemPreparationPhaseJson input, HttpServletRequest request) {
 
 		SystemPreparationPhase systemPreparationPhase = this.systemPreparationPhaseService.createSystemPreparationPhaseFromJson(id, input);
@@ -83,7 +83,7 @@ public class SystemPreparationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PutMapping(value = "/admin/productionorders/{id}/systempreparationphases/{sid}")
+	@PutMapping(value = "/admin/productionOrders/{id}/systemPreparationPhases/{sid}")
 	public Object updateSystemPreparationPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody SystemPreparationPhaseJson input) {
 
 		SystemPreparationPhase systemPreparationPhase = this.systemPreparationPhaseService.updateSystemPreparationPhaseFromJson(id, sid, input);
@@ -94,7 +94,7 @@ public class SystemPreparationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@DeleteMapping(value = "/admin/productionorders/{id}/systempreparationphases/{sid}")
+	@DeleteMapping(value = "/admin/productionOrders/{id}/systemPreparationPhases/{sid}")
 	public Object deleteSystemPreparationPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		this.systemPreparationPhaseService.deleteSystemPreparationPhaseById(sid);
@@ -111,7 +111,7 @@ public class SystemPreparationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/resp/productionorders/{id}/systempreparationphases")
+	@GetMapping(value = "/resp/productionOrders/{id}/systemPreparationPhases")
 	public List<SystemPreparationPhaseJson> getSystemPreparationPhasesForResp(@PathVariable("id") Integer id) {
 
 		log.info("Request for systemPreparationPhases in ProductionOrder with id {}", id);
@@ -127,7 +127,7 @@ public class SystemPreparationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/resp/productionorders/{id}/systempreparationphases/{sid}")
+	@GetMapping(value = "/resp/productionOrders/{id}/systemPreparationPhases/{sid}")
 	public SystemPreparationPhaseJson getSystemPreparationPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for systemPreparationPhase with id {}", sid);
@@ -138,7 +138,7 @@ public class SystemPreparationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PostMapping(value = "/resp/productionorders/{id}/systempreparationphases")
+	@PostMapping(value = "/resp/productionOrders/{id}/systemPreparationPhases")
 	public Object postSystemPreparationPhaseForResp(@PathVariable("id") Integer id, @Valid @RequestBody SystemPreparationPhaseJson input, HttpServletRequest request) {
 
 		SystemPreparationPhase systemPreparationPhase = this.systemPreparationPhaseService.createSystemPreparationPhaseFromJson(id, input);
@@ -149,7 +149,7 @@ public class SystemPreparationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PutMapping(value = "/resp/productionorders/{id}/systempreparationphases/{sid}")
+	@PutMapping(value = "/resp/productionOrders/{id}/systemPreparationPhases/{sid}")
 	public Object updateSystemPreparationPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody SystemPreparationPhaseJson input) {
 
 		SystemPreparationPhase systemPreparationPhase = this.systemPreparationPhaseService.updateSystemPreparationPhaseFromJson(id, sid, input);
@@ -160,7 +160,7 @@ public class SystemPreparationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@DeleteMapping(value = "/resp/productionorders/{id}/systempreparationphases/{sid}")
+	@DeleteMapping(value = "/resp/productionOrders/{id}/systemPreparationPhases/{sid}")
 	public Object deleteSystemPreparationPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		this.systemPreparationPhaseService.deleteSystemPreparationPhaseById(sid);
@@ -177,7 +177,7 @@ public class SystemPreparationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/productionorders/{id}/systempreparationphases")
+	@GetMapping(value = "/productionOrders/{id}/systemPreparationPhases")
 	public List<SystemPreparationPhaseJson> getSystemPreparationPhasesForUser(@PathVariable("id") Integer id) {
 
 		log.info("Request for systemPreparationPhases in ProductionOrder with id {}", id);
@@ -193,7 +193,7 @@ public class SystemPreparationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/productionorders/{id}/systempreparationphases/{sid}")
+	@GetMapping(value = "/productionOrders/{id}/systemPreparationPhases/{sid}")
 	public SystemPreparationPhaseJson getSystemPreparationPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for systemPreparationPhase with id {}", sid);
@@ -204,7 +204,7 @@ public class SystemPreparationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PostMapping(value = "/productionorders/{id}/systempreparationphases")
+	@PostMapping(value = "/productionOrders/{id}/systemPreparationPhases")
 	public Object postSystemPreparationPhaseForUser(@PathVariable("id") Integer id, @Valid @RequestBody SystemPreparationPhaseJson input, HttpServletRequest request) {
 
 		SystemPreparationPhase systemPreparationPhase = this.systemPreparationPhaseService.createSystemPreparationPhaseFromJson(id, input);
@@ -215,7 +215,7 @@ public class SystemPreparationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PutMapping(value = "/productionorders/{id}/systempreparationphases/{sid}")
+	@PutMapping(value = "/productionOrders/{id}/systemPreparationPhases/{sid}")
 	public Object updateSystemPreparationPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody SystemPreparationPhaseJson input) {
 
 		SystemPreparationPhase systemPreparationPhase = this.systemPreparationPhaseService.updateSystemPreparationPhaseFromJson(id, sid, input);
@@ -226,7 +226,7 @@ public class SystemPreparationPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@DeleteMapping(value = "/productionorders/{id}/systempreparationphases/{sid}")
+	@DeleteMapping(value = "/productionOrders/{id}/systemPreparationPhases/{sid}")
 	public Object deleteSystemPreparationPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		this.systemPreparationPhaseService.deleteSystemPreparationPhaseById(sid);

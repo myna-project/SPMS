@@ -45,7 +45,7 @@ public class CleaningPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/admin/productionorders/{id}/cleaningphases")
+	@GetMapping(value = "/admin/productionOrders/{id}/cleaningPhases")
 	public List<CleaningPhaseJson> getCleaningPhases(@PathVariable("id") Integer id) {
 
 		log.info("Request for cleaningPhases in ProductionOrder with id {}", id);
@@ -61,7 +61,7 @@ public class CleaningPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/admin/productionorders/{id}/cleaningphases/{sid}")
+	@GetMapping(value = "/admin/productionOrders/{id}/cleaningPhases/{sid}")
 	public CleaningPhaseJson getCleaningPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for cleaningPhase with id {}", sid);
@@ -72,7 +72,7 @@ public class CleaningPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PostMapping(value = "/admin/productionorders/{id}/cleaningphases")
+	@PostMapping(value = "/admin/productionOrders/{id}/cleaningPhases")
 	public Object postCleaningPhase(@PathVariable("id") Integer id, @Valid @RequestBody CleaningPhaseJson input, HttpServletRequest request) {
 
 		CleaningPhase cleaningPhase = this.cleaningPhaseService.createCleaningPhaseFromJson(id, input);
@@ -83,7 +83,7 @@ public class CleaningPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PutMapping(value = "/admin/productionorders/{id}/cleaningphases/{sid}")
+	@PutMapping(value = "/admin/productionOrders/{id}/cleaningPhases/{sid}")
 	public Object updateCleaningPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody CleaningPhaseJson input) {
 
 		CleaningPhase cleaningPhase = this.cleaningPhaseService.updateCleaningPhaseFromJson(id, sid, input);
@@ -94,7 +94,7 @@ public class CleaningPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@DeleteMapping(value = "/admin/productionorders/{id}/cleaningphases/{sid}")
+	@DeleteMapping(value = "/admin/productionOrders/{id}/cleaningPhases/{sid}")
 	public Object deleteCleaningPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		this.cleaningPhaseService.deleteCleaningPhaseById(sid);
@@ -111,7 +111,7 @@ public class CleaningPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/resp/productionorders/{id}/cleaningphases")
+	@GetMapping(value = "/resp/productionOrders/{id}/cleaningPhases")
 	public List<CleaningPhaseJson> getCleaningPhasesForResp(@PathVariable("id") Integer id) {
 
 		log.info("Request for cleaningPhases in ProductionOrder with id {}", id);
@@ -127,7 +127,7 @@ public class CleaningPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/resp/productionorders/{id}/cleaningphases/{sid}")
+	@GetMapping(value = "/resp/productionOrders/{id}/cleaningPhases/{sid}")
 	public CleaningPhaseJson getCleaningPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for cleaningPhase with id {}", sid);
@@ -138,7 +138,7 @@ public class CleaningPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PostMapping(value = "/resp/productionorders/{id}/cleaningphases")
+	@PostMapping(value = "/resp/productionOrders/{id}/cleaningPhases")
 	public Object postCleaningPhaseForResp(@PathVariable("id") Integer id, @Valid @RequestBody CleaningPhaseJson input, HttpServletRequest request) {
 
 		CleaningPhase cleaningPhase = this.cleaningPhaseService.createCleaningPhaseFromJson(id, input);
@@ -149,7 +149,7 @@ public class CleaningPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PutMapping(value = "/resp/productionorders/{id}/cleaningphases/{sid}")
+	@PutMapping(value = "/resp/productionOrders/{id}/cleaningPhases/{sid}")
 	public Object updateCleaningPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody CleaningPhaseJson input) {
 
 		CleaningPhase cleaningPhase = this.cleaningPhaseService.updateCleaningPhaseFromJson(id, sid, input);
@@ -160,7 +160,7 @@ public class CleaningPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@DeleteMapping(value = "/resp/productionorders/{id}/cleaningphases/{sid}")
+	@DeleteMapping(value = "/resp/productionOrders/{id}/cleaningPhases/{sid}")
 	public Object deleteCleaningPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		this.cleaningPhaseService.deleteCleaningPhaseById(sid);
@@ -177,7 +177,7 @@ public class CleaningPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/productionorders/{id}/cleaningphases")
+	@GetMapping(value = "/productionOrders/{id}/cleaningPhases")
 	public List<CleaningPhaseJson> getCleaningPhasesForUser(@PathVariable("id") Integer id) {
 
 		log.info("Request for cleaningPhases in ProductionOrder with id {}", id);
@@ -193,7 +193,7 @@ public class CleaningPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/productionorders/{id}/cleaningphases/{sid}")
+	@GetMapping(value = "/productionOrders/{id}/cleaningPhases/{sid}")
 	public CleaningPhaseJson getCleaningPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for cleaningPhase with id {}", sid);
@@ -204,7 +204,7 @@ public class CleaningPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PostMapping(value = "/productionorders/{id}/cleaningphases")
+	@PostMapping(value = "/productionOrders/{id}/cleaningPhases")
 	public Object postCleaningPhaseForUser(@PathVariable("id") Integer id, @Valid @RequestBody CleaningPhaseJson input, HttpServletRequest request) {
 
 		CleaningPhase cleaningPhase = this.cleaningPhaseService.createCleaningPhaseFromJson(id, input);
@@ -215,7 +215,7 @@ public class CleaningPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PutMapping(value = "/productionorders/{id}/cleaningphases/{sid}")
+	@PutMapping(value = "/productionOrders/{id}/cleaningPhases/{sid}")
 	public Object updateCleaningPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody CleaningPhaseJson input) {
 
 		CleaningPhase cleaningPhase = this.cleaningPhaseService.updateCleaningPhaseFromJson(id, sid, input);
@@ -226,7 +226,7 @@ public class CleaningPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@DeleteMapping(value = "/productionorders/{id}/cleaningphases/{sid}")
+	@DeleteMapping(value = "/productionOrders/{id}/cleaningPhases/{sid}")
 	public Object deleteCleaningPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		this.cleaningPhaseService.deleteCleaningPhaseById(sid);

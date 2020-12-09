@@ -45,7 +45,7 @@ public class WorkingPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/admin/productionorders/{id}/workingphases")
+	@GetMapping(value = "/admin/productionOrders/{id}/workingPhases")
 	public List<WorkingPhaseJson> getWorkingPhases(@PathVariable("id") Integer id) {
 
 		log.info("Request for workingPhases in ProductionOrder with id {}", id);
@@ -61,7 +61,7 @@ public class WorkingPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/admin/productionorders/{id}/workingphases/{sid}")
+	@GetMapping(value = "/admin/productionOrders/{id}/workingPhases/{sid}")
 	public WorkingPhaseJson getWorkingPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for workingPhase with id {}", sid);
@@ -72,7 +72,7 @@ public class WorkingPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PostMapping(value = "/admin/productionorders/{id}/workingphases")
+	@PostMapping(value = "/admin/productionOrders/{id}/workingPhases")
 	public Object postWorkingPhase(@PathVariable("id") Integer id, @Valid @RequestBody WorkingPhaseJson input, HttpServletRequest request) {
 
 		WorkingPhase workingPhase = this.workingPhaseService.createWorkingPhaseFromJson(id, input);
@@ -83,7 +83,7 @@ public class WorkingPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PutMapping(value = "/admin/productionorders/{id}/workingphases/{sid}")
+	@PutMapping(value = "/admin/productionOrders/{id}/workingPhases/{sid}")
 	public Object updateWorkingPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody WorkingPhaseJson input) {
 
 		WorkingPhase workingPhase = this.workingPhaseService.updateWorkingPhaseFromJson(id, sid, input);
@@ -94,7 +94,7 @@ public class WorkingPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@DeleteMapping(value = "/admin/productionorders/{id}/workingphases/{sid}")
+	@DeleteMapping(value = "/admin/productionOrders/{id}/workingPhases/{sid}")
 	public Object deleteWorkingPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		this.workingPhaseService.deleteWorkingPhaseById(sid);
@@ -111,7 +111,7 @@ public class WorkingPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/resp/productionorders/{id}/workingphases")
+	@GetMapping(value = "/resp/productionOrders/{id}/workingPhases")
 	public List<WorkingPhaseJson> getWorkingPhasesForResp(@PathVariable("id") Integer id) {
 
 		log.info("Request for workingPhases in ProductionOrder with id {}", id);
@@ -127,7 +127,7 @@ public class WorkingPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/resp/productionorders/{id}/workingphases/{sid}")
+	@GetMapping(value = "/resp/productionOrders/{id}/workingPhases/{sid}")
 	public WorkingPhaseJson getWorkingPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for workingPhase with id {}", sid);
@@ -138,7 +138,7 @@ public class WorkingPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PostMapping(value = "/resp/productionorders/{id}/workingphases")
+	@PostMapping(value = "/resp/productionOrders/{id}/workingPhases")
 	public Object postWorkingPhaseForResp(@PathVariable("id") Integer id, @Valid @RequestBody WorkingPhaseJson input, HttpServletRequest request) {
 
 		WorkingPhase workingPhase = this.workingPhaseService.createWorkingPhaseFromJson(id, input);
@@ -149,7 +149,7 @@ public class WorkingPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PutMapping(value = "/resp/productionorders/{id}/workingphases/{sid}")
+	@PutMapping(value = "/resp/productionOrders/{id}/workingPhases/{sid}")
 	public Object updateWorkingPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody WorkingPhaseJson input) {
 
 		WorkingPhase workingPhase = this.workingPhaseService.updateWorkingPhaseFromJson(id, sid, input);
@@ -160,7 +160,7 @@ public class WorkingPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@DeleteMapping(value = "/resp/productionorders/{id}/workingphases/{sid}")
+	@DeleteMapping(value = "/resp/productionOrders/{id}/workingPhases/{sid}")
 	public Object deleteWorkingPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		this.workingPhaseService.deleteWorkingPhaseById(sid);
@@ -177,7 +177,7 @@ public class WorkingPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/productionorders/{id}/workingphases")
+	@GetMapping(value = "/productionOrders/{id}/workingPhases")
 	public List<WorkingPhaseJson> getWorkingPhasesForUser(@PathVariable("id") Integer id) {
 
 		log.info("Request for workingPhases in ProductionOrder with id {}", id);
@@ -193,7 +193,7 @@ public class WorkingPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@GetMapping(value = "/productionorders/{id}/workingphases/{sid}")
+	@GetMapping(value = "/productionOrders/{id}/workingPhases/{sid}")
 	public WorkingPhaseJson getWorkingPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for workingPhase with id {}", sid);
@@ -204,7 +204,7 @@ public class WorkingPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PostMapping(value = "/productionorders/{id}/workingphases")
+	@PostMapping(value = "/productionOrders/{id}/workingPhases")
 	public Object postWorkingPhaseForUser(@PathVariable("id") Integer id, @Valid @RequestBody WorkingPhaseJson input, HttpServletRequest request) {
 
 		WorkingPhase workingPhase = this.workingPhaseService.createWorkingPhaseFromJson(id, input);
@@ -215,7 +215,7 @@ public class WorkingPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@PutMapping(value = "/productionorders/{id}/workingphases/{sid}")
+	@PutMapping(value = "/productionOrders/{id}/workingPhases/{sid}")
 	public Object updateWorkingPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody WorkingPhaseJson input) {
 
 		WorkingPhase workingPhase = this.workingPhaseService.updateWorkingPhaseFromJson(id, sid, input);
@@ -226,7 +226,7 @@ public class WorkingPhaseController {
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
-	@DeleteMapping(value = "/productionorders/{id}/workingphases/{sid}")
+	@DeleteMapping(value = "/productionOrders/{id}/workingPhases/{sid}")
 	public Object deleteWorkingPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		this.workingPhaseService.deleteWorkingPhaseById(sid);
