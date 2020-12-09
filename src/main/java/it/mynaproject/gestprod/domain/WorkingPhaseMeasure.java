@@ -18,10 +18,6 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 @Table(name = "working_phases_measurements")
 public class WorkingPhaseMeasure extends BaseDomain {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	
 	@ManyToOne
 	@JoinColumn(name="working_phase_id", referencedColumnName="id")
 	private WorkingPhase workingPhase;
@@ -51,15 +47,6 @@ public class WorkingPhaseMeasure extends BaseDomain {
 	}
 	
 /** GETTERS and SETTERS **/
-	
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	
 	public WorkingPhase getWorkingPhase() {
 		return workingPhase;
