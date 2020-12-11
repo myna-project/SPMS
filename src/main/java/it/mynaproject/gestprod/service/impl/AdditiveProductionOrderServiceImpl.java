@@ -11,11 +11,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.mynaproject.gestprod.dao.AdditiveProductionOrderDao;
+import it.mynaproject.gestprod.domain.Additive;
 import it.mynaproject.gestprod.domain.AdditiveProductionOrder;
 import it.mynaproject.gestprod.domain.ProductionOrder;
 import it.mynaproject.gestprod.exception.*;
 import it.mynaproject.gestprod.model.AdditiveProductionOrderJson;
 import it.mynaproject.gestprod.service.AdditiveProductionOrderService;
+import it.mynaproject.gestprod.service.AdditiveService;
+import it.mynaproject.gestprod.service.ProductionOrderService;
 
 @Service
 public class AdditiveProductionOrderServiceImpl implements AdditiveProductionOrderService {
@@ -24,6 +27,12 @@ public class AdditiveProductionOrderServiceImpl implements AdditiveProductionOrd
 
 	@Autowired
 	private AdditiveProductionOrderDao additiveProductionOrderDao;
+	
+	@Autowired
+	private ProductionOrderService productionOrderService;
+	
+	@Autowired
+	private AdditiveService additiveService;
 
 	@Transactional(readOnly = true)
 	@Override
@@ -54,12 +63,14 @@ public class AdditiveProductionOrderServiceImpl implements AdditiveProductionOrd
 
 	@Transactional
 	@Override
-	public AdditiveProductionOrder createAdditiveProductionOrderFromJson(AdditiveProductionOrderJson input) {
+	public AdditiveProductionOrder createAdditiveProductionOrderFromJson(Integer pid, AdditiveProductionOrderJson input) {
 
 		log.info("Creating new additiveProductionOrder: {}", input.toString());
 
+		ProductionOrder po = this.productionOrderService.getProductionOrder(pid);
+		Additive add = this.additiveService.getAdditive(input.getAdditive().getId());
 		AdditiveProductionOrder additiveProductionOrder = new AdditiveProductionOrder();
-		additiveProductionOrder.populateAdditiveProductionOrderFromInput(input);
+		additiveProductionOrder.populateAdditiveProductionOrderFromInput(input, po, add);
 
 		this.persist(additiveProductionOrder);
 
@@ -72,19 +83,22 @@ public class AdditiveProductionOrderServiceImpl implements AdditiveProductionOrd
 		this.additiveProductionOrderDao.update(additiveProductionOrder);
 	}
 
-	@Transactional
-	@Override
-	public AdditiveProductionOrder updateAdditiveProductionOrderFromJson(Integer id, AdditiveProductionOrderJson input) {
-
-		log.info("Updating additiveProductionOrder with id: {}", id);
-
-		AdditiveProductionOrder additiveProductionOrder = this.getAdditiveProductionOrder(id);
-		additiveProductionOrder.populateAdditiveProductionOrderFromInput(input);
-
-		this.update(additiveProductionOrder);
-
-		return additiveProductionOrder;
-	}
+	// TODO may not be necessary
+//	@Transactional
+//	@Override
+//	public AdditiveProductionOrder updateAdditiveProductionOrderFromJson(Integer pid, Integer id, AdditiveProductionOrderJson input) {
+//
+//		log.info("Updating additiveProductionOrder with id: {}", id);
+//
+//		ProductionOrder po = this.productionOrderService.getProductionOrder(pid);
+//		Additive add = this.additiveService.getAdditive(input.getAdditive().getId());
+//		AdditiveProductionOrder additiveProductionOrder = this.getAdditiveProductionOrder(id);
+//		additiveProductionOrder.populateAdditiveProductionOrderFromInput(input, po, add);
+//
+//		this.update(additiveProductionOrder);
+//
+//		return additiveProductionOrder;
+//	}
 
 	@Transactional
 	@Override

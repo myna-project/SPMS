@@ -23,7 +23,6 @@ public class JsonUtil {
 		final AdditiveProductionOrderJson dj = new AdditiveProductionOrderJson();
 		dj.setId(d.getId());
 		dj.setAdditive(additiveToAdditiveJson(d.getAdditive()));
-		dj.setProductionOrder(productionOrderToProductionOrderJson(d.getProductionOrder(), true));
 		dj.setWeight_additive(d.getWeight_additive());
 
 		return dj;
@@ -86,9 +85,9 @@ public class JsonUtil {
 		
 		// many-to-one relationships
 		dj.setCustomer(customerToCustomerJson(d.getCustomer()));
-		dj.setExpectedMixtureMode(mixtureModeToMixtureModeJson(d.getMixtureMode()));
+		dj.setExpected_mixture_mode(mixtureModeToMixtureModeJson(d.getMixtureMode()));
 		dj.setPackaging(packagingToPackagingJson(d.getPackaging()));
-		dj.setRawMaterial(rawMaterialToRawMaterialJson(d.getRawMaterial()));
+		dj.setRaw_material(rawMaterialToRawMaterialJson(d.getRawMaterial()));
 		if(d.getAdditiveProductionOrderList() != null) {
 			List<AdditiveProductionOrderJson> al = new ArrayList<>();
 			for(AdditiveProductionOrder ap: d.getAdditiveProductionOrderList()) {

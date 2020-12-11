@@ -23,15 +23,15 @@
 	</appender>
 
 	<!-- set to "debug" to log payload of incoming request -->
-	<logger name="it.mynaproject.gestprod.filter.LoggingServletFilter" level="error" additivity="false">
+	<logger name="it.mynaproject.gestprod.filter.LoggingServletFilter" level="debug" additivity="false">
 		<appender-ref ref="FILE" />
 	</logger>
 
-	<logger name="it" level="info" additivity="false">
+	<logger name="it" level="debug" additivity="false">
 		<appender-ref ref="FILE" />
 	</logger>
 
-	<root level="error">
+	<root level="debug">
 		<appender-ref ref="FILE" />
 	</root>
 </configuration>

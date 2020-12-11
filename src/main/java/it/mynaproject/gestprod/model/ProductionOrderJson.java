@@ -10,7 +10,6 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import it.mynaproject.gestprod.domain.AdditiveProductionOrder;
 import it.mynaproject.gestprod.util.ClassSerializer;
 
 @JsonInclude(Include.NON_EMPTY)
@@ -18,7 +17,6 @@ public class ProductionOrderJson {
 	
 	private Integer id;
 	
-	@NotNull
 	private CustomerJson customer;
 	
 	@NotBlank
@@ -26,8 +24,7 @@ public class ProductionOrderJson {
 	
 	private String production_number_lot;
 	
-	@NotNull
-	private RawMaterialJson rawMaterial;
+	private RawMaterialJson raw_material;
 	
 	private Float weight_raw_material;
 	
@@ -39,14 +36,12 @@ public class ProductionOrderJson {
 	
 	private Float expected_mixture_temperature;
 	
-	@NotNull
-	private MixtureModeJson expectedMixtureMode;
+	private MixtureModeJson expected_mixture_mode;
 	
 	private Float expected_quantity_finished_product;
 	
 	private Date delivery_date;
 	
-	@NotNull
 	private PackagingJson packaging;
 	
 	private Date production_order_date;
@@ -234,21 +229,21 @@ public class ProductionOrderJson {
 	public void setCustomer(CustomerJson customer) {
 		this.customer = customer;
 	}
-
-	public RawMaterialJson getRawMaterial() {
-		return rawMaterial;
+	
+	public RawMaterialJson getRaw_material() {
+		return raw_material;
 	}
 
-	public void setRawMaterial(RawMaterialJson rawMaterial) {
-		this.rawMaterial = rawMaterial;
+	public void setRaw_material(RawMaterialJson raw_material) {
+		this.raw_material = raw_material;
 	}
 
-	public MixtureModeJson getExpectedMixtureMode() {
-		return expectedMixtureMode;
+	public MixtureModeJson getExpected_mixture_mode() {
+		return expected_mixture_mode;
 	}
 
-	public void setExpectedMixtureMode(MixtureModeJson expectedMixtureMode) {
-		this.expectedMixtureMode = expectedMixtureMode;
+	public void setExpected_mixture_mode(MixtureModeJson expected_mixture_mode) {
+		this.expected_mixture_mode = expected_mixture_mode;
 	}
 
 	public PackagingJson getPackaging() {

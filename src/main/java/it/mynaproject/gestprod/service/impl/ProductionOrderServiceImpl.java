@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import it.mynaproject.gestprod.dao.ProductionOrderDao;
 import it.mynaproject.gestprod.dao.SettingPhaseDao;
 import it.mynaproject.gestprod.dao.SystemPreparationPhaseDao;
+import it.mynaproject.gestprod.dao.AdditiveProductionOrderDao;
 import it.mynaproject.gestprod.dao.CleaningPhaseDao;
 import it.mynaproject.gestprod.dao.WorkingPhaseDao;
 import it.mynaproject.gestprod.dao.ValidationPhaseDao;
@@ -30,6 +31,7 @@ import it.mynaproject.gestprod.domain.WorkingPhase;
 import it.mynaproject.gestprod.domain.ValidationPhase;
 import it.mynaproject.gestprod.exception.*;
 import it.mynaproject.gestprod.model.AdditiveProductionOrderJson;
+import it.mynaproject.gestprod.model.JsonUtil;
 import it.mynaproject.gestprod.model.ProductionOrderJson;
 import it.mynaproject.gestprod.service.AdditiveProductionOrderService;
 import it.mynaproject.gestprod.service.CustomerService;
@@ -45,10 +47,17 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
 
 	@Autowired
 	private ProductionOrderDao productionOrderDao;
+	@Autowired
+	private AdditiveProductionOrderDao apoDao;
+	@Autowired
 	private CustomerService customerService;
+	@Autowired
 	private RawMaterialService rawMaterialService;
+	@Autowired
 	private MixtureModeService mixtureModeService;
+	@Autowired
 	private PackagingService packagingService;
+	@Autowired
 	private AdditiveProductionOrderService apoService;
 	
 	@Transactional(readOnly = true)
@@ -77,7 +86,7 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
 	public void persist(ProductionOrder productionOrder) {
 		this.productionOrderDao.persist(productionOrder);
 	}
-
+	
 	@Transactional
 	@Override
 	public ProductionOrder createProductionOrderFromJson(ProductionOrderJson input) {
@@ -90,19 +99,24 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
 		}
 		
 		Customer c = this.customerService.getCustomer(input.getCustomer().getId());
-		RawMaterial rm = this.rawMaterialService.getRawMaterial(input.getRawMaterial().getId());
-		MixtureMode mm = this.mixtureModeService.getMixtureMode(input.getExpectedMixtureMode().getId());
+		RawMaterial rm = this.rawMaterialService.getRawMaterial(input.getRaw_material().getId());
+		MixtureMode mm = this.mixtureModeService.getMixtureMode(input.getExpected_mixture_mode().getId());
 		Packaging pp = this.packagingService.getPackaging(input.getPackaging().getId());
 		List<AdditiveProductionOrder> apol = new ArrayList<>();
 		
-		for(AdditiveProductionOrderJson aid : input.getAdditives()) {
-			apol.add(apoService.getAdditiveProductionOrder(aid.getId()));
-		}
-		
 		ProductionOrder productionOrder = new ProductionOrder();
-		productionOrder.populateProductionOrderFromInput(input, c, mm, pp, rm, apol);
-
+		productionOrder.populateProductionOrderFromInput(input, c, mm, pp, rm);
+		
 		this.persist(productionOrder);
+		
+		// additives are already registered, APOs are not: create them here
+		for(AdditiveProductionOrderJson apoj : input.getAdditives()) {
+			AdditiveProductionOrder apo = this.apoService.createAdditiveProductionOrderFromJson(productionOrder.getId(), apoj);
+			apol.add(apo);
+		}
+		productionOrder.setAdditiveProductionOrderList(apol);
+		
+		this.update(productionOrder);
 
 		return productionOrder;
 	}
@@ -125,18 +139,23 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
 		}
 		
 		Customer c = this.customerService.getCustomer(input.getCustomer().getId());
-		RawMaterial rm = this.rawMaterialService.getRawMaterial(input.getRawMaterial().getId());
-		MixtureMode mm = this.mixtureModeService.getMixtureMode(input.getExpectedMixtureMode().getId());
+		RawMaterial rm = this.rawMaterialService.getRawMaterial(input.getRaw_material().getId());
+		MixtureMode mm = this.mixtureModeService.getMixtureMode(input.getExpected_mixture_mode().getId());
 		Packaging pp = this.packagingService.getPackaging(input.getPackaging().getId());
 		List<AdditiveProductionOrder> apol = new ArrayList<>();
 		
-		for(AdditiveProductionOrderJson aid : input.getAdditives()) {
-			apol.add(apoService.getAdditiveProductionOrder(aid.getId()));
-		}
-		
 		ProductionOrder productionOrder = new ProductionOrder();
-		productionOrder.populateProductionOrderFromInput(input, c, mm, pp, rm, apol);
-
+		productionOrder.populateProductionOrderFromInput(input, c, mm, pp, rm);
+		
+		this.update(productionOrder);
+		
+		// additives are already registered, APOs are not: create them here
+		for(AdditiveProductionOrderJson apoj : input.getAdditives()) {
+			AdditiveProductionOrder apo = this.apoService.createAdditiveProductionOrderFromJson(productionOrder.getId(), apoj);
+			apol.add(apo);
+		}
+		if(!apol.isEmpty()) productionOrder.setAdditiveProductionOrderList(apol);
+		
 		this.update(productionOrder);
 
 		return productionOrder;

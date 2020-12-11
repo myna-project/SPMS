@@ -25,8 +25,10 @@ public class AdditiveProductionOrder extends BaseDomain {
 	@Column
 	private Float weight_additive;
 
-	public void populateAdditiveProductionOrderFromInput(AdditiveProductionOrderJson input) {
+	public void populateAdditiveProductionOrderFromInput(AdditiveProductionOrderJson input, ProductionOrder po, Additive add) {
 		this.setWeight_additive(input.getWeight_additive());
+		this.setProductionOrder(po);
+		this.setAdditive(add);
 	}
 
 	public String toString() {

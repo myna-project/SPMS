@@ -94,7 +94,7 @@ public class ProductionOrder extends BaseDomain {
 		return serializer.toString();
 	}
 	
-	public void populateProductionOrderFromInput(final ProductionOrderJson input, final Customer customer, final MixtureMode mixtureMode, final Packaging packaging, final RawMaterial rawMaterial, final List<AdditiveProductionOrder> apol) {
+	public void populateProductionOrderFromInput(final ProductionOrderJson input, final Customer customer, final MixtureMode mixtureMode, final Packaging packaging, final RawMaterial rawMaterial) {
 		this.setDdt_date(input.getDdt_date());
 		this.setDdt_number(input.getDdt_number());
 		this.setDelivery_date(input.getDelivery_date());
@@ -113,7 +113,6 @@ public class ProductionOrder extends BaseDomain {
 		this.setMixtureMode(mixtureMode);
 		this.setPackaging(packaging);
 		this.setRawMaterial(rawMaterial);
-		this.setAdditiveProductionOrderList(apol);
 	}
 	
 /** GETTERS and SETTERS **/

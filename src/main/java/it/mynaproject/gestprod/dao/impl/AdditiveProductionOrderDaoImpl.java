@@ -46,7 +46,7 @@ public class AdditiveProductionOrderDaoImpl extends BaseDaoImpl implements Addit
 
 	@Override
 	public AdditiveProductionOrder getAdditiveProductionOrder(Integer id) {
-
+		
 		log.debug("Getting additiveProductionOrder with id: {}", id.toString());
 
 		Query q = em.createQuery("FROM AdditiveProductionOrder WHERE id = :id");
