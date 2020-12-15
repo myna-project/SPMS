@@ -2,30 +2,41 @@ package it.mynaproject.gestprod.service.impl;
 
 import java.util.List;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import it.mynaproject.gestprod.service.ProductionOrderService;
 import it.mynaproject.gestprod.service.SettingPhaseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 
 import it.mynaproject.gestprod.dao.SettingPhaseDao;
 import it.mynaproject.gestprod.service.UserService;
 import it.mynaproject.gestprod.domain.SettingPhase;
+import it.mynaproject.gestprod.domain.MixtureMode;
+import it.mynaproject.gestprod.service.MixtureModeService;
 import it.mynaproject.gestprod.domain.User;
 import it.mynaproject.gestprod.domain.ProductionOrder;
 import it.mynaproject.gestprod.exception.ConflictException;
 import it.mynaproject.gestprod.exception.NotFoundException;
 import it.mynaproject.gestprod.model.SettingPhaseJson;
 
+@Service
 public class SettingPhaseServiceImpl implements SettingPhaseService {
 	
 	final private Logger log = LoggerFactory.getLogger(this.getClass());
 	
+	@Autowired
 	private SettingPhaseDao settingPhaseDao;
+	@Autowired
 	private UserService userService;
+	@Autowired
 	private ProductionOrderService productionOrderService;
+	@Autowired
+	private MixtureModeService mixtureModeService;
 
 	@Transactional(readOnly = true)
 	@Override
@@ -59,8 +70,9 @@ public class SettingPhaseServiceImpl implements SettingPhaseService {
 		
 		User u = this.userService.getUser(input.getUser().getId(), "");
 		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
+		MixtureMode m = this.mixtureModeService.getMixtureMode(input.getEffective_mixture_mode().getId());
 		SettingPhase settingPhase = new SettingPhase();
-		settingPhase.populateSettingPhaseFromInput(input, po, u);
+		settingPhase.populateSettingPhaseFromInput(input, po, u, m);
 
 		this.persist(settingPhase);
 
@@ -95,7 +107,8 @@ public class SettingPhaseServiceImpl implements SettingPhaseService {
 		
 		User u = this.userService.getUser(input.getUser().getId(), "");
 		ProductionOrder npo = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
-		settingPhase.populateSettingPhaseFromInput(input, npo, u);
+		MixtureMode m = this.mixtureModeService.getMixtureMode(input.getEffective_mixture_mode().getId());
+		settingPhase.populateSettingPhaseFromInput(input, npo, u, m);
 		
 		this.update(settingPhase);
 

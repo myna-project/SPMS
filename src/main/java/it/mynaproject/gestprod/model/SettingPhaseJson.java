@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import it.mynaproject.gestprod.domain.MixtureMode;
 import it.mynaproject.gestprod.util.ClassSerializer;
 
 @JsonInclude(Include.NON_EMPTY)
@@ -14,7 +15,7 @@ public class SettingPhaseJson extends PhaseJson {
 	private Float effective_mixture_temperature;
 	
 	@NotNull
-	private Integer effective_mixture_mode_id;
+	private MixtureModeJson effective_mixture_mode;
 
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -37,11 +38,11 @@ public class SettingPhaseJson extends PhaseJson {
 		this.effective_mixture_temperature = effective_mixture_temperature;
 	}
 
-	public Integer getEffective_mixture_mode_id() {
-		return effective_mixture_mode_id;
+	public MixtureModeJson getEffective_mixture_mode() {
+		return effective_mixture_mode;
 	}
 
-	public void setEffective_mixture_mode_id(final Integer effective_mixture_mode_id) {
-		this.effective_mixture_mode_id = effective_mixture_mode_id;
+	public void setEffective_mixture_mode(final MixtureModeJson effective_mixture_mode) {
+		this.effective_mixture_mode = effective_mixture_mode;
 	}
 }

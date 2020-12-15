@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
-import javax.persistence.Id;
 
 import it.mynaproject.gestprod.model.AdditiveProductionOrderJson;
 import it.mynaproject.gestprod.util.ClassSerializer;

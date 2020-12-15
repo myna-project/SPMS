@@ -33,7 +33,9 @@ public class SettingPhaseController {
 
 	final private Logger log = LoggerFactory.getLogger(this.getClass());
 
+	@Autowired
 	private SettingPhaseService settingPhaseService;
+	@Autowired
 	private ProductionOrderService productionOrderService;
 	
 	/*
