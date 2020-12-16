@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import it.mynaproject.gestprod.service.ProductionOrderService;
 import it.mynaproject.gestprod.service.SystemPreparationPhaseService;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.mynaproject.gestprod.dao.SystemPreparationPhaseDao;
@@ -19,12 +21,16 @@ import it.mynaproject.gestprod.exception.ConflictException;
 import it.mynaproject.gestprod.exception.NotFoundException;
 import it.mynaproject.gestprod.model.SystemPreparationPhaseJson;
 
+@Service
 public class SystemPreparationPhaseServiceImpl implements SystemPreparationPhaseService {
 	
 	final private Logger log = LoggerFactory.getLogger(this.getClass());
 	
+	@Autowired
 	private SystemPreparationPhaseDao systemPreparationPhaseDao;
+	@Autowired
 	private UserService userService;
+	@Autowired
 	private ProductionOrderService productionOrderService;
 
 	@Transactional(readOnly = true)
