@@ -21,10 +21,8 @@ public class PhaseJson {
 	
 	private UserJson user;
 
-	@NotNull
 	private Instant start_time;
 	
-	@NotNull
 	private Instant end_time;
 	
 	public String toString() {

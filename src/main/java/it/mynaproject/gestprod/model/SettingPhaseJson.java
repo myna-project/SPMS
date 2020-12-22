@@ -11,10 +11,8 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 @JsonInclude(Include.NON_EMPTY)
 public class SettingPhaseJson extends PhaseJson {
 	
-	@NotNull
 	private Float effective_mixture_temperature;
 	
-	@NotNull
 	private MixtureModeJson effective_mixture_mode;
 
 	public String toString() {

@@ -191,8 +191,10 @@ public class JsonUtil {
 		
 		final SettingPhaseJson dj = new SettingPhaseJson();
 		loadPhaseJson(dj,d);
-		dj.setEffective_mixture_mode(mixtureModeToMixtureModeJson(d.getEffective_mixture_mode()));
-		dj.setEffective_mixture_temperature(d.getEffective_mixture_temperature());
+		if(d.getEffective_mixture_mode() != null) {
+			dj.setEffective_mixture_mode(mixtureModeToMixtureModeJson(d.getEffective_mixture_mode()));
+		    dj.setEffective_mixture_temperature(d.getEffective_mixture_temperature());
+		}
 		
 		return dj;
 	}

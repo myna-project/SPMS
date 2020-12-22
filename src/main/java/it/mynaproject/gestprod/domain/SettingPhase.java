@@ -20,12 +20,11 @@ public class SettingPhase extends Phase {
 	@JoinColumn(name="effective_mixture_mode_id", referencedColumnName="id")
 	private MixtureMode effective_mixture_mode;
 
-	public void populateSettingPhaseFromInput(SettingPhaseJson input, ProductionOrder po, User u, MixtureMode m) {
+	public void populateSettingPhaseFromInput(SettingPhaseJson input, ProductionOrder po, User u) {
 		this.setProductionOrder(po);
 		this.setUser(u);
 		this.setStart_time(input.getStart_time());
 		this.setEnd_time(input.getEnd_time());
-		this.setEffective_mixture_mode(m);
 		this.setEffective_mixture_temperature(input.getEffective_mixture_temperature());
 	}
 
