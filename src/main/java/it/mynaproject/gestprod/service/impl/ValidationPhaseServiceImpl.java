@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import it.mynaproject.gestprod.service.ProductionOrderService;
 import it.mynaproject.gestprod.service.ValidationPhaseService;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.mynaproject.gestprod.dao.ValidationPhaseDao;
@@ -60,7 +61,9 @@ public class ValidationPhaseServiceImpl implements ValidationPhaseService {
 
 		log.info("Creating new validationPhase: {}", input.toString());
 
-		User u = this.userService.getUser(input.getUser().getId(), "");
+		org.springframework.security.core.userdetails.User user =
+				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
+		User u = this.userService.getUser(user.getUsername());
 		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
 		ValidationPhase validationPhase = new ValidationPhase();
 		validationPhase.populateValidationPhaseFromInput(input, po, u);
@@ -96,7 +99,9 @@ public class ValidationPhaseServiceImpl implements ValidationPhaseService {
 		if(validationPhase == null)
 			throw new NotFoundException(404, "ValidationPhase " + sid + " not found");
 		
-		User u = this.userService.getUser(input.getUser().getId(), "");
+		org.springframework.security.core.userdetails.User user =
+				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
+		User u = this.userService.getUser(user.getUsername());
 		ProductionOrder npo = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
 		validationPhase.populateValidationPhaseFromInput(input, npo, u);
 		

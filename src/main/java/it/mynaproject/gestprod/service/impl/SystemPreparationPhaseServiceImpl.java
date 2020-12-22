@@ -9,6 +9,7 @@ import it.mynaproject.gestprod.service.ProductionOrderService;
 import it.mynaproject.gestprod.service.SystemPreparationPhaseService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,8 +66,10 @@ public class SystemPreparationPhaseServiceImpl implements SystemPreparationPhase
 	public SystemPreparationPhase createSystemPreparationPhaseFromJson(Integer id, SystemPreparationPhaseJson input) {
 
 		log.info("Creating new systemPreparationPhase: {}", input.toString());
-
-		User u = this.userService.getUser(input.getUser().getId(), "");
+		
+		org.springframework.security.core.userdetails.User user =
+				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
+		User u = this.userService.getUser(user.getUsername());
 		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
 		SystemPreparationPhase systemPreparationPhase = new SystemPreparationPhase();
 		systemPreparationPhase.populateSystemPreparationPhaseFromInput(input, po, u);
@@ -102,7 +105,10 @@ public class SystemPreparationPhaseServiceImpl implements SystemPreparationPhase
 		if(systemPreparationPhase == null)
 			throw new NotFoundException(404, "SystemPreparationPhase " + sid + " not found");
 		
-		User u = this.userService.getUser(input.getUser().getId(), "");
+
+		org.springframework.security.core.userdetails.User user =
+				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
+		User u = this.userService.getUser(user.getUsername());
 		ProductionOrder npo = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
 		systemPreparationPhase.populateSystemPreparationPhaseFromInput(input, npo, u);
 		

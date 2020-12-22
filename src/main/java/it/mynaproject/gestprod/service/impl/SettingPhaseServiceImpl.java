@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import it.mynaproject.gestprod.service.ProductionOrderService;
 import it.mynaproject.gestprod.service.SettingPhaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -68,7 +69,9 @@ public class SettingPhaseServiceImpl implements SettingPhaseService {
 
 		log.info("Creating new settingPhase: {}", input.toString());
 		
-		User u = this.userService.getUser(input.getUser().getId(), "");
+		org.springframework.security.core.userdetails.User user =
+				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
+		User u = this.userService.getUser(user.getUsername());
 		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
 		MixtureMode m = this.mixtureModeService.getMixtureMode(input.getEffective_mixture_mode().getId());
 		SettingPhase settingPhase = new SettingPhase();
@@ -105,7 +108,9 @@ public class SettingPhaseServiceImpl implements SettingPhaseService {
 		if(settingPhase == null)
 			throw new NotFoundException(404, "SettingPhase " + sid + " not found");
 		
-		User u = this.userService.getUser(input.getUser().getId(), "");
+		org.springframework.security.core.userdetails.User user =
+				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
+		User u = this.userService.getUser(user.getUsername());
 		ProductionOrder npo = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
 		MixtureMode m = this.mixtureModeService.getMixtureMode(input.getEffective_mixture_mode().getId());
 		settingPhase.populateSettingPhaseFromInput(input, npo, u, m);

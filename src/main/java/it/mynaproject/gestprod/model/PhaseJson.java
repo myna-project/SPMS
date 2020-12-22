@@ -19,7 +19,6 @@ public class PhaseJson {
 	@NotNull
 	private ProductionOrderJson productionOrder;
 	
-	@NotNull
 	private UserJson user;
 
 	@NotNull
