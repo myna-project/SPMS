@@ -9,6 +9,7 @@ import it.mynaproject.gestprod.service.ProductionOrderService;
 import it.mynaproject.gestprod.service.CleaningPhaseService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,7 +67,9 @@ public class CleaningPhaseServiceImpl implements CleaningPhaseService {
 
 		log.info("Creating new cleaningPhase: {}", input.toString());
 
-		User u = this.userService.getUser(input.getUser().getId(), "");
+		org.springframework.security.core.userdetails.User user =
+				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
+		User u = this.userService.getUser(user.getUsername());
 		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
 		CleaningPhase cleaningPhase = new CleaningPhase();
 		cleaningPhase.populateCleaningPhaseFromInput(input, po, u);
@@ -102,7 +105,9 @@ public class CleaningPhaseServiceImpl implements CleaningPhaseService {
 		if(cleaningPhase == null)
 			throw new NotFoundException(404, "CleaningPhase " + sid + " not found");
 		
-		User u = this.userService.getUser(input.getUser().getId(), "");
+		org.springframework.security.core.userdetails.User user =
+				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
+		User u = this.userService.getUser(user.getUsername());
 		ProductionOrder npo = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
 		cleaningPhase.populateCleaningPhaseFromInput(input, npo, u);
 		
