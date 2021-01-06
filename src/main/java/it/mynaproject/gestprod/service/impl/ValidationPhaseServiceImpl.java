@@ -8,7 +8,9 @@ import org.slf4j.LoggerFactory;
 import it.mynaproject.gestprod.service.ProductionOrderService;
 import it.mynaproject.gestprod.service.ValidationPhaseService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.mynaproject.gestprod.dao.ValidationPhaseDao;
@@ -20,12 +22,16 @@ import it.mynaproject.gestprod.exception.ConflictException;
 import it.mynaproject.gestprod.exception.NotFoundException;
 import it.mynaproject.gestprod.model.ValidationPhaseJson;
 
+@Service
 public class ValidationPhaseServiceImpl implements ValidationPhaseService {
 	
 	final private Logger log = LoggerFactory.getLogger(this.getClass());
 	
+	@Autowired
 	private ValidationPhaseDao validationPhaseDao;
+	@Autowired
 	private UserService userService;
+	@Autowired
 	private ProductionOrderService productionOrderService;
 
 	@Transactional(readOnly = true)

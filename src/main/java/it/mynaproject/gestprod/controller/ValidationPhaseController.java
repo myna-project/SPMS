@@ -33,7 +33,9 @@ public class ValidationPhaseController {
 
 	final private Logger log = LoggerFactory.getLogger(this.getClass());
 
+	@Autowired
 	private ValidationPhaseService validationPhaseService;
+	@Autowired
 	private ProductionOrderService productionOrderService;
 	
 	/*

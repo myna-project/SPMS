@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import it.mynaproject.gestprod.service.ProductionOrderService;
 import it.mynaproject.gestprod.service.WorkingPhaseService;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.mynaproject.gestprod.dao.WorkingPhaseDao;
@@ -18,12 +20,16 @@ import it.mynaproject.gestprod.exception.ConflictException;
 import it.mynaproject.gestprod.exception.NotFoundException;
 import it.mynaproject.gestprod.model.WorkingPhaseJson;
 
+@Service
 public class WorkingPhaseServiceImpl implements WorkingPhaseService {
 	
 	final private Logger log = LoggerFactory.getLogger(this.getClass());
 	
+	@Autowired
 	private WorkingPhaseDao workingPhaseDao;
+	@Autowired
 	private UserService userService;
+	@Autowired
 	private ProductionOrderService productionOrderService;
 
 	@Transactional(readOnly = true)

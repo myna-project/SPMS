@@ -184,7 +184,7 @@ public class JsonUtil {
 		dj.setId(d.getId());
 		dj.setProductionOrder(productionOrderToProductionOrderJson(d.getProductionOrder(), false));
 		dj.setStart_time(d.getStart_time());
-		dj.setEnd_time(dj.getEnd_time());
+		dj.setEnd_time(d.getEnd_time());
 	}
 	
 	public static SettingPhaseJson settingPhaseToSettingPhaseJson(final SettingPhase d) {
