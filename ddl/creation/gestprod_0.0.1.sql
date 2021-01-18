@@ -87,6 +87,7 @@ ALTER TABLE packaging ADD CONSTRAINT packaging_id_pkey PRIMARY KEY (id);
 
 CREATE TABLE production_orders (
     id serial,
+    completed boolean NOT NULL,
     customer_id integer NOT NULL,
     production_order_code character varying(50) NOT NULL,
     production_number_lot character varying(50) NOT NULL,

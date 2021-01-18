@@ -17,7 +17,6 @@ public class WorkingPhaseMeasureJson {
 	@NotNull
 	private WorkingPhaseJson workingPhase;
 	
-	@NotNull
 	private UserJson user;
 	
 	@NotNull

@@ -17,6 +17,9 @@ import it.mynaproject.gestprod.model.ProductionOrderJson;
 @Entity
 @Table(name = "production_orders")
 public class ProductionOrder extends BaseDomain {
+	
+	@Column(nullable=false)
+	private Boolean completed;
 
 	@Column(nullable=false, unique=true)
 	private String production_order_code;

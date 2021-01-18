@@ -1,5 +1,7 @@
 package it.mynaproject.gestprod.model;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -8,8 +10,10 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 @JsonInclude(Include.NON_EMPTY)
 public class ValidationPhaseJson extends PhaseJson {
 	
+	@NotNull
 	private Float humidity_finished_product;
 	
+	@NotNull
 	private Float density_finished_product;
 	
 	private String packaging_state;

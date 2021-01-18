@@ -17,6 +17,9 @@ public class ProductionOrderJson {
 	
 	private Integer id;
 	
+	@NotNull
+	private Boolean completed;
+	
 	private CustomerJson customer;
 	
 	@NotBlank
