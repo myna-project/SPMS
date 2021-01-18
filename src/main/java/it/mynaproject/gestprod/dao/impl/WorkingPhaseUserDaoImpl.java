@@ -5,11 +5,13 @@ import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import it.mynaproject.gestprod.dao.WorkingPhaseUserDao;
+import it.mynaproject.gestprod.domain.User;
 import it.mynaproject.gestprod.domain.WorkingPhaseUser;
 
 @Repository
@@ -44,6 +46,12 @@ public class WorkingPhaseUserDaoImpl extends BaseDaoImpl implements WorkingPhase
 		em.flush();
 	}
 
+	private void initializeWorkingPhaseUser(WorkingPhaseUser w) {
+		Hibernate.initialize(w.getUser());
+		User u = w.getUser();
+		Hibernate.initialize(u.getRoleList());
+	}
+	
 	@Override
 	public WorkingPhaseUser getWorkingPhaseUser(Integer id) {
 
@@ -53,7 +61,9 @@ public class WorkingPhaseUserDaoImpl extends BaseDaoImpl implements WorkingPhase
 		q.setParameter("id", id);
 
 		try {
-			return (WorkingPhaseUser) q.getSingleResult();
+			WorkingPhaseUser w = (WorkingPhaseUser) q.getSingleResult();
+			initializeWorkingPhaseUser(w);
+			return w;
 		} catch (NoResultException nre) {
 			return null;
 		}
@@ -63,6 +73,10 @@ public class WorkingPhaseUserDaoImpl extends BaseDaoImpl implements WorkingPhase
 	@Override
 	public List<WorkingPhaseUser> getWorkingPhaseUsers() {
 
-		return em.createQuery("FROM WorkingPhaseUser").getResultList();
+		List<WorkingPhaseUser> wl = em.createQuery("FROM WorkingPhaseUser").getResultList();
+		for(WorkingPhaseUser w : wl) {
+			initializeWorkingPhaseUser(w);
+		}
+		return wl;
 	}
 }

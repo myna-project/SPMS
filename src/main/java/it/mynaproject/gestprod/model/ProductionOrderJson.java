@@ -17,7 +17,6 @@ public class ProductionOrderJson {
 	
 	private Integer id;
 	
-	@NotNull
 	private Boolean completed;
 	
 	private CustomerJson customer;
@@ -256,4 +255,13 @@ public class ProductionOrderJson {
 	public void setPackaging(PackagingJson packaging) {
 		this.packaging = packaging;
 	}
+	
+	public Boolean getCompleted() {
+		return completed;
+	}
+
+	public void setCompleted(Boolean completed) {
+		this.completed = completed;
+	}
+
 }

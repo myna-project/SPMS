@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import it.mynaproject.gestprod.service.WorkingPhaseMeasureService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -81,7 +82,9 @@ public class WorkingPhaseMeasureServiceImpl implements WorkingPhaseMeasureServic
 
 		log.info("Creating new workingPhaseMeasure: {}", input.toString());
 
-		User u = this.userService.getUser(input.getUser().getId(), "");
+		org.springframework.security.core.userdetails.User user =
+				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
+		User u = this.userService.getUser(user.getUsername());
 		WorkingPhase w = this.workingPhaseService.getWorkingPhase(id, sid);
 		WorkingPhaseMeasure workingPhaseMeasure = new WorkingPhaseMeasure();
 		workingPhaseMeasure.populateWorkingPhaseMeasureFromInput(input, w, u);
@@ -104,7 +107,9 @@ public class WorkingPhaseMeasureServiceImpl implements WorkingPhaseMeasureServic
 
 		log.info("Updating workingPhaseMeasure with id: {}", id);
 
-		User u = this.userService.getUser(input.getUser().getId(), "");
+		org.springframework.security.core.userdetails.User user =
+				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
+		User u = this.userService.getUser(user.getUsername());
 		WorkingPhase w = this.workingPhaseService.getWorkingPhase(id, sid);
 		WorkingPhaseMeasure workingPhaseMeasure = new WorkingPhaseMeasure();
 		workingPhaseMeasure.populateWorkingPhaseMeasureFromInput(input, w, u);

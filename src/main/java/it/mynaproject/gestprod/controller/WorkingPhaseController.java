@@ -53,9 +53,10 @@ public class WorkingPhaseController {
 		log.info("Request for workingPhases in ProductionOrder with id {}", id);
 		
 		List<WorkingPhaseJson> ret = new ArrayList<>();
+		Boolean loadLists = true;
 		
 		for(WorkingPhase sf : this.productionOrderService.getProductionOrder(id).getWorkingPhaseList()) {
-			ret.add(JsonUtil.workingPhaseToWorkingPhaseJson(sf));
+			ret.add(JsonUtil.workingPhaseToWorkingPhaseJson(sf, loadLists));
 		}
 		return ret;
 	}
@@ -67,8 +68,9 @@ public class WorkingPhaseController {
 	public WorkingPhaseJson getWorkingPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for workingPhase with id {}", sid);
+		Boolean loadLists = true;
 		
-		return JsonUtil.workingPhaseToWorkingPhaseJson(this.workingPhaseService.getWorkingPhase(id, sid));
+		return JsonUtil.workingPhaseToWorkingPhaseJson(this.workingPhaseService.getWorkingPhase(id, sid), loadLists);
 	}
 	
 	@ApiResponses({
@@ -78,8 +80,9 @@ public class WorkingPhaseController {
 	public Object postWorkingPhase(@PathVariable("id") Integer id, @Valid @RequestBody WorkingPhaseJson input, HttpServletRequest request) {
 
 		WorkingPhase workingPhase = this.workingPhaseService.createWorkingPhaseFromJson(id, input);
+		Boolean loadLists = true;
 
-		return new ResponseEntity<>(JsonUtil.workingPhaseToWorkingPhaseJson(workingPhase), new HttpHeaders(), HttpStatus.CREATED);
+		return new ResponseEntity<>(JsonUtil.workingPhaseToWorkingPhaseJson(workingPhase, loadLists), new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	@ApiResponses({
@@ -89,8 +92,9 @@ public class WorkingPhaseController {
 	public Object updateWorkingPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody WorkingPhaseJson input) {
 
 		WorkingPhase workingPhase = this.workingPhaseService.updateWorkingPhaseFromJson(id, sid, input);
+		Boolean loadLists = true;
 
-		return new ResponseEntity<>(JsonUtil.workingPhaseToWorkingPhaseJson(workingPhase), new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(JsonUtil.workingPhaseToWorkingPhaseJson(workingPhase, loadLists), new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@ApiResponses({
@@ -119,9 +123,10 @@ public class WorkingPhaseController {
 		log.info("Request for workingPhases in ProductionOrder with id {}", id);
 		
 		List<WorkingPhaseJson> ret = new ArrayList<>();
+		Boolean loadLists = true;
 		
 		for(WorkingPhase sf : this.productionOrderService.getProductionOrder(id).getWorkingPhaseList()) {
-			ret.add(JsonUtil.workingPhaseToWorkingPhaseJson(sf));
+			ret.add(JsonUtil.workingPhaseToWorkingPhaseJson(sf, loadLists));
 		}
 		return ret;
 	}
@@ -133,8 +138,9 @@ public class WorkingPhaseController {
 	public WorkingPhaseJson getWorkingPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for workingPhase with id {}", sid);
+		Boolean loadLists = true;
 		
-		return JsonUtil.workingPhaseToWorkingPhaseJson(this.workingPhaseService.getWorkingPhase(id, sid));
+		return JsonUtil.workingPhaseToWorkingPhaseJson(this.workingPhaseService.getWorkingPhase(id, sid), loadLists);
 	}
 	
 	@ApiResponses({
@@ -144,8 +150,9 @@ public class WorkingPhaseController {
 	public Object postWorkingPhaseForResp(@PathVariable("id") Integer id, @Valid @RequestBody WorkingPhaseJson input, HttpServletRequest request) {
 
 		WorkingPhase workingPhase = this.workingPhaseService.createWorkingPhaseFromJson(id, input);
+		Boolean loadLists = true;
 
-		return new ResponseEntity<>(JsonUtil.workingPhaseToWorkingPhaseJson(workingPhase), new HttpHeaders(), HttpStatus.CREATED);
+		return new ResponseEntity<>(JsonUtil.workingPhaseToWorkingPhaseJson(workingPhase, loadLists), new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	@ApiResponses({
@@ -155,8 +162,9 @@ public class WorkingPhaseController {
 	public Object updateWorkingPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody WorkingPhaseJson input) {
 
 		WorkingPhase workingPhase = this.workingPhaseService.updateWorkingPhaseFromJson(id, sid, input);
+		Boolean loadLists = true;
 
-		return new ResponseEntity<>(JsonUtil.workingPhaseToWorkingPhaseJson(workingPhase), new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(JsonUtil.workingPhaseToWorkingPhaseJson(workingPhase, loadLists), new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@ApiResponses({
@@ -185,9 +193,10 @@ public class WorkingPhaseController {
 		log.info("Request for workingPhases in ProductionOrder with id {}", id);
 		
 		List<WorkingPhaseJson> ret = new ArrayList<>();
+		Boolean loadLists = true;
 		
 		for(WorkingPhase sf : this.productionOrderService.getProductionOrder(id).getWorkingPhaseList()) {
-			ret.add(JsonUtil.workingPhaseToWorkingPhaseJson(sf));
+			ret.add(JsonUtil.workingPhaseToWorkingPhaseJson(sf, loadLists));
 		}
 		return ret;
 	}
@@ -199,8 +208,9 @@ public class WorkingPhaseController {
 	public WorkingPhaseJson getWorkingPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for workingPhase with id {}", sid);
+		Boolean loadLists = true;
 		
-		return JsonUtil.workingPhaseToWorkingPhaseJson(this.workingPhaseService.getWorkingPhase(id, sid));
+		return JsonUtil.workingPhaseToWorkingPhaseJson(this.workingPhaseService.getWorkingPhase(id, sid), loadLists);
 	}
 	
 	@ApiResponses({
@@ -210,8 +220,9 @@ public class WorkingPhaseController {
 	public Object postWorkingPhaseForUser(@PathVariable("id") Integer id, @Valid @RequestBody WorkingPhaseJson input, HttpServletRequest request) {
 
 		WorkingPhase workingPhase = this.workingPhaseService.createWorkingPhaseFromJson(id, input);
+		Boolean loadLists = true;
 
-		return new ResponseEntity<>(JsonUtil.workingPhaseToWorkingPhaseJson(workingPhase), new HttpHeaders(), HttpStatus.CREATED);
+		return new ResponseEntity<>(JsonUtil.workingPhaseToWorkingPhaseJson(workingPhase, loadLists), new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	@ApiResponses({
@@ -221,8 +232,9 @@ public class WorkingPhaseController {
 	public Object updateWorkingPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody WorkingPhaseJson input) {
 
 		WorkingPhase workingPhase = this.workingPhaseService.updateWorkingPhaseFromJson(id, sid, input);
+		Boolean loadLists = true;
 
-		return new ResponseEntity<>(JsonUtil.workingPhaseToWorkingPhaseJson(workingPhase), new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(JsonUtil.workingPhaseToWorkingPhaseJson(workingPhase, loadLists), new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@ApiResponses({

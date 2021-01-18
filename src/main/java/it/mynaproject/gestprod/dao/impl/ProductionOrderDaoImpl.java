@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import it.mynaproject.gestprod.dao.ProductionOrderDao;
 import it.mynaproject.gestprod.domain.ProductionOrder;
+import it.mynaproject.gestprod.domain.WorkingPhase;
 
 @Repository
 public class ProductionOrderDaoImpl extends BaseDaoImpl implements ProductionOrderDao {
@@ -81,6 +82,10 @@ public class ProductionOrderDaoImpl extends BaseDaoImpl implements ProductionOrd
 		Hibernate.initialize(p.getCleaningPhaseList());
 		Hibernate.initialize(p.getWorkingPhaseList());
 		Hibernate.initialize(p.getValidationPhaseList());
+		for(WorkingPhase wp : p.getWorkingPhaseList()) {
+			Hibernate.initialize(wp.getWorkingPhaseMeasureList());
+			Hibernate.initialize(wp.getWorkingPhaseUserList());
+		}
 	}
 	
 	@SuppressWarnings("unchecked")

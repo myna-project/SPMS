@@ -45,6 +45,10 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 		em.remove(em.merge(user));
 		em.flush();
 	}
+	
+	private void initializeUser(User u) {
+		Hibernate.initialize(u.getRoleList());
+	}
 
 	@Override
 	public User getUser(Integer id) {
@@ -56,7 +60,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
 		try {
 			User u = (User) q.getSingleResult();
-			Hibernate.initialize(u.getRoleList());
+			initializeUser(u);
 			return u;
 		} catch (NoResultException nre) {
 			return null;
@@ -71,7 +75,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
 		List<User> users = em.createQuery("FROM User").getResultList();
 		for (User u : users){
-			Hibernate.initialize(u.getRoleList());
+			initializeUser(u);
 		}
 		return users;
 	}
@@ -80,6 +84,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 	public List<Role> getRoles(Integer id) {
 
 		User u = this.getUser(id);
+		initializeUser(u);
 		return (u == null) ? null : u.getRoleList();
 	}
 

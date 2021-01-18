@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import it.mynaproject.gestprod.service.WorkingPhaseUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -80,8 +81,10 @@ public class WorkingPhaseUserServiceImpl implements WorkingPhaseUserService {
 	public WorkingPhaseUser createWorkingPhaseUserFromJson(Integer id, Integer sid, WorkingPhaseUserJson input) {
 
 		log.info("Creating new workingPhaseUser: {}", input.toString());
-
-		User u = this.userService.getUser(input.getUser().getId(), "");
+		
+		org.springframework.security.core.userdetails.User user =
+				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
+		User u = this.userService.getUser(user.getUsername());
 		WorkingPhase w = this.workingPhaseService.getWorkingPhase(id, sid);
 		WorkingPhaseUser workingPhaseUser = new WorkingPhaseUser();
 		workingPhaseUser.populateWorkingPhaseUserFromInput(input, w, u);
@@ -104,7 +107,9 @@ public class WorkingPhaseUserServiceImpl implements WorkingPhaseUserService {
 
 		log.info("Updating workingPhaseUser with id: {}", id);
 
-		User u = this.userService.getUser(input.getUser().getId(), "");
+		org.springframework.security.core.userdetails.User user =
+				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
+		User u = this.userService.getUser(user.getUsername());
 		WorkingPhase w = this.workingPhaseService.getWorkingPhase(id, sid);
 		WorkingPhaseUser workingPhaseUser = new WorkingPhaseUser();
 		workingPhaseUser.populateWorkingPhaseUserFromInput(input, w, u);

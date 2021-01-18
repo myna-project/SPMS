@@ -98,6 +98,7 @@ public class ProductionOrder extends BaseDomain {
 	}
 	
 	public void populateProductionOrderFromInput(final ProductionOrderJson input, final Customer customer, final MixtureMode mixtureMode, final Packaging packaging, final RawMaterial rawMaterial) {
+		this.setCompleted(input.getCompleted());
 		this.setDdt_date(input.getDdt_date());
 		this.setDdt_number(input.getDdt_number());
 		this.setDelivery_date(input.getDelivery_date());
@@ -294,5 +295,13 @@ public class ProductionOrder extends BaseDomain {
 
 	public void setAdditiveProductionOrderList(List<AdditiveProductionOrder> additiveProductionOrderList) {
 		this.additiveProductionOrderList = additiveProductionOrderList;
+	}
+
+	public Boolean getCompleted() {
+		return completed;
+	}
+
+	public void setCompleted(Boolean completed) {
+		this.completed = completed;
 	}
 }

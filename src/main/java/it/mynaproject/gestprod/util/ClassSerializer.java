@@ -16,6 +16,8 @@ public class ClassSerializer {
 		this.exclude("productionOrders");
 		this.exclude("productionOrder");
 		this.exclude("additiveProductionOrderList");
+		this.exclude("workingPhaseMeasureList");
+		this.exclude("workingPhaseUserList");
 	}
 
 	public void setObj(Object obj) {
