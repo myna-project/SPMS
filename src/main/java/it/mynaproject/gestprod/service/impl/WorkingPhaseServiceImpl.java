@@ -13,10 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.mynaproject.gestprod.dao.WorkingPhaseDao;
-import it.mynaproject.gestprod.service.UserService;
 import it.mynaproject.gestprod.domain.WorkingPhase;
 import it.mynaproject.gestprod.domain.ProductionOrder;
-import it.mynaproject.gestprod.exception.ConflictException;
 import it.mynaproject.gestprod.exception.NotFoundException;
 import it.mynaproject.gestprod.model.WorkingPhaseJson;
 
@@ -27,8 +25,7 @@ public class WorkingPhaseServiceImpl implements WorkingPhaseService {
 	
 	@Autowired
 	private WorkingPhaseDao workingPhaseDao;
-	@Autowired
-	private UserService userService;
+
 	@Autowired
 	private ProductionOrderService productionOrderService;
 

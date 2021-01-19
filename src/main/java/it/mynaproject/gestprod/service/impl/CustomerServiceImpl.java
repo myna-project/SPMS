@@ -14,7 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import it.mynaproject.gestprod.dao.CustomerDao;
 import it.mynaproject.gestprod.domain.Customer;
 import it.mynaproject.gestprod.domain.ProductionOrder;
-import it.mynaproject.gestprod.exception.*;
+import it.mynaproject.gestprod.exception.ConflictException;
+import it.mynaproject.gestprod.exception.NotFoundException;
 import it.mynaproject.gestprod.model.CustomerJson;
 import it.mynaproject.gestprod.service.CustomerService;
 
@@ -61,7 +62,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 		Customer c = this.customerDao.checkCustomerExists(input.getName(), null);
 		if(c != null) {
-			throw new ConflictException(2001, "Customer " + input.getName() + " already registered with id: " + c.getId());
+			throw new ConflictException(8001, "Customer " + input.getName() + " already registered with id: " + c.getId());
 		}
 		
 		Customer customer = new Customer();
@@ -86,7 +87,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 		Customer c = this.customerDao.checkCustomerExists(input.getName(), id);
 		if(c != null) {
-			throw new ConflictException(2001, "Customer " + input.getName() + " already registered with id: " + c.getId());
+			throw new ConflictException(8001, "Customer " + input.getName() + " already registered with id: " + c.getId());
 		}
 		
 		Customer customer = this.getCustomer(id);
@@ -112,7 +113,7 @@ public class CustomerServiceImpl implements CustomerService {
 		if (c.getProductionOrders() != null) {
 			for(ProductionOrder po : c.getProductionOrders()) {
 				if(now.after(po.getDelivery_date()))
-					throw new ConflictException(2101, "Cannot delete customer: " + id + ", production order already delivered.");
+					throw new ConflictException(8101, "Cannot delete customer: " + id + ", production order already delivered.");
 			}
 		}
 		this.customerDao.delete(c);

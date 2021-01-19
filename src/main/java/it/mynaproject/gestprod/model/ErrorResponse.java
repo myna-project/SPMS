@@ -10,9 +10,7 @@ public class ErrorResponse {
 		this.setErrorCode(errorCode);
 		this.setErrorMessage(errorMessage);
 	}
-	
-/** GETTERS and SETTERS **/
-	
+
 	public Integer getErrorCode() {
 		return errorCode;
 	}

@@ -3,7 +3,6 @@ package it.mynaproject.gestprod.service.impl;
 import java.util.ArrayList;
 
 import java.util.List;
-import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,26 +11,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.mynaproject.gestprod.dao.ProductionOrderDao;
-import it.mynaproject.gestprod.dao.SettingPhaseDao;
-import it.mynaproject.gestprod.dao.SystemPreparationPhaseDao;
-import it.mynaproject.gestprod.dao.AdditiveProductionOrderDao;
-import it.mynaproject.gestprod.dao.CleaningPhaseDao;
-import it.mynaproject.gestprod.dao.WorkingPhaseDao;
-import it.mynaproject.gestprod.dao.ValidationPhaseDao;
 import it.mynaproject.gestprod.domain.AdditiveProductionOrder;
 import it.mynaproject.gestprod.domain.Customer;
 import it.mynaproject.gestprod.domain.MixtureMode;
 import it.mynaproject.gestprod.domain.Packaging;
 import it.mynaproject.gestprod.domain.ProductionOrder;
 import it.mynaproject.gestprod.domain.RawMaterial;
-import it.mynaproject.gestprod.domain.SettingPhase;
-import it.mynaproject.gestprod.domain.SystemPreparationPhase;
-import it.mynaproject.gestprod.domain.CleaningPhase;
-import it.mynaproject.gestprod.domain.WorkingPhase;
-import it.mynaproject.gestprod.domain.ValidationPhase;
-import it.mynaproject.gestprod.exception.*;
+import it.mynaproject.gestprod.exception.ConflictException;
+import it.mynaproject.gestprod.exception.NotFoundException;
 import it.mynaproject.gestprod.model.AdditiveProductionOrderJson;
-import it.mynaproject.gestprod.model.JsonUtil;
 import it.mynaproject.gestprod.model.ProductionOrderJson;
 import it.mynaproject.gestprod.service.AdditiveProductionOrderService;
 import it.mynaproject.gestprod.service.CustomerService;
@@ -47,19 +35,22 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
 
 	@Autowired
 	private ProductionOrderDao productionOrderDao;
-	@Autowired
-	private AdditiveProductionOrderDao apoDao;
+
 	@Autowired
 	private CustomerService customerService;
+
 	@Autowired
 	private RawMaterialService rawMaterialService;
+
 	@Autowired
 	private MixtureModeService mixtureModeService;
+
 	@Autowired
 	private PackagingService packagingService;
+
 	@Autowired
 	private AdditiveProductionOrderService apoService;
-	
+
 	@Transactional(readOnly = true)
 	@Override
 	public ProductionOrder getProductionOrder(Integer id) {

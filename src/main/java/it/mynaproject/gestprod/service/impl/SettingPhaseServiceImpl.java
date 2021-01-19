@@ -2,7 +2,6 @@ package it.mynaproject.gestprod.service.impl;
 
 import java.util.List;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +20,6 @@ import it.mynaproject.gestprod.domain.MixtureMode;
 import it.mynaproject.gestprod.service.MixtureModeService;
 import it.mynaproject.gestprod.domain.User;
 import it.mynaproject.gestprod.domain.ProductionOrder;
-import it.mynaproject.gestprod.exception.ConflictException;
 import it.mynaproject.gestprod.exception.NotFoundException;
 import it.mynaproject.gestprod.model.SettingPhaseJson;
 

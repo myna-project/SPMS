@@ -18,7 +18,6 @@ import it.mynaproject.gestprod.service.UserService;
 import it.mynaproject.gestprod.domain.CleaningPhase;
 import it.mynaproject.gestprod.domain.User;
 import it.mynaproject.gestprod.domain.ProductionOrder;
-import it.mynaproject.gestprod.exception.ConflictException;
 import it.mynaproject.gestprod.exception.NotFoundException;
 import it.mynaproject.gestprod.model.CleaningPhaseJson;
 

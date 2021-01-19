@@ -19,8 +19,6 @@ public class ConflictException extends RuntimeException {
 		super(msg, cause);
 		this.setCode(code);
 	}
-	
-/** GETTERS and SETTERS **/
 
 	public Integer getCode() {
 		return code;

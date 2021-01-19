@@ -13,7 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import it.mynaproject.gestprod.dao.RawMaterialDao;
 import it.mynaproject.gestprod.domain.RawMaterial;
 import it.mynaproject.gestprod.domain.ProductionOrder;
-import it.mynaproject.gestprod.exception.*;
+import it.mynaproject.gestprod.exception.ConflictException;
+import it.mynaproject.gestprod.exception.NotFoundException;
 import it.mynaproject.gestprod.model.RawMaterialJson;
 import it.mynaproject.gestprod.service.RawMaterialService;
 
@@ -111,7 +112,7 @@ public class RawMaterialServiceImpl implements RawMaterialService {
 		if (c.getProductionOrders() != null) {
 			for(ProductionOrder po : c.getProductionOrders()) {
 				if(now.after(po.getDelivery_date()))
-					throw new ConflictException(2101, "Cannot delete rawMaterial: " + id + ", production order already delivered.");
+					throw new ConflictException(3101, "Cannot delete rawMaterial: " + id + ", production order already delivered.");
 			}
 		}
 		this.rawMaterialDao.delete(c);
