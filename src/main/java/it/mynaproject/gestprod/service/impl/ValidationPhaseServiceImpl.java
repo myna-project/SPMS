@@ -69,7 +69,7 @@ public class ValidationPhaseServiceImpl implements ValidationPhaseService {
 
 		org.springframework.security.core.userdetails.User user =
 				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
-		User u = this.userService.getUser(user.getUsername());
+		User u = this.userService.getUserByUsername(user.getUsername());
 		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
 		ValidationPhase validationPhase = new ValidationPhase();
 		validationPhase.populateValidationPhaseFromInput(input, po, u);
@@ -107,7 +107,7 @@ public class ValidationPhaseServiceImpl implements ValidationPhaseService {
 		
 		org.springframework.security.core.userdetails.User user =
 				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
-		User u = this.userService.getUser(user.getUsername());
+		User u = this.userService.getUserByUsername(user.getUsername());
 		ProductionOrder npo = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
 		validationPhase.populateValidationPhaseFromInput(input, npo, u);
 		

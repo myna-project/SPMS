@@ -13,6 +13,6 @@ public interface UserDao {
 	public User getUser(Integer id);
 	public List<User> getUsers();
 	public List<Role> getRoles(Integer id);
-	public User getUser(String username);
+	public User getUserByUsername(String username);
 	public Boolean checkEmailExists(String email, Integer id);
 }

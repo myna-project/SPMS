@@ -8,8 +8,6 @@ import javax.validation.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import it.mynaproject.gestprod.util.ClassSerializer;
-
 @JsonInclude(Include.NON_EMPTY)
 public class UserJson {
 
@@ -24,7 +22,6 @@ public class UserJson {
 
 	private String oldPassword;
 
-	@NotBlank
 	private String password;
 
 	private Boolean enabled;

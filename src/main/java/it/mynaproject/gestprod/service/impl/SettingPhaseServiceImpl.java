@@ -72,7 +72,7 @@ public class SettingPhaseServiceImpl implements SettingPhaseService {
 		SettingPhase settingPhase = new SettingPhase();
 		org.springframework.security.core.userdetails.User user =
 				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
-		User u = this.userService.getUser(user.getUsername());
+		User u = this.userService.getUserByUsername(user.getUsername());
 		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
 		settingPhase.populateSettingPhaseFromInput(input, po, u);
 		if(input.getEffective_mixture_mode() != null) {
@@ -113,7 +113,7 @@ public class SettingPhaseServiceImpl implements SettingPhaseService {
 		
 		org.springframework.security.core.userdetails.User user =
 				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
-		User u = this.userService.getUser(user.getUsername());
+		User u = this.userService.getUserByUsername(user.getUsername());
 		ProductionOrder npo = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
 		settingPhase.populateSettingPhaseFromInput(input, npo, u);
 		if(input.getEffective_mixture_mode() != null) {

@@ -84,7 +84,7 @@ public class WorkingPhaseUserServiceImpl implements WorkingPhaseUserService {
 		
 		org.springframework.security.core.userdetails.User user =
 				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
-		User u = this.userService.getUser(user.getUsername());
+		User u = this.userService.getUserByUsername(user.getUsername());
 		WorkingPhase w = this.workingPhaseService.getWorkingPhase(id, sid);
 		WorkingPhaseUser workingPhaseUser = new WorkingPhaseUser();
 		workingPhaseUser.populateWorkingPhaseUserFromInput(input, w, u);
@@ -109,7 +109,7 @@ public class WorkingPhaseUserServiceImpl implements WorkingPhaseUserService {
 
 		org.springframework.security.core.userdetails.User user =
 				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
-		User u = this.userService.getUser(user.getUsername());
+		User u = this.userService.getUserByUsername(user.getUsername());
 		WorkingPhase w = this.workingPhaseService.getWorkingPhase(id, sid);
 		WorkingPhaseUser workingPhaseUser = new WorkingPhaseUser();
 		workingPhaseUser.populateWorkingPhaseUserFromInput(input, w, u);

@@ -72,7 +72,7 @@ public class UserController {
 
 		org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		return JsonUtil.userToUserJson(this.userService.getUser(id, user.getUsername()), true);
+		return JsonUtil.userToUserJson(this.userService.getUser(id, user.getUsername(), true), true);
 	}
 
 	@ApiResponses({
@@ -96,7 +96,7 @@ public class UserController {
 
 		org.springframework.security.core.userdetails.User authUser = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		User user = this.userService.updateUserFromInput(id, input, authUser.getUsername());
+		User user = this.userService.updateUserFromInput(id, input, authUser.getUsername(), true);
 
 		return new ResponseEntity<>(JsonUtil.userToUserJson(user, true), new HttpHeaders(), HttpStatus.OK);
 	}
@@ -109,7 +109,7 @@ public class UserController {
 
 		org.springframework.security.core.userdetails.User authUser = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		this.userService.deleteUserById(id, authUser.getUsername());
+		this.userService.deleteUserById(id, authUser.getUsername(), true);
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}
@@ -139,6 +139,19 @@ public class UserController {
 		return ujList;
 	}
 
+	@ApiResponses({
+		@ApiResponse(code = 400, message = "Bad Request")
+	})
+	@PutMapping(value = "/resp/users/{id}")
+	public Object updateProfileForResp(@PathVariable("id") Integer id, @Valid @RequestBody UserJson input) {
+
+		org.springframework.security.core.userdetails.User authUser = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		User user = this.userService.updateUserFromInput(id, input, authUser.getUsername(), false);
+
+		return new ResponseEntity<>(JsonUtil.userToUserJson(user, true), new HttpHeaders(), HttpStatus.OK);
+	}
+
 	/*
 	 *  -------------
 	 *  USER SECTION
@@ -162,5 +175,18 @@ public class UserController {
 		}
 
 		return ujList;
+	}
+
+	@ApiResponses({
+		@ApiResponse(code = 400, message = "Bad Request")
+	})
+	@PutMapping(value = "/users/{id}")
+	public Object updateProfileForUser(@PathVariable("id") Integer id, @Valid @RequestBody UserJson input) {
+
+		org.springframework.security.core.userdetails.User authUser = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		User user = this.userService.updateUserFromInput(id, input, authUser.getUsername(), false);
+
+		return new ResponseEntity<>(JsonUtil.userToUserJson(user, true), new HttpHeaders(), HttpStatus.OK);
 	}
 }

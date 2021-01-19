@@ -89,7 +89,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User getUser(String username) {
+	public User getUserByUsername(String username) {
 
 		log.debug("Getting user with username: {}", username);
 
@@ -99,9 +99,6 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 		try {
 			User u = (User) q.getSingleResult();
 			Hibernate.initialize(u.getRoleList());
-
-			log.debug("User {} retrieved", username);
-
 			return u;
 		} catch (NoResultException nre) {
 			return null;

@@ -8,16 +8,13 @@ import it.mynaproject.gestprod.model.UserJson;
 
 public interface UserService {
 
-	public User getUser(Integer id, String username);
+	public User getUser(Integer id, String username, Boolean isAdmin);
 	public List<User> getUsers();
 	public void persist(User user);
 	public User createUserFromInput(UserJson input, String username);
 	public void update(User user, Boolean changeUser);
-	public User updateUserFromInput(Integer id, UserJson input, String username);
-	public void deleteUserById(Integer id, String username);
-	public User getUser(String username);
+	public User updateUserFromInput(Integer id, UserJson input, String username, Boolean isAdmin);
+	public void deleteUserById(Integer id, String username, Boolean isAdmin);
+	public User getUserByUsername(String username);
 	public List<Role> getRoles(Integer id);
-	public Boolean passwordsMatch(String oldPsw,String newPsw);
-	public Boolean checkNameForUser(String name);
-	public Boolean checkNameForUser(String name, Integer id);
 }

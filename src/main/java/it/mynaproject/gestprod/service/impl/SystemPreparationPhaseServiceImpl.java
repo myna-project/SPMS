@@ -69,7 +69,7 @@ public class SystemPreparationPhaseServiceImpl implements SystemPreparationPhase
 		
 		org.springframework.security.core.userdetails.User user =
 				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
-		User u = this.userService.getUser(user.getUsername());
+		User u = this.userService.getUserByUsername(user.getUsername());
 		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
 		SystemPreparationPhase systemPreparationPhase = new SystemPreparationPhase();
 		systemPreparationPhase.populateSystemPreparationPhaseFromInput(input, po, u);
@@ -108,7 +108,7 @@ public class SystemPreparationPhaseServiceImpl implements SystemPreparationPhase
 
 		org.springframework.security.core.userdetails.User user =
 				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
-		User u = this.userService.getUser(user.getUsername());
+		User u = this.userService.getUserByUsername(user.getUsername());
 		ProductionOrder npo = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
 		systemPreparationPhase.populateSystemPreparationPhaseFromInput(input, npo, u);
 		

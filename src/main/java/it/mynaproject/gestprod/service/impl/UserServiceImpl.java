@@ -38,10 +38,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public User getUser(Integer id, String username) {
+	public User getUser(Integer id, String username, Boolean isAdmin) {
 
 		User u = this.userDao.getUser(id);
-		if (u == null)
+		if (u == null || (!isAdmin && !u.getUsername().equals(username)))
 			throw new NotFoundException(404, "User " + id + " not found");
 
 		return u;
@@ -89,6 +89,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@Transactional
 	@Override
 	public void update(User user, Boolean changePassword) {
+
 		if (changePassword)
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
 
@@ -97,11 +98,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Transactional
 	@Override
-	public User updateUserFromInput(Integer id, UserJson input, String username) {
+	public User updateUserFromInput(Integer id, UserJson input, String username, Boolean isAdmin) {
 
 		log.info("Updating user with id {} from input: {}", id, input.toString().replaceFirst("password=.*,", ""));
 
-		User user = this.getUser(id, username);
+		User user = this.getUser(id, username, isAdmin);
 
 		if (!this.checkNameForUser(input.getUsername(), input.getId()))
 			throw new ConflictException(1001, "Username " + input.getUsername() + " not available");
@@ -133,11 +134,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Transactional
 	@Override
-	public void deleteUserById(Integer id, String username) {
+	public void deleteUserById(Integer id, String username, Boolean isAdmin) {
 
 		log.info("Deleting user: {}", id);
 
-		this.userDao.delete(this.getUser(id, username));
+		this.userDao.delete(this.getUser(id, username, isAdmin));
 	}
 
 	@Transactional(readOnly = true)
@@ -148,36 +149,32 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public User getUser(String username) {
-		return this.userDao.getUser(username);
+	public User getUserByUsername(String username) {
+		return this.userDao.getUserByUsername(username);
 	}
 
 	@Transactional(readOnly = true)
 	@Override
 	public UserDetails loadUserByUsername(String username) {
 
-		User user = this.userDao.getUser(username);
+		User user = this.userDao.getUserByUsername(username);
 		if (user == null)
 			throw new UsernameNotFoundException("User not found");
 
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getEnabled(), true, true, true, user.getRoleList());
 	}
 
-	@Transactional(readOnly = true)
-	@Override
-	public Boolean checkNameForUser(String name) {
+	private Boolean checkNameForUser(String name) {
 
-		if (this.userDao.getUser(name) != null)
+		if (this.userDao.getUserByUsername(name) != null)
 			return false;
 
 		return true;
 	}
 
-	@Transactional(readOnly = true)
-	@Override
-	public Boolean checkNameForUser(String name, Integer id) {
+	private Boolean checkNameForUser(String name, Integer id) {
 
-		User u = this.userDao.getUser(name);
+		User u = this.userDao.getUserByUsername(name);
 		if (u != null)
 			if (u.getId() != id)
 				return false;
@@ -185,7 +182,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		return true;
 	}
 
-	public Boolean passwordsMatch(String oldPsw, String newPsw) {
+	private Boolean passwordsMatch(String oldPsw, String newPsw) {
 		return this.passwordEncoder.matches(newPsw, oldPsw);
 	}
 }
