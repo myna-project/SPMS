@@ -67,7 +67,7 @@ public class CorsFilter implements Filter {
 		} else {
 			if (httpResponse.getHeader("Access-Control-Allow-Origin") == null) {
 				httpResponse.addHeader("Access-Control-Allow-Origin", origin);
-				httpResponse.addHeader("Access-Control-Expose-Headers", "x-csrf-token, isSuperAdmin, isAdmin");
+				httpResponse.addHeader("Access-Control-Expose-Headers", "x-csrf-token, isAdmin, isResp");
 				httpResponse.addHeader("Access-Control-Allow-Credentials", "true");
 			}
 		}

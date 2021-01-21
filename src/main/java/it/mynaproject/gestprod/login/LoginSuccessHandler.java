@@ -21,6 +21,8 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
 		if ((roles.contains("ROLE_ADMIN")))
 			response.addHeader("isAdmin", "true");
+		if ((roles.contains("ROLE_RESP")))
+			response.addHeader("isResp", "true");
 
 		response.setStatus(200);
 	}
