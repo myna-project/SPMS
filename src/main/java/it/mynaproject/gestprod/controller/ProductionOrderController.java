@@ -50,10 +50,8 @@ public class ProductionOrderController {
 		log.info("Request for productionOrders");
 
 		List<ProductionOrderJson> productionOrders = new ArrayList<>();
-		Boolean dumpPhases = false;
-
 		for (ProductionOrder productionOrder : this.productionOrderService.getProductionOrders())
-			productionOrders.add(JsonUtil.productionOrderToProductionOrderJson(productionOrder, dumpPhases));
+			productionOrders.add(JsonUtil.productionOrderToProductionOrderJson(productionOrder, false));
 
 		return productionOrders;
 	}
@@ -65,9 +63,8 @@ public class ProductionOrderController {
 	public ProductionOrderJson getProductionOrder(@PathVariable("id") Integer id) {
 
 		log.info("Request for productionOrder with id {}", id);
-		Boolean dumpPhases = true;
 
-		return JsonUtil.productionOrderToProductionOrderJson(this.productionOrderService.getProductionOrder(id), dumpPhases);
+		return JsonUtil.productionOrderToProductionOrderJson(this.productionOrderService.getProductionOrder(id), true);
 	}
 
 	@ApiResponses({
@@ -77,9 +74,8 @@ public class ProductionOrderController {
 	public Object postProductionOrder(@Valid @RequestBody ProductionOrderJson input, HttpServletRequest request) {
 
 		ProductionOrder productionOrder = this.productionOrderService.createProductionOrderFromJson(input);
-		Boolean dumpPhases = false;
 
-		return new ResponseEntity<>(JsonUtil.productionOrderToProductionOrderJson(productionOrder, dumpPhases), new HttpHeaders(), HttpStatus.CREATED);
+		return new ResponseEntity<>(JsonUtil.productionOrderToProductionOrderJson(productionOrder, false), new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	@ApiResponses({
@@ -89,9 +85,8 @@ public class ProductionOrderController {
 	public Object updateProductionOrder(@PathVariable("id") Integer id, @Valid @RequestBody ProductionOrderJson input) {
 
 		ProductionOrder productionOrder = this.productionOrderService.updateProductionOrderFromJson(id, input);
-		Boolean dumpPhases = true;
 
-		return new ResponseEntity<>(JsonUtil.productionOrderToProductionOrderJson(productionOrder, dumpPhases), new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(JsonUtil.productionOrderToProductionOrderJson(productionOrder, true), new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@ApiResponses({
@@ -120,10 +115,8 @@ public class ProductionOrderController {
 		log.info("Request for productionOrders");
 
 		List<ProductionOrderJson> productionOrders = new ArrayList<>();
-		Boolean dumpPhases = false;
-
 		for (ProductionOrder productionOrder : this.productionOrderService.getProductionOrders())
-			productionOrders.add(JsonUtil.productionOrderToProductionOrderJson(productionOrder, dumpPhases));
+			productionOrders.add(JsonUtil.productionOrderToProductionOrderJson(productionOrder, false));
 
 		return productionOrders;
 	}
@@ -135,9 +128,8 @@ public class ProductionOrderController {
 	public ProductionOrderJson getProductionOrderForResp(@PathVariable("id") Integer id) {
 
 		log.info("Request for productionOrder with id {}", id);
-		Boolean dumpPhases = true;
 
-		return JsonUtil.productionOrderToProductionOrderJson(this.productionOrderService.getProductionOrder(id), dumpPhases);
+		return JsonUtil.productionOrderToProductionOrderJson(this.productionOrderService.getProductionOrder(id), true);
 	}
 
 	/*
@@ -155,10 +147,8 @@ public class ProductionOrderController {
 		log.info("Request for productionOrders");
 
 		List<ProductionOrderJson> productionOrders = new ArrayList<>();
-		Boolean dumpPhases = false;
-
 		for (ProductionOrder productionOrder : this.productionOrderService.getProductionOrders())
-			productionOrders.add(JsonUtil.productionOrderToProductionOrderJson(productionOrder, dumpPhases));
+			productionOrders.add(JsonUtil.productionOrderToProductionOrderJson(productionOrder, false));
 
 		return productionOrders;
 	}
@@ -170,9 +160,8 @@ public class ProductionOrderController {
 	public ProductionOrderJson getProductionOrderForUser(@PathVariable("id") Integer id) {
 
 		log.info("Request for productionOrder with id {}", id);
-		Boolean dumpPhases = false;
 
-		return JsonUtil.productionOrderToProductionOrderJson(this.productionOrderService.getProductionOrder(id), dumpPhases);
+		return JsonUtil.productionOrderToProductionOrderJson(this.productionOrderService.getProductionOrder(id), true);
 	}
 	
 	
