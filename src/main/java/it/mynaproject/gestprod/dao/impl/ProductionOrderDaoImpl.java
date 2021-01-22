@@ -82,9 +82,11 @@ public class ProductionOrderDaoImpl extends BaseDaoImpl implements ProductionOrd
 		Hibernate.initialize(p.getCleaningPhaseList());
 		Hibernate.initialize(p.getWorkingPhaseList());
 		Hibernate.initialize(p.getValidationPhaseList());
-		for(WorkingPhase wp : p.getWorkingPhaseList()) {
-			Hibernate.initialize(wp.getWorkingPhaseMeasureList());
-			Hibernate.initialize(wp.getWorkingPhaseUserList());
+		if(p.getWorkingPhaseList() != null) {
+			for(WorkingPhase wp : p.getWorkingPhaseList()) {
+				Hibernate.initialize(wp.getWorkingPhaseMeasureList());
+				Hibernate.initialize(wp.getWorkingPhaseUserList());
+			}
 		}
 	}
 	
