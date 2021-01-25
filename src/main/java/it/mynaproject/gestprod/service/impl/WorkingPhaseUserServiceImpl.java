@@ -17,6 +17,7 @@ import it.mynaproject.gestprod.dao.WorkingPhaseUserDao;
 import it.mynaproject.gestprod.service.UserService;
 import it.mynaproject.gestprod.service.WorkingPhaseService;
 import it.mynaproject.gestprod.domain.WorkingPhaseUser;
+import it.mynaproject.gestprod.domain.SettingPhase;
 import it.mynaproject.gestprod.domain.User;
 import it.mynaproject.gestprod.domain.WorkingPhase;
 import it.mynaproject.gestprod.exception.NotFoundException;
@@ -106,12 +107,22 @@ public class WorkingPhaseUserServiceImpl implements WorkingPhaseUserService {
 	public WorkingPhaseUser updateWorkingPhaseUserFromJson(Integer id, Integer sid, Integer tid, WorkingPhaseUserJson input) {
 
 		log.info("Updating workingPhaseUser with id: {}", id);
-
+		WorkingPhase w = this.workingPhaseService.getWorkingPhase(id, sid);
+		List<WorkingPhaseUser> wulist = w.getWorkingPhaseUserList();
+		WorkingPhaseUser workingPhaseUser = null; // alternative: can we look for the setting phase using DAO?
+		if(wulist != null) {
+			for(WorkingPhaseUser wu : wulist) {
+				if(wu.getId() == tid) {
+					workingPhaseUser = wu;
+				}
+			}
+		}
+		if(workingPhaseUser == null)
+			throw new NotFoundException(404, "SettingPhase " + sid + " not found");
+		
 		org.springframework.security.core.userdetails.User user =
 				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
 		User u = this.userService.getUserByUsername(user.getUsername());
-		WorkingPhase w = this.workingPhaseService.getWorkingPhase(id, sid);
-		WorkingPhaseUser workingPhaseUser = new WorkingPhaseUser();
 		workingPhaseUser.populateWorkingPhaseUserFromInput(input, w, u);
 
 		this.update(workingPhaseUser);
