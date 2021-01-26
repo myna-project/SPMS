@@ -23,15 +23,15 @@
 	</appender>
 
 	<!-- set to "debug" to log payload of incoming request -->
-	<logger name="it.mynaproject.spms.filter.LoggingServletFilter" level="debug" additivity="false">
+	<logger name="it.mynaproject.spms.filter.LoggingServletFilter" level="error" additivity="false">
 		<appender-ref ref="FILE" />
 	</logger>
 
-	<logger name="it" level="debug" additivity="false">
+	<logger name="it" level="info" additivity="false">
 		<appender-ref ref="FILE" />
 	</logger>
 
-	<root level="debug">
+	<root level="error">
 		<appender-ref ref="FILE" />
 	</root>
 </configuration>
