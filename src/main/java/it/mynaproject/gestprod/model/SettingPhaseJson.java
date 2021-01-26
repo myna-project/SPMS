@@ -1,11 +1,8 @@
 package it.mynaproject.gestprod.model;
 
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import it.mynaproject.gestprod.domain.MixtureMode;
 import it.mynaproject.gestprod.util.ClassSerializer;
 
 @JsonInclude(Include.NON_EMPTY)

@@ -44,11 +44,6 @@ public class WorkingPhaseDaoImpl extends BaseDaoImpl implements WorkingPhaseDao 
 		em.remove(em.merge(workingPhase));
 		em.flush();
 	}
-	
-	private void initializeWorkingPhase(WorkingPhase w) {
-		Hibernate.initialize(w.getWorkingPhaseUserList());
-		Hibernate.initialize(w.getWorkingPhaseMeasureList());
-	}
 
 	@Override
 	public WorkingPhase getWorkingPhase(Integer id) {
@@ -72,9 +67,13 @@ public class WorkingPhaseDaoImpl extends BaseDaoImpl implements WorkingPhaseDao 
 	public List<WorkingPhase> getWorkingPhases() {
 
 		List<WorkingPhase> wList = em.createQuery("FROM WorkingPhase").getResultList();
-		for(WorkingPhase w : wList) {
+		for (WorkingPhase w : wList)
 			initializeWorkingPhase(w);
-		}
+
 		return wList;
+	}
+
+	private void initializeWorkingPhase(WorkingPhase w) {
+		Hibernate.initialize(w.getWorkingPhaseMeasureList());
 	}
 }

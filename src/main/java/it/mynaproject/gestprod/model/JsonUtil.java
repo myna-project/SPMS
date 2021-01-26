@@ -234,51 +234,27 @@ public class JsonUtil {
 		
 		return dj;
 	}
-	
-	// handle a single shift
-	private static void loadWorkingPhaseUserJson(WorkingPhaseUserJson dj, WorkingPhaseUser d) {
-		Boolean loadLists = false;
-		dj.setId(d.getId());
-		dj.setWorkingPhase(workingPhaseToWorkingPhaseJson(d.getWorkingPhase(), loadLists));
-		dj.setUser(userToUserJson(d.getUser(),true));
-		dj.setStart_time(d.getStart_time());
-		dj.setEnd_time(d.getEnd_time());
-	}
-	
+
 	// handle a single measure
 	private static void loadWorkingPhaseMeasureJson(WorkingPhaseMeasureJson dj, WorkingPhaseMeasure d) {
-		Boolean loadLists = false;
+
 		dj.setId(d.getId());
-		dj.setWorkingPhase(workingPhaseToWorkingPhaseJson(d.getWorkingPhase(), loadLists));
-		dj.setUser(userToUserJson(d.getUser(),true));
+		dj.setWorkingPhase(workingPhaseToWorkingPhaseJson(d.getWorkingPhase(), false));
 		dj.setTime(d.getTime());
 		dj.setFinished_product_quantity(d.getFinished_product_quantity());
 	}
-	
-	// WorkingPhase composed of list of shifts
-	public static WorkingPhaseJson workingPhaseToWorkingPhaseJson(final WorkingPhase d, Boolean loadLists) {
+
+	public static WorkingPhaseJson workingPhaseToWorkingPhaseJson(final WorkingPhase d, Boolean loadMeasures) {
+
 		final WorkingPhaseJson dj = new WorkingPhaseJson();
-		dj.setId(d.getId());
-		dj.setProductionOrder(productionOrderToProductionOrderJson(d.getProductionOrder(), false));
-		
-		if (loadLists) {
-			if(d.getWorkingPhaseUserList() != null) {
-				for(WorkingPhaseUser wu : d.getWorkingPhaseUserList()) {
-					final WorkingPhaseUserJson s = new WorkingPhaseUserJson();
-					loadWorkingPhaseUserJson(s, wu);
-					if(dj.getShifts() == null) {
-						List<WorkingPhaseUserJson> ml = new ArrayList<>();
-						dj.setShifts(ml);
-					}
-					dj.getShifts().add(s);
-				}
-			}
-			
-			if(d.getWorkingPhaseMeasureList() != null) {
-				for(WorkingPhaseMeasure wm : d.getWorkingPhaseMeasureList()) {
+		loadPhaseJson(dj, d);
+
+		if (loadMeasures) {
+			if (d.getWorkingPhaseMeasureList() != null) {
+				for (WorkingPhaseMeasure wm : d.getWorkingPhaseMeasureList()) {
 					final WorkingPhaseMeasureJson s = new WorkingPhaseMeasureJson();
 					loadWorkingPhaseMeasureJson(s, wm);
-					if(dj.getMeasures() == null) {
+					if (dj.getMeasures() == null) {
 						List<WorkingPhaseMeasureJson> ml = new ArrayList<>();
 						dj.setMeasures(ml);
 					}
@@ -286,15 +262,10 @@ public class JsonUtil {
 				}
 			}
 		}
+
 		return dj;
 	}
-	
-	public static WorkingPhaseUserJson workingPhaseUserToWorkingPhaseUserJson(final WorkingPhaseUser d) {
-		final WorkingPhaseUserJson dj = new WorkingPhaseUserJson();
-		loadWorkingPhaseUserJson(dj,d);
-		return dj;
-	}
-	
+
 	public static WorkingPhaseMeasureJson workingPhaseMeasureToWorkingPhaseMeasureJson(final WorkingPhaseMeasure d) {
 		final WorkingPhaseMeasureJson dj = new WorkingPhaseMeasureJson();
 		loadWorkingPhaseMeasureJson(dj,d);

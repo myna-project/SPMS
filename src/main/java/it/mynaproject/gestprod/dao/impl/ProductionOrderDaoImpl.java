@@ -74,22 +74,7 @@ public class ProductionOrderDaoImpl extends BaseDaoImpl implements ProductionOrd
 		}
 		return pList;
 	}
-	
-	private void initializeProductionOrder(ProductionOrder p) {
-		Hibernate.initialize(p.getAdditiveProductionOrderList());
-		Hibernate.initialize(p.getSettingPhaseList());
-		Hibernate.initialize(p.getSystemPreparationPhaseList());
-		Hibernate.initialize(p.getCleaningPhaseList());
-		Hibernate.initialize(p.getWorkingPhaseList());
-		Hibernate.initialize(p.getValidationPhaseList());
-		if(p.getWorkingPhaseList() != null) {
-			for(WorkingPhase wp : p.getWorkingPhaseList()) {
-				Hibernate.initialize(wp.getWorkingPhaseMeasureList());
-				Hibernate.initialize(wp.getWorkingPhaseUserList());
-			}
-		}
-	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public ProductionOrder checkProductionOrderExists(String name, @Nullable Integer id) {
@@ -105,5 +90,17 @@ public class ProductionOrderDaoImpl extends BaseDaoImpl implements ProductionOrd
 				productionOrderExists = r;
 
 		return productionOrderExists;
+	}
+
+	private void initializeProductionOrder(ProductionOrder p) {
+		Hibernate.initialize(p.getAdditiveProductionOrderList());
+		Hibernate.initialize(p.getSettingPhaseList());
+		Hibernate.initialize(p.getSystemPreparationPhaseList());
+		Hibernate.initialize(p.getCleaningPhaseList());
+		Hibernate.initialize(p.getWorkingPhaseList());
+		Hibernate.initialize(p.getValidationPhaseList());
+		if (p.getWorkingPhaseList() != null)
+			for (WorkingPhase wp : p.getWorkingPhaseList())
+				Hibernate.initialize(wp.getWorkingPhaseMeasureList());
 	}
 }

@@ -12,11 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import it.mynaproject.gestprod.dao.ProductionOrderDao;
 import it.mynaproject.gestprod.domain.AdditiveProductionOrder;
-import it.mynaproject.gestprod.domain.Customer;
-import it.mynaproject.gestprod.domain.MixtureMode;
-import it.mynaproject.gestprod.domain.Packaging;
 import it.mynaproject.gestprod.domain.ProductionOrder;
-import it.mynaproject.gestprod.domain.RawMaterial;
 import it.mynaproject.gestprod.exception.ConflictException;
 import it.mynaproject.gestprod.exception.NotFoundException;
 import it.mynaproject.gestprod.model.AdditiveProductionOrderJson;
@@ -58,6 +54,7 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
 		ProductionOrder p = this.productionOrderDao.getProductionOrder(id);
 		if (p == null)
 			throw new NotFoundException(404, "ProductionOrder " + id + " not found");
+
 		return p;
 	}
 
@@ -85,28 +82,23 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
 		log.info("Creating new productionOrder: {}", input.toString());
 
 		ProductionOrder p = this.productionOrderDao.checkProductionOrderExists(input.getProduction_order_code(), null);
-		if(p != null) {
+		if (p != null)
 			throw new ConflictException(7001, "ProductionOrder " + input.getProduction_order_code() + " already registered with id: " + p.getId());
-		}
-		
-		Customer c = this.customerService.getCustomer(input.getCustomer().getId());
-		RawMaterial rm = this.rawMaterialService.getRawMaterial(input.getRaw_material().getId());
-		MixtureMode mm = this.mixtureModeService.getMixtureMode(input.getExpected_mixture_mode().getId());
-		Packaging pp = this.packagingService.getPackaging(input.getPackaging().getId());
-		List<AdditiveProductionOrder> apol = new ArrayList<>();
-		
+
 		ProductionOrder productionOrder = new ProductionOrder();
-		productionOrder.populateProductionOrderFromInput(input, c, mm, pp, rm);
+		productionOrder.populateProductionOrderFromInput(input, (input.getCustomer() != null) ? this.customerService.getCustomer(input.getCustomer().getId()) : null, (input.getExpected_mixture_mode() != null) ? this.mixtureModeService.getMixtureMode(input.getExpected_mixture_mode().getId()) : null, (input.getPackaging() != null) ? this.packagingService.getPackaging(input.getPackaging().getId()) : null, (input.getRaw_material() != null) ? this.rawMaterialService.getRawMaterial(input.getRaw_material().getId()) : null);
 		
 		this.persist(productionOrder);
-		
-		// additives are already registered, APOs are not: create them here
-		for(AdditiveProductionOrderJson apoj : input.getAdditives()) {
-			AdditiveProductionOrder apo = this.apoService.createAdditiveProductionOrderFromJson(productionOrder.getId(), apoj);
-			apol.add(apo);
+
+		List<AdditiveProductionOrder> apol = new ArrayList<>();
+		if (input.getAdditives() != null) {
+			for (AdditiveProductionOrderJson apoj : input.getAdditives()) {
+				AdditiveProductionOrder apo = this.apoService.createAdditiveProductionOrderFromJson(productionOrder.getId(), apoj);
+				apol.add(apo);
+			}
 		}
 		productionOrder.setAdditiveProductionOrderList(apol);
-		
+
 		this.update(productionOrder);
 
 		return productionOrder;
@@ -124,28 +116,25 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
 
 		log.info("Updating productionOrder with id: {}", id);
 
+		ProductionOrder productionOrder = this.getProductionOrder(id);
+
 		ProductionOrder p = this.productionOrderDao.checkProductionOrderExists(input.getProduction_order_code(), id);
-		if(p != null) {
+		if (p != null)
 			throw new ConflictException(7001, "ProductionOrder " + input.getProduction_order_code() + " already registered with id: " + p.getId());
-		}
-		
-		Customer c = this.customerService.getCustomer(input.getCustomer().getId());
-		RawMaterial rm = this.rawMaterialService.getRawMaterial(input.getRaw_material().getId());
-		MixtureMode mm = this.mixtureModeService.getMixtureMode(input.getExpected_mixture_mode().getId());
-		Packaging pp = this.packagingService.getPackaging(input.getPackaging().getId());
-		List<AdditiveProductionOrder> apol = new ArrayList<>();
-		
-		ProductionOrder productionOrder = new ProductionOrder();
-		productionOrder.populateProductionOrderFromInput(input, c, mm, pp, rm);
-		
+
+		productionOrder.populateProductionOrderFromInput(input, (input.getCustomer() != null) ? this.customerService.getCustomer(input.getCustomer().getId()) : null, (input.getExpected_mixture_mode() != null) ? this.mixtureModeService.getMixtureMode(input.getExpected_mixture_mode().getId()) : null, (input.getPackaging() != null) ? this.packagingService.getPackaging(input.getPackaging().getId()) : null, (input.getRaw_material() != null) ? this.rawMaterialService.getRawMaterial(input.getRaw_material().getId()) : null);
+
 		this.update(productionOrder);
-		
-		// additives are already registered, APOs are not: create them here
-		for(AdditiveProductionOrderJson apoj : input.getAdditives()) {
-			AdditiveProductionOrder apo = this.apoService.createAdditiveProductionOrderFromJson(productionOrder.getId(), apoj);
-			apol.add(apo);
+
+		List<AdditiveProductionOrder> apol = new ArrayList<>();
+		if (input.getAdditives() != null) {
+			for (AdditiveProductionOrderJson apoj : input.getAdditives()) {
+				AdditiveProductionOrder apo = this.apoService.createAdditiveProductionOrderFromJson(productionOrder.getId(), apoj);
+				apol.add(apo);
+			}
 		}
-		if(!apol.isEmpty()) productionOrder.setAdditiveProductionOrderList(apol);
+		if (!apol.isEmpty())
+			productionOrder.setAdditiveProductionOrderList(apol);
 		
 		this.update(productionOrder);
 
@@ -157,13 +146,8 @@ public class ProductionOrderServiceImpl implements ProductionOrderService {
 	public void deleteProductionOrderById(Integer id) {
 
 		log.info("Deleting productionOrder: {}", id);
-		ProductionOrder c = this.productionOrderDao.getProductionOrder(id);
-		
-		if (c == null) {
-			throw new NotFoundException(404, "ProductionOrder " + id + " not found");
-		}
-		
-		this.productionOrderDao.delete(c);
+
+		this.productionOrderDao.delete(this.getProductionOrder(id));
 	}
 	
 }

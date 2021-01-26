@@ -13,18 +13,16 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 public class WorkingPhaseMeasureJson {
 
 	private Integer id;
-	
+
 	@NotNull
 	private WorkingPhaseJson workingPhase;
-	
-	private UserJson user;
-	
+
 	@NotNull
 	private Instant time;
-	
+
 	@NotNull
 	private Float finished_product_quantity;
-	
+
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		ClassSerializer serializer = new ClassSerializer();
@@ -32,9 +30,9 @@ public class WorkingPhaseMeasureJson {
 		builder.append(serializer.toString());
 		return builder.toString();
 	}
-	
+
 /** GETTERS and SETTERS **/
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -65,13 +63,5 @@ public class WorkingPhaseMeasureJson {
 
 	public void setWorkingPhase(WorkingPhaseJson workingPhase) {
 		this.workingPhase = workingPhase;
-	}
-
-	public UserJson getUser() {
-		return user;
-	}
-
-	public void setUser(UserJson user) {
-		this.user = user;
 	}
 }

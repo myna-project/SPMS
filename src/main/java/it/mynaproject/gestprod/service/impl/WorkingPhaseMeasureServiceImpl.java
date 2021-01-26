@@ -9,15 +9,12 @@ import org.slf4j.LoggerFactory;
 import it.mynaproject.gestprod.service.WorkingPhaseMeasureService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.mynaproject.gestprod.dao.WorkingPhaseMeasureDao;
-import it.mynaproject.gestprod.service.UserService;
 import it.mynaproject.gestprod.service.WorkingPhaseService;
 import it.mynaproject.gestprod.domain.WorkingPhaseMeasure;
-import it.mynaproject.gestprod.domain.User;
 import it.mynaproject.gestprod.domain.WorkingPhase;
 import it.mynaproject.gestprod.exception.NotFoundException;
 import it.mynaproject.gestprod.model.WorkingPhaseMeasureJson;
@@ -26,11 +23,10 @@ import it.mynaproject.gestprod.model.WorkingPhaseMeasureJson;
 public class WorkingPhaseMeasureServiceImpl implements WorkingPhaseMeasureService {
 	
 	final private Logger log = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	private WorkingPhaseMeasureDao workingPhaseMeasureDao;
-	@Autowired
-	private UserService userService;
+
 	@Autowired
 	private WorkingPhaseService workingPhaseService;
 
@@ -42,15 +38,15 @@ public class WorkingPhaseMeasureServiceImpl implements WorkingPhaseMeasureServic
 		WorkingPhase p = this.workingPhaseService.getWorkingPhase(id, sid);
 		if (p == null)
 			throw new NotFoundException(404, "WorkingPhase " + sid + " not found");
-		
-		for(WorkingPhaseMeasure sf : p.getWorkingPhaseMeasureList()) {
-			if(sf.getId() == tid) {
+
+		for (WorkingPhaseMeasure sf : p.getWorkingPhaseMeasureList()) {
+			if (sf.getId() == tid) {
 				workingPhaseMeasure = sf;
 			}
 		}
 		if (workingPhaseMeasure == null)
 			throw new NotFoundException(404, "WorkingPhaseMeasure " + tid + " not found");
-		
+
 		return workingPhaseMeasure;
 	}
 	
@@ -62,11 +58,10 @@ public class WorkingPhaseMeasureServiceImpl implements WorkingPhaseMeasureServic
 		WorkingPhase p = this.workingPhaseService.getWorkingPhase(id, sid);
 		if (p == null)
 			throw new NotFoundException(404, "WorkingPhase " + sid + " not found");
-		
-		for(WorkingPhaseMeasure sf : p.getWorkingPhaseMeasureList()) {
-				wpul.add(sf);
-		}
-		
+
+		for (WorkingPhaseMeasure sf : p.getWorkingPhaseMeasureList())
+			wpul.add(sf);
+
 		return wpul;
 	}
 	
@@ -82,18 +77,15 @@ public class WorkingPhaseMeasureServiceImpl implements WorkingPhaseMeasureServic
 
 		log.info("Creating new workingPhaseMeasure: {}", input.toString());
 
-		org.springframework.security.core.userdetails.User user =
-				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
-		User u = this.userService.getUserByUsername(user.getUsername());
 		WorkingPhase w = this.workingPhaseService.getWorkingPhase(id, sid);
+
 		WorkingPhaseMeasure workingPhaseMeasure = new WorkingPhaseMeasure();
-		workingPhaseMeasure.populateWorkingPhaseMeasureFromInput(input, w, u);
+		workingPhaseMeasure.populateWorkingPhaseMeasureFromInput(input, w);
 
 		this.persist(workingPhaseMeasure);
 
 		return workingPhaseMeasure;
 	}
-	
 
 	@Transactional
 	@Override
@@ -107,12 +99,10 @@ public class WorkingPhaseMeasureServiceImpl implements WorkingPhaseMeasureServic
 
 		log.info("Updating workingPhaseMeasure with id: {}", id);
 
-		org.springframework.security.core.userdetails.User user =
-				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
-		User u = this.userService.getUserByUsername(user.getUsername());
 		WorkingPhase w = this.workingPhaseService.getWorkingPhase(id, sid);
+
 		WorkingPhaseMeasure workingPhaseMeasure = new WorkingPhaseMeasure();
-		workingPhaseMeasure.populateWorkingPhaseMeasureFromInput(input, w, u);
+		workingPhaseMeasure.populateWorkingPhaseMeasureFromInput(input, w);
 
 		this.update(workingPhaseMeasure);
 
@@ -124,12 +114,11 @@ public class WorkingPhaseMeasureServiceImpl implements WorkingPhaseMeasureServic
 	public void deleteWorkingPhaseMeasureById(Integer id) {
 
 		log.info("Deleting workingPhaseMeasure: {}", id);
+
 		WorkingPhaseMeasure c = this.workingPhaseMeasureDao.getWorkingPhaseMeasure(id);
-		
-		if (c == null) {
+		if (c == null)
 			throw new NotFoundException(404, "WorkingPhaseMeasure " + id + " not found");
-		}
-		
+
 		this.workingPhaseMeasureDao.delete(c);
 	}
 }

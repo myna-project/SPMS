@@ -4,9 +4,6 @@ import java.time.Instant;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
@@ -21,20 +18,15 @@ public class WorkingPhaseMeasure extends BaseDomain {
 	@ManyToOne
 	@JoinColumn(name="working_phase_id", referencedColumnName="id")
 	private WorkingPhase workingPhase;
-	
-	@ManyToOne
-	@JoinColumn(name="user_id", referencedColumnName="id")
-	private User user;
-	
+
 	@Column(nullable=false)
 	private Instant time;
-	
+
 	@Column(nullable=false)
 	private Float finished_product_quantity;
-	
-	public void populateWorkingPhaseMeasureFromInput(WorkingPhaseMeasureJson input, WorkingPhase w, User u) {
+
+	public void populateWorkingPhaseMeasureFromInput(WorkingPhaseMeasureJson input, WorkingPhase w) {
 		this.workingPhase = w;
-		this.user = u;
 		this.setTime(input.getTime());
 		this.setFinished_product_quantity(input.getFinished_product_quantity());
 	}
@@ -45,9 +37,9 @@ public class WorkingPhaseMeasure extends BaseDomain {
 		serializer.setObj(this);
 		return serializer.toString();
 	}
-	
+
 /** GETTERS and SETTERS **/
-	
+
 	public WorkingPhase getWorkingPhase() {
 		return workingPhase;
 	}
@@ -56,14 +48,6 @@ public class WorkingPhaseMeasure extends BaseDomain {
 		this.workingPhase = workingPhase;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-	
 	public Instant getTime() {
 		return time;
 	}

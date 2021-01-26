@@ -51,6 +51,7 @@ public class ValidationPhase extends Phase {
 		this.setTower_entry_temperature(input.getTower_entry_temperature());
 		this.setTower_intern_temperature(input.getTower_intern_temperature());
 		this.setCyclon_entry_temperature(input.getCyclon_entry_temperature());
+		this.setNote(input.getNote());
 	}
 
 	public String toString() {

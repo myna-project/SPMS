@@ -5,14 +5,12 @@ import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
-import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import it.mynaproject.gestprod.dao.WorkingPhaseMeasureDao;
 import it.mynaproject.gestprod.domain.WorkingPhaseMeasure;
-import it.mynaproject.gestprod.domain.User;
 
 @Repository
 public class WorkingPhaseMeasureDaoImpl extends BaseDaoImpl implements WorkingPhaseMeasureDao {
@@ -45,12 +43,6 @@ public class WorkingPhaseMeasureDaoImpl extends BaseDaoImpl implements WorkingPh
 		em.remove(em.merge(workingPhaseMeasure));
 		em.flush();
 	}
-	
-	private void initializeWorkingPhaseMeasure(WorkingPhaseMeasure w) {
-		Hibernate.initialize(w.getUser());
-		User u = w.getUser();
-		Hibernate.initialize(u.getRoleList());
-	}
 
 	@Override
 	public WorkingPhaseMeasure getWorkingPhaseMeasure(Integer id) {
@@ -61,9 +53,7 @@ public class WorkingPhaseMeasureDaoImpl extends BaseDaoImpl implements WorkingPh
 		q.setParameter("id", id);
 
 		try {
-			WorkingPhaseMeasure w = (WorkingPhaseMeasure) q.getSingleResult();
-			initializeWorkingPhaseMeasure(w);
-			return w;
+			return (WorkingPhaseMeasure) q.getSingleResult();
 		} catch (NoResultException nre) {
 			return null;
 		}
@@ -72,11 +62,6 @@ public class WorkingPhaseMeasureDaoImpl extends BaseDaoImpl implements WorkingPh
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<WorkingPhaseMeasure> getWorkingPhaseMeasures() {
-
-		List<WorkingPhaseMeasure> wl = em.createQuery("FROM WorkingPhaseMeasure").getResultList();
-		for(WorkingPhaseMeasure w : wl) {
-			initializeWorkingPhaseMeasure(w);
-		}
-		return wl;
+		return em.createQuery("FROM WorkingPhaseMeasure").getResultList();
 	}
 }

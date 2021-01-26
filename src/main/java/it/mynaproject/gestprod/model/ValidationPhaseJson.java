@@ -1,7 +1,5 @@
 package it.mynaproject.gestprod.model;
 
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -9,27 +7,25 @@ import it.mynaproject.gestprod.util.ClassSerializer;
 
 @JsonInclude(Include.NON_EMPTY)
 public class ValidationPhaseJson extends PhaseJson {
-	
-	@NotNull
+
 	private Float humidity_finished_product;
-	
-	@NotNull
+
 	private Float density_finished_product;
-	
+
 	private String packaging_state;
-	
+
 	private Float sieve_quantity;
-	
+
 	private Float chimney_quantity;
-	
+
 	private Float tower_entry_temperature;
-	
+
 	private Float tower_intern_temperature;
-	
+
 	private Float cyclon_entry_temperature;
-	
+
 	private String note;
-	
+
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		ClassSerializer serializer = new ClassSerializer();
@@ -40,7 +36,7 @@ public class ValidationPhaseJson extends PhaseJson {
 		builder.append(" )");
 		return builder.toString();
 	}
-	
+
 /** GETTERS and SETTERS **/
 
 	public Float getHumidity_finished_product() {
@@ -114,5 +110,4 @@ public class ValidationPhaseJson extends PhaseJson {
 	public void setNote(String note) {
 		this.note = note;
 	}
-
 }

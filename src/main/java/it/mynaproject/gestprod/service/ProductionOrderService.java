@@ -2,13 +2,7 @@ package it.mynaproject.gestprod.service;
 
 import java.util.List;
 
-
 import it.mynaproject.gestprod.domain.ProductionOrder;
-import it.mynaproject.gestprod.domain.SettingPhase;
-import it.mynaproject.gestprod.domain.SystemPreparationPhase;
-import it.mynaproject.gestprod.domain.CleaningPhase;
-import it.mynaproject.gestprod.domain.WorkingPhase;
-import it.mynaproject.gestprod.domain.ValidationPhase;
 import it.mynaproject.gestprod.model.ProductionOrderJson;
 
 public interface ProductionOrderService {

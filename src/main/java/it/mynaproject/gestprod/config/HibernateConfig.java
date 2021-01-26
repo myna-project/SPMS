@@ -40,7 +40,6 @@ public class HibernateConfig {
 				User.class,
 				ValidationPhase.class,
 				WorkingPhase.class,
-				WorkingPhaseUser.class,
 				WorkingPhaseMeasure.class
 		);
 		return factoryBean;

@@ -2,8 +2,6 @@ package it.mynaproject.gestprod.model;
 
 import java.time.Instant;
 
-
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
