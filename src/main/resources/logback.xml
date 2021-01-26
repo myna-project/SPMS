@@ -23,7 +23,7 @@
 	</appender>
 
 	<!-- set to "debug" to log payload of incoming request -->
-	<logger name="it.mynaproject.gestprod.filter.LoggingServletFilter" level="debug" additivity="false">
+	<logger name="it.mynaproject.spms.filter.LoggingServletFilter" level="debug" additivity="false">
 		<appender-ref ref="FILE" />
 	</logger>
 
