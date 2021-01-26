@@ -11,7 +11,7 @@ CREATE TABLE users (
     enabled integer DEFAULT 0 NOT NULL
 );
 
-ALTER TABLE users OWNER TO gestprod;
+ALTER TABLE users OWNER TO spms;
 
 ALTER TABLE users ADD CONSTRAINT users_id_pkey PRIMARY KEY (id);
 ALTER TABLE users ADD CONSTRAINT users_email_ukey UNIQUE (email);
@@ -23,7 +23,7 @@ CREATE TABLE roles (
     description character varying(255)
 );
 
-ALTER TABLE roles OWNER TO gestprod;
+ALTER TABLE roles OWNER TO spms;
 
 ALTER TABLE roles ADD CONSTRAINT roles_id_pkey PRIMARY KEY (id);
 ALTER TABLE roles ADD CONSTRAINT roles_name_ukey UNIQUE (name);
@@ -33,7 +33,7 @@ CREATE TABLE users_roles (
     user_id integer NOT NULL
 );
 
-ALTER TABLE users_roles OWNER TO gestprod;
+ALTER TABLE users_roles OWNER TO spms;
 
 ALTER TABLE users_roles ADD CONSTRAINT role_id__roles__fkey FOREIGN KEY (role_id) REFERENCES roles(id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE users_roles ADD CONSTRAINT user_id__users__fkey FOREIGN KEY (user_id) REFERENCES users(id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE;
@@ -43,7 +43,7 @@ CREATE TABLE customers (
     name character varying(200) NOT NULL
 );
 
-ALTER TABLE customers OWNER TO gestprod;
+ALTER TABLE customers OWNER TO spms;
 
 ALTER TABLE customers ADD CONSTRAINT customers_id_pkey PRIMARY KEY (id);
 
@@ -53,7 +53,7 @@ CREATE TABLE raw_materials (
 );
 
 
-ALTER TABLE raw_materials OWNER TO gestprod;
+ALTER TABLE raw_materials OWNER TO spms;
 
 ALTER TABLE raw_materials ADD CONSTRAINT raw_materials_id_pkey PRIMARY KEY (id);
 
@@ -62,7 +62,7 @@ CREATE TABLE additives (
     name character varying(200) NOT NULL
 );
 
-ALTER TABLE additives OWNER TO gestprod;
+ALTER TABLE additives OWNER TO spms;
 
 ALTER TABLE additives ADD CONSTRAINT additives_id_pkey PRIMARY KEY (id);
 
@@ -71,7 +71,7 @@ CREATE TABLE mixture_modes (
     name character varying(200) NOT NULL
 );
 
-ALTER TABLE mixture_modes OWNER TO gestprod;
+ALTER TABLE mixture_modes OWNER TO spms;
 
 ALTER TABLE mixture_modes ADD CONSTRAINT mixture_modes_id_pkey PRIMARY KEY (id);
 
@@ -81,7 +81,7 @@ CREATE TABLE packaging (
 );
 
 
-ALTER TABLE packaging OWNER TO gestprod;
+ALTER TABLE packaging OWNER TO spms;
 
 ALTER TABLE packaging ADD CONSTRAINT packaging_id_pkey PRIMARY KEY (id);
 
@@ -106,7 +106,7 @@ CREATE TABLE production_orders (
     ddt_number character varying(50)
 );
 
-ALTER TABLE production_orders OWNER TO gestprod;
+ALTER TABLE production_orders OWNER TO spms;
 
 ALTER TABLE production_orders ADD CONSTRAINT production_orders_id_pkey PRIMARY KEY (id);
 
@@ -122,7 +122,7 @@ CREATE TABLE additives_production_orders (
     weight_additive double precision
 );
 
-ALTER TABLE additives_production_orders OWNER TO gestprod;
+ALTER TABLE additives_production_orders OWNER TO spms;
 
 ALTER TABLE additives_production_orders ADD CONSTRAINT additives_production_orders_pkey PRIMARY KEY (id);
 
@@ -139,7 +139,7 @@ CREATE TABLE setting_phases (
     effective_mixture_mode_id integer
 );
 
-ALTER TABLE setting_phases OWNER TO gestprod;
+ALTER TABLE setting_phases OWNER TO spms;
 
 ALTER TABLE setting_phases ADD CONSTRAINT setting_phases_id_pkey PRIMARY KEY (id);
 
@@ -155,7 +155,7 @@ CREATE TABLE system_preparation_phases (
     end_time timestamp with time zone
 );
 
-ALTER TABLE system_preparation_phases OWNER TO gestprod;
+ALTER TABLE system_preparation_phases OWNER TO spms;
 
 ALTER TABLE system_preparation_phases ADD CONSTRAINT system_preparation_phases_id_pkey PRIMARY KEY (id);
 
@@ -170,7 +170,7 @@ CREATE TABLE working_phases (
     end_time timestamp with time zone
 );
 
-ALTER TABLE working_phases OWNER TO gestprod;
+ALTER TABLE working_phases OWNER TO spms;
 
 ALTER TABLE working_phases ADD CONSTRAINT working_phases_id_pkey PRIMARY KEY (id);
 
@@ -185,7 +185,7 @@ CREATE TABLE cleaning_phases (
     end_time timestamp with time zone
 );
 
-ALTER TABLE cleaning_phases OWNER TO gestprod;
+ALTER TABLE cleaning_phases OWNER TO spms;
 
 ALTER TABLE cleaning_phases ADD CONSTRAINT cleaning_phases_id_pkey PRIMARY KEY (id);
 
@@ -209,7 +209,7 @@ CREATE TABLE validation_phases (
     note text
 );
 
-ALTER TABLE validation_phases OWNER TO gestprod;
+ALTER TABLE validation_phases OWNER TO spms;
 
 ALTER TABLE validation_phases ADD CONSTRAINT validation_phases_id_pkey PRIMARY KEY (id);
 
@@ -225,7 +225,7 @@ CREATE TABLE working_phases_measurements (
 	finished_product_quantity double precision
 );
 
-ALTER TABLE working_phases_measurements OWNER TO gestprod;
+ALTER TABLE working_phases_measurements OWNER TO spms;
 
 ALTER TABLE working_phases_measurements ADD CONSTRAINT working_phases_measurements_id_pkey PRIMARY KEY (id);
 ALTER TABLE working_phases_measurements ADD CONSTRAINT working_phase_id__working_phases__fkey FOREIGN KEY (working_phase_id) REFERENCES working_phases(id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE;    
