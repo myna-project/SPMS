@@ -10,5 +10,5 @@ public interface WorkingPhaseService {
 	public WorkingPhase createWorkingPhaseFromJson(Integer id, WorkingPhaseJson input);
 	public void update(WorkingPhase workingPhase);
 	public WorkingPhase updateWorkingPhaseFromJson(Integer id, Integer sid, WorkingPhaseJson input);
-	public void deleteWorkingPhaseById(Integer id);
+	public void deleteWorkingPhaseById(Integer id, Integer sid);
 }

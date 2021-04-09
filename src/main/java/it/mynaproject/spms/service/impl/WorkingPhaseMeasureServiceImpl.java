@@ -1,6 +1,6 @@
 package it.mynaproject.spms.service.impl;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -19,7 +19,7 @@ import it.mynaproject.spms.service.WorkingPhaseService;
 
 @Service
 public class WorkingPhaseMeasureServiceImpl implements WorkingPhaseMeasureService {
-	
+
 	final private Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
@@ -31,38 +31,38 @@ public class WorkingPhaseMeasureServiceImpl implements WorkingPhaseMeasureServic
 	@Transactional(readOnly = true)
 	@Override
 	public WorkingPhaseMeasure getWorkingPhaseMeasure(Integer id, Integer sid, Integer tid) {
-		
-		WorkingPhaseMeasure workingPhaseMeasure = null;
-		WorkingPhase p = this.workingPhaseService.getWorkingPhase(id, sid);
-		if (p == null)
-			throw new NotFoundException(404, "WorkingPhase " + sid + " not found");
 
+		WorkingPhaseMeasure workingPhaseMeasure = null;
+
+		WorkingPhase p = this.workingPhaseService.getWorkingPhase(id, sid);
 		for (WorkingPhaseMeasure sf : p.getWorkingPhaseMeasureList()) {
 			if (sf.getId() == tid) {
 				workingPhaseMeasure = sf;
+				break;
 			}
 		}
+
 		if (workingPhaseMeasure == null)
 			throw new NotFoundException(404, "WorkingPhaseMeasure " + tid + " not found");
 
 		return workingPhaseMeasure;
 	}
-	
+
 	@Transactional(readOnly = true)
 	@Override
 	public List<WorkingPhaseMeasure> getWorkingPhaseMeasures(Integer id, Integer sid) {
-		
-		List<WorkingPhaseMeasure> wpul = new ArrayList<>();
+
 		WorkingPhase p = this.workingPhaseService.getWorkingPhase(id, sid);
-		if (p == null)
-			throw new NotFoundException(404, "WorkingPhase " + sid + " not found");
 
-		for (WorkingPhaseMeasure sf : p.getWorkingPhaseMeasureList())
-			wpul.add(sf);
-
-		return wpul;
+		return p.getWorkingPhaseMeasureList();
 	}
-	
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<WorkingPhaseMeasure> getAllMeasures(Date start, Date end) {
+		return this.workingPhaseMeasureDao.getAllMeasures(start, end);
+	}
+
 	@Transactional
 	@Override
 	public void persist(WorkingPhaseMeasure workingPhaseMeasure) {
@@ -90,7 +90,7 @@ public class WorkingPhaseMeasureServiceImpl implements WorkingPhaseMeasureServic
 	public void update(WorkingPhaseMeasure workingPhaseMeasure) {
 		this.workingPhaseMeasureDao.update(workingPhaseMeasure);
 	}
-	
+
 	@Transactional
 	@Override
 	public WorkingPhaseMeasure updateWorkingPhaseMeasureFromJson(Integer id, Integer sid, Integer tid, WorkingPhaseMeasureJson input) {
@@ -106,17 +106,13 @@ public class WorkingPhaseMeasureServiceImpl implements WorkingPhaseMeasureServic
 
 		return workingPhaseMeasure;
 	}
-	
+
 	@Transactional
 	@Override
 	public void deleteWorkingPhaseMeasureById(Integer id) {
 
 		log.info("Deleting workingPhaseMeasure: {}", id);
 
-		WorkingPhaseMeasure c = this.workingPhaseMeasureDao.getWorkingPhaseMeasure(id);
-		if (c == null)
-			throw new NotFoundException(404, "WorkingPhaseMeasure " + id + " not found");
-
-		this.workingPhaseMeasureDao.delete(c);
+		this.workingPhaseMeasureDao.delete(this.workingPhaseMeasureDao.getWorkingPhaseMeasure(id));
 	}
 }

@@ -10,5 +10,5 @@ public interface SystemPreparationPhaseService {
 	public SystemPreparationPhase createSystemPreparationPhaseFromJson(Integer id, SystemPreparationPhaseJson input);
 	public void update(SystemPreparationPhase systemPreparationPhase);
 	public SystemPreparationPhase updateSystemPreparationPhaseFromJson(Integer id, Integer sid, SystemPreparationPhaseJson input);
-	public void deleteSystemPreparationPhaseById(Integer id);
+	public void deleteSystemPreparationPhaseById(Integer id, Integer sid);
 }

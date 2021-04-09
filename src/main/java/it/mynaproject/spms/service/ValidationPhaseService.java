@@ -10,5 +10,5 @@ public interface ValidationPhaseService {
 	public ValidationPhase createValidationPhaseFromJson(Integer id, ValidationPhaseJson input);
 	public void update(ValidationPhase validationPhase);
 	public ValidationPhase updateValidationPhaseFromJson(Integer id, Integer sid, ValidationPhaseJson input);
-	public void deleteValidationPhaseById(Integer id);
+	public void deleteValidationPhaseById(Integer id, Integer sid);
 }

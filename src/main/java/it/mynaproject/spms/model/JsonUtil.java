@@ -1,6 +1,5 @@
 package it.mynaproject.spms.model;
 
-
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -8,7 +7,7 @@ import java.util.List;
 import it.mynaproject.spms.domain.*;
 
 public class JsonUtil {
-	
+
 	public static AdditiveJson additiveToAdditiveJson(final Additive d) {
 
 		final AdditiveJson dj = new AdditiveJson();
@@ -17,7 +16,7 @@ public class JsonUtil {
 
 		return dj;
 	}
-	
+
 	public static AdditiveProductionOrderJson additiveProductionOrderToAdditiveProductionOrderJson(final AdditiveProductionOrder d) {
 
 		final AdditiveProductionOrderJson dj = new AdditiveProductionOrderJson();
@@ -27,7 +26,7 @@ public class JsonUtil {
 
 		return dj;
 	}
-	
+
 	public static CustomerJson customerToCustomerJson(final Customer d) {
 
 		final CustomerJson dj = new CustomerJson();
@@ -37,7 +36,6 @@ public class JsonUtil {
 		return dj;
 	}
 
-	
 	public static MixtureModeJson mixtureModeToMixtureModeJson(final MixtureMode d) {
 
 		final MixtureModeJson dj = new MixtureModeJson();
@@ -46,8 +44,7 @@ public class JsonUtil {
 
 		return dj;
 	}
-	
-	
+
 	public static PackagingJson packagingToPackagingJson(final Packaging d) {
 
 		final PackagingJson dj = new PackagingJson();
@@ -56,7 +53,7 @@ public class JsonUtil {
 
 		return dj;
 	}
-	
+
 	public static RawMaterialJson rawMaterialToRawMaterialJson(final RawMaterial d) {
 
 		final RawMaterialJson dj = new RawMaterialJson();
@@ -65,7 +62,7 @@ public class JsonUtil {
 
 		return dj;
 	}
-	
+
 	public static ProductionOrderJson productionOrderToProductionOrderJson(final ProductionOrder d, Boolean dumpPhases) {
 
 		final ProductionOrderJson dj = new ProductionOrderJson();
@@ -83,63 +80,64 @@ public class JsonUtil {
 		dj.setProduction_order_date(d.getProduction_order_date());
 		dj.setTons_raw_material(d.getTons_raw_material());
 		dj.setWeight_raw_material(d.getWeight_raw_material());
-		
-		// many-to-one relationships
-		dj.setCustomer(customerToCustomerJson(d.getCustomer()));
-		dj.setExpected_mixture_mode(mixtureModeToMixtureModeJson(d.getMixtureMode()));
-		dj.setPackaging(packagingToPackagingJson(d.getPackaging()));
-		dj.setRaw_material(rawMaterialToRawMaterialJson(d.getRawMaterial()));
-		if(d.getAdditiveProductionOrderList() != null) {
+		if (d.getCustomer() != null)
+			dj.setCustomer(customerToCustomerJson(d.getCustomer()));
+		if (d.getMixtureMode() != null)
+			dj.setExpected_mixture_mode(mixtureModeToMixtureModeJson(d.getMixtureMode()));
+		if (d.getPackaging() != null)
+			dj.setPackaging(packagingToPackagingJson(d.getPackaging()));
+		if (d.getRawMaterial() != null)
+			dj.setRaw_material(rawMaterialToRawMaterialJson(d.getRawMaterial()));
+		if (d.getAdditiveProductionOrderList() != null) {
 			List<AdditiveProductionOrderJson> al = new ArrayList<>();
-			for(AdditiveProductionOrder ap: d.getAdditiveProductionOrderList()) {
+			for (AdditiveProductionOrder ap : d.getAdditiveProductionOrderList()) {
 				al.add(additiveProductionOrderToAdditiveProductionOrderJson(ap));
 			}
 			dj.setAdditives(al);
 		}
-		
+
 		// if requested, dump all production phases (as their respective json model)
-		if(dumpPhases) {
-			if(d.getSettingPhaseList() != null) {
-				List<SettingPhaseJson> al = new ArrayList<>();
-				for(SettingPhase ap: d.getSettingPhaseList()) {
-					al.add(settingPhaseToSettingPhaseJson(ap));
+		if (dumpPhases) {
+			if (d.getSettingPhaseList() != null) {
+				List<SettingPhaseJson> spl = new ArrayList<>();
+				for (SettingPhase sp : d.getSettingPhaseList()) {
+					spl.add(settingPhaseToSettingPhaseJson(sp, false));
 				}
-				dj.setSetting_phases(al);
+				dj.setSetting_phases(spl);
 			}
-			if(d.getSystemPreparationPhaseList() != null) {
-				List<SystemPreparationPhaseJson> al = new ArrayList<>();
-				for(SystemPreparationPhase ap: d.getSystemPreparationPhaseList()) {
-					al.add(systemPreparationPhaseToSystemPreparationPhaseJson(ap));
+			if (d.getSystemPreparationPhaseList() != null) {
+				List<SystemPreparationPhaseJson> sppl = new ArrayList<>();
+				for (SystemPreparationPhase spp : d.getSystemPreparationPhaseList()) {
+					sppl.add(systemPreparationPhaseToSystemPreparationPhaseJson(spp, false));
 				}
-				dj.setSystem_preparation_phases(al);
+				dj.setSystem_preparation_phases(sppl);
 			}
-			if(d.getCleaningPhaseList() != null) {
-				List<CleaningPhaseJson> al = new ArrayList<>();
-				for(CleaningPhase ap: d.getCleaningPhaseList()) {
-					al.add(cleaningPhaseToCleaningPhaseJson(ap));
+			if (d.getCleaningPhaseList() != null) {
+				List<CleaningPhaseJson> cpl = new ArrayList<>();
+				for (CleaningPhase cp : d.getCleaningPhaseList()) {
+					cpl.add(cleaningPhaseToCleaningPhaseJson(cp, false));
 				}
-				dj.setCleaning_phases(al);
+				dj.setCleaning_phases(cpl);
 			}
-			if(d.getWorkingPhaseList() != null) {
-				List<WorkingPhaseJson> al = new ArrayList<>();
-				Boolean loadLists = true;
-				for(WorkingPhase ap: d.getWorkingPhaseList()) {
-					al.add(workingPhaseToWorkingPhaseJson(ap, loadLists));
+			if (d.getWorkingPhaseList() != null) {
+				List<WorkingPhaseJson> wpl = new ArrayList<>();
+				for (WorkingPhase wp : d.getWorkingPhaseList()) {
+					wpl.add(workingPhaseToWorkingPhaseJson(wp, false, true));
 				}
-				dj.setWorking_phases(al);
+				dj.setWorking_phases(wpl);
 			}
-			if(d.getValidationPhaseList() != null) {
-				List<ValidationPhaseJson> al = new ArrayList<>();
-				for(ValidationPhase ap: d.getValidationPhaseList()) {
-					al.add(validationPhaseToValidationPhaseJson(ap));
+			if (d.getValidationPhaseList() != null) {
+				List<ValidationPhaseJson> vpl = new ArrayList<>();
+				for (ValidationPhase vp : d.getValidationPhaseList()) {
+					vpl.add(validationPhaseToValidationPhaseJson(vp, false));
 				}
-				dj.setValidation_phases(al);
+				dj.setValidation_phases(vpl);
 			}
 		}
-		
+
 		return dj;
 	}
-	
+
 	public static RoleJson roleToRoleJson(final Role d) {
 
 		final RoleJson dj = new RoleJson();
@@ -178,50 +176,40 @@ public class JsonUtil {
 
 		return dj;
 	}
-	
-/** Production Phases **/
-	
-	// to be used on all classes except WorkingPhase (because of shifts)
-	private static void loadPhaseJson(PhaseJson dj, final Phase d) {
-		dj.setId(d.getId());
-		dj.setProductionOrder(productionOrderToProductionOrderJson(d.getProductionOrder(), false));
-		dj.setStart_time(d.getStart_time());
-		dj.setEnd_time(d.getEnd_time());
-	}
-	
-	public static SettingPhaseJson settingPhaseToSettingPhaseJson(final SettingPhase d) {
-		
+
+	public static SettingPhaseJson settingPhaseToSettingPhaseJson(final SettingPhase d, boolean loadProductionOrder) {
+
 		final SettingPhaseJson dj = new SettingPhaseJson();
-		loadPhaseJson(dj,d);
-		if(d.getEffective_mixture_mode() != null) {
+		loadPhaseJson(dj, d, loadProductionOrder);
+		if (d.getEffective_mixture_mode() != null) {
 			dj.setEffective_mixture_mode(mixtureModeToMixtureModeJson(d.getEffective_mixture_mode()));
 		    dj.setEffective_mixture_temperature(d.getEffective_mixture_temperature());
 		}
-		
+
 		return dj;
 	}
-	
-	public static SystemPreparationPhaseJson systemPreparationPhaseToSystemPreparationPhaseJson(final SystemPreparationPhase d) {
-		
+
+	public static SystemPreparationPhaseJson systemPreparationPhaseToSystemPreparationPhaseJson(final SystemPreparationPhase d, boolean loadProductionOrder) {
+
 		final SystemPreparationPhaseJson dj = new SystemPreparationPhaseJson();
-		loadPhaseJson(dj,d);
-		
+		loadPhaseJson(dj, d, loadProductionOrder);
+
 		return dj;
 	}
-	
-	public static CleaningPhaseJson cleaningPhaseToCleaningPhaseJson(final CleaningPhase d) {
-		
+
+	public static CleaningPhaseJson cleaningPhaseToCleaningPhaseJson(final CleaningPhase d, boolean loadProductionOrder) {
+
 		final CleaningPhaseJson dj = new CleaningPhaseJson();
-		loadPhaseJson(dj,d);
-		
+		loadPhaseJson(dj, d, loadProductionOrder);
+
 		return dj;
 	}
-	
-	public static ValidationPhaseJson validationPhaseToValidationPhaseJson(final ValidationPhase d) {
-		
+
+	public static ValidationPhaseJson validationPhaseToValidationPhaseJson(final ValidationPhase d, boolean loadProductionOrder) {
+
 		final ValidationPhaseJson dj = new ValidationPhaseJson();
-		loadPhaseJson(dj,d);
-		
+		loadPhaseJson(dj, d, loadProductionOrder);
+
 		dj.setHumidity_finished_product(d.getHumidity_finished_product());
 		dj.setDensity_finished_product(d.getDensity_finished_product());
 		dj.setPackaging_state(d.getPackaging_state());
@@ -231,23 +219,14 @@ public class JsonUtil {
 		dj.setTower_intern_temperature(d.getTower_intern_temperature());
 		dj.setCyclon_entry_temperature(d.getCyclon_entry_temperature());
 		dj.setNote(d.getNote());
-		
+
 		return dj;
 	}
 
-	// handle a single measure
-	private static void loadWorkingPhaseMeasureJson(WorkingPhaseMeasureJson dj, WorkingPhaseMeasure d) {
-
-		dj.setId(d.getId());
-		dj.setWorkingPhase(workingPhaseToWorkingPhaseJson(d.getWorkingPhase(), false));
-		dj.setTime(d.getTime());
-		dj.setFinished_product_quantity(d.getFinished_product_quantity());
-	}
-
-	public static WorkingPhaseJson workingPhaseToWorkingPhaseJson(final WorkingPhase d, Boolean loadMeasures) {
+	public static WorkingPhaseJson workingPhaseToWorkingPhaseJson(final WorkingPhase d, boolean loadProductionOrder, Boolean loadMeasures) {
 
 		final WorkingPhaseJson dj = new WorkingPhaseJson();
-		loadPhaseJson(dj, d);
+		loadPhaseJson(dj, d, loadProductionOrder);
 
 		if (loadMeasures) {
 			if (d.getWorkingPhaseMeasureList() != null) {
@@ -267,8 +246,27 @@ public class JsonUtil {
 	}
 
 	public static WorkingPhaseMeasureJson workingPhaseMeasureToWorkingPhaseMeasureJson(final WorkingPhaseMeasure d) {
+
 		final WorkingPhaseMeasureJson dj = new WorkingPhaseMeasureJson();
-		loadWorkingPhaseMeasureJson(dj,d);
+		loadWorkingPhaseMeasureJson(dj, d);
+
 		return dj;
+	}
+
+	private static void loadWorkingPhaseMeasureJson(WorkingPhaseMeasureJson dj, WorkingPhaseMeasure d) {
+
+		dj.setId(d.getId());
+		dj.setWorkingPhase(workingPhaseToWorkingPhaseJson(d.getWorkingPhase(), false, false));
+		dj.setTime(d.getTime());
+		dj.setFinished_product_quantity(d.getFinished_product_quantity());
+	}
+
+	private static void loadPhaseJson(PhaseJson dj, final Phase d, boolean loadProductionOrder) {
+
+		dj.setId(d.getId());
+		if (loadProductionOrder)
+			dj.setProductionOrder(productionOrderToProductionOrderJson(d.getProductionOrder(), false));
+		dj.setStart_time(d.getStart_time());
+		dj.setEnd_time(d.getEnd_time());
 	}
 }

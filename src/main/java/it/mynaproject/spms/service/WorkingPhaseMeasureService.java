@@ -1,5 +1,6 @@
 package it.mynaproject.spms.service;
 
+import java.util.Date;
 import java.util.List;
 
 import it.mynaproject.spms.domain.WorkingPhaseMeasure;
@@ -9,6 +10,7 @@ public interface WorkingPhaseMeasureService {
 
 	public WorkingPhaseMeasure getWorkingPhaseMeasure(Integer id, Integer sid, Integer tid);
 	public List<WorkingPhaseMeasure> getWorkingPhaseMeasures(Integer id, Integer sid);
+	public List<WorkingPhaseMeasure> getAllMeasures(Date start, Date end);
 	public void persist(WorkingPhaseMeasure workingPhaseMeasure);
 	public WorkingPhaseMeasure createWorkingPhaseMeasureFromJson(Integer id, Integer sid, WorkingPhaseMeasureJson input);
 	public void update(WorkingPhaseMeasure workingPhaseMeasure);

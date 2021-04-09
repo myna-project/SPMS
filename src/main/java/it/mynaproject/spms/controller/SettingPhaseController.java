@@ -35,9 +35,10 @@ public class SettingPhaseController {
 
 	@Autowired
 	private SettingPhaseService settingPhaseService;
+
 	@Autowired
 	private ProductionOrderService productionOrderService;
-	
+
 	/*
 	 *  -------------
 	 *  ADMIN SECTION
@@ -51,12 +52,12 @@ public class SettingPhaseController {
 	public List<SettingPhaseJson> getSettingPhases(@PathVariable("id") Integer id) {
 
 		log.info("Request for settingPhases in ProductionOrder with id {}", id);
-		
+
 		List<SettingPhaseJson> ret = new ArrayList<>();
-		
-		for(SettingPhase sf : this.productionOrderService.getProductionOrder(id).getSettingPhaseList()) {
-			ret.add(JsonUtil.settingPhaseToSettingPhaseJson(sf));
+		for (SettingPhase sf : this.productionOrderService.getProductionOrder(id).getSettingPhaseList()) {
+			ret.add(JsonUtil.settingPhaseToSettingPhaseJson(sf, true));
 		}
+
 		return ret;
 	}
 
@@ -67,19 +68,17 @@ public class SettingPhaseController {
 	public SettingPhaseJson getSettingPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for settingPhase with id {}", sid);
-		
-		return JsonUtil.settingPhaseToSettingPhaseJson(this.settingPhaseService.getSettingPhase(id, sid));
+
+		return JsonUtil.settingPhaseToSettingPhaseJson(this.settingPhaseService.getSettingPhase(id, sid), true);
 	}
-	
+
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
 	@PostMapping(value = "/admin/productionOrders/{id}/settingPhases")
 	public Object postSettingPhase(@PathVariable("id") Integer id, @Valid @RequestBody SettingPhaseJson input, HttpServletRequest request) {
 
-		SettingPhase settingPhase = this.settingPhaseService.createSettingPhaseFromJson(id, input);
-
-		return new ResponseEntity<>(JsonUtil.settingPhaseToSettingPhaseJson(settingPhase), new HttpHeaders(), HttpStatus.CREATED);
+		return new ResponseEntity<>(JsonUtil.settingPhaseToSettingPhaseJson(this.settingPhaseService.createSettingPhaseFromJson(id, input), true), new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	@ApiResponses({
@@ -88,9 +87,7 @@ public class SettingPhaseController {
 	@PutMapping(value = "/admin/productionOrders/{id}/settingPhases/{sid}")
 	public Object updateSettingPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody SettingPhaseJson input) {
 
-		SettingPhase settingPhase = this.settingPhaseService.updateSettingPhaseFromJson(id, sid, input);
-
-		return new ResponseEntity<>(JsonUtil.settingPhaseToSettingPhaseJson(settingPhase), new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(JsonUtil.settingPhaseToSettingPhaseJson(this.settingPhaseService.updateSettingPhaseFromJson(id, sid, input), true), new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@ApiResponses({
@@ -99,11 +96,11 @@ public class SettingPhaseController {
 	@DeleteMapping(value = "/admin/productionOrders/{id}/settingPhases/{sid}")
 	public Object deleteSettingPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
-		this.settingPhaseService.deleteSettingPhaseById(sid);
+		this.settingPhaseService.deleteSettingPhaseById(id, sid);
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}
-	
+
 	/*
 	 *  -------------
 	 *  RESP SECTION
@@ -117,12 +114,12 @@ public class SettingPhaseController {
 	public List<SettingPhaseJson> getSettingPhasesForResp(@PathVariable("id") Integer id) {
 
 		log.info("Request for settingPhases in ProductionOrder with id {}", id);
-		
+
 		List<SettingPhaseJson> ret = new ArrayList<>();
-		
-		for(SettingPhase sf : this.productionOrderService.getProductionOrder(id).getSettingPhaseList()) {
-			ret.add(JsonUtil.settingPhaseToSettingPhaseJson(sf));
+		for (SettingPhase sf : this.productionOrderService.getProductionOrder(id).getSettingPhaseList()) {
+			ret.add(JsonUtil.settingPhaseToSettingPhaseJson(sf, true));
 		}
+
 		return ret;
 	}
 
@@ -133,19 +130,17 @@ public class SettingPhaseController {
 	public SettingPhaseJson getSettingPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for settingPhase with id {}", sid);
-		
-		return JsonUtil.settingPhaseToSettingPhaseJson(this.settingPhaseService.getSettingPhase(id, sid));
+
+		return JsonUtil.settingPhaseToSettingPhaseJson(this.settingPhaseService.getSettingPhase(id, sid), true);
 	}
-	
+
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
 	@PostMapping(value = "/resp/productionOrders/{id}/settingPhases")
 	public Object postSettingPhaseForResp(@PathVariable("id") Integer id, @Valid @RequestBody SettingPhaseJson input, HttpServletRequest request) {
 
-		SettingPhase settingPhase = this.settingPhaseService.createSettingPhaseFromJson(id, input);
-
-		return new ResponseEntity<>(JsonUtil.settingPhaseToSettingPhaseJson(settingPhase), new HttpHeaders(), HttpStatus.CREATED);
+		return new ResponseEntity<>(JsonUtil.settingPhaseToSettingPhaseJson(this.settingPhaseService.createSettingPhaseFromJson(id, input), true), new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	@ApiResponses({
@@ -154,9 +149,7 @@ public class SettingPhaseController {
 	@PutMapping(value = "/resp/productionOrders/{id}/settingPhases/{sid}")
 	public Object updateSettingPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody SettingPhaseJson input) {
 
-		SettingPhase settingPhase = this.settingPhaseService.updateSettingPhaseFromJson(id, sid, input);
-
-		return new ResponseEntity<>(JsonUtil.settingPhaseToSettingPhaseJson(settingPhase), new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(JsonUtil.settingPhaseToSettingPhaseJson(this.settingPhaseService.updateSettingPhaseFromJson(id, sid, input), true), new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@ApiResponses({
@@ -165,11 +158,11 @@ public class SettingPhaseController {
 	@DeleteMapping(value = "/resp/productionOrders/{id}/settingPhases/{sid}")
 	public Object deleteSettingPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
-		this.settingPhaseService.deleteSettingPhaseById(sid);
+		this.settingPhaseService.deleteSettingPhaseById(id, sid);
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}
-	
+
 	/*
 	 *  -------------
 	 *  USER SECTION
@@ -183,12 +176,12 @@ public class SettingPhaseController {
 	public List<SettingPhaseJson> getSettingPhasesForUser(@PathVariable("id") Integer id) {
 
 		log.info("Request for settingPhases in ProductionOrder with id {}", id);
-		
+
 		List<SettingPhaseJson> ret = new ArrayList<>();
-		
-		for(SettingPhase sf : this.productionOrderService.getProductionOrder(id).getSettingPhaseList()) {
-			ret.add(JsonUtil.settingPhaseToSettingPhaseJson(sf));
+		for (SettingPhase sf : this.productionOrderService.getProductionOrder(id).getSettingPhaseList()) {
+			ret.add(JsonUtil.settingPhaseToSettingPhaseJson(sf, true));
 		}
+
 		return ret;
 	}
 
@@ -199,19 +192,17 @@ public class SettingPhaseController {
 	public SettingPhaseJson getSettingPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for settingPhase with id {}", sid);
-		
-		return JsonUtil.settingPhaseToSettingPhaseJson(this.settingPhaseService.getSettingPhase(id, sid));
+
+		return JsonUtil.settingPhaseToSettingPhaseJson(this.settingPhaseService.getSettingPhase(id, sid), true);
 	}
-	
+
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
 	@PostMapping(value = "/productionOrders/{id}/settingPhases")
 	public Object postSettingPhaseForUser(@PathVariable("id") Integer id, @Valid @RequestBody SettingPhaseJson input, HttpServletRequest request) {
 
-		SettingPhase settingPhase = this.settingPhaseService.createSettingPhaseFromJson(id, input);
-
-		return new ResponseEntity<>(JsonUtil.settingPhaseToSettingPhaseJson(settingPhase), new HttpHeaders(), HttpStatus.CREATED);
+		return new ResponseEntity<>(JsonUtil.settingPhaseToSettingPhaseJson(this.settingPhaseService.createSettingPhaseFromJson(id, input), true), new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	@ApiResponses({
@@ -220,9 +211,7 @@ public class SettingPhaseController {
 	@PutMapping(value = "/productionOrders/{id}/settingPhases/{sid}")
 	public Object updateSettingPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody SettingPhaseJson input) {
 
-		SettingPhase settingPhase = this.settingPhaseService.updateSettingPhaseFromJson(id, sid, input);
-
-		return new ResponseEntity<>(JsonUtil.settingPhaseToSettingPhaseJson(settingPhase), new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(JsonUtil.settingPhaseToSettingPhaseJson(this.settingPhaseService.updateSettingPhaseFromJson(id, sid, input), true), new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@ApiResponses({
@@ -231,9 +220,8 @@ public class SettingPhaseController {
 	@DeleteMapping(value = "/productionOrders/{id}/settingPhases/{sid}")
 	public Object deleteSettingPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
-		this.settingPhaseService.deleteSettingPhaseById(sid);
+		this.settingPhaseService.deleteSettingPhaseById(id, sid);
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}
-	
 }

@@ -1,7 +1,5 @@
 package it.mynaproject.spms.service.impl;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import it.mynaproject.spms.dao.CleaningPhaseDao;
 import it.mynaproject.spms.domain.CleaningPhase;
 import it.mynaproject.spms.domain.ProductionOrder;
-import it.mynaproject.spms.domain.User;
 import it.mynaproject.spms.exception.NotFoundException;
 import it.mynaproject.spms.model.CleaningPhaseJson;
 import it.mynaproject.spms.service.CleaningPhaseService;
@@ -21,37 +18,38 @@ import it.mynaproject.spms.service.UserService;
 
 @Service
 public class CleaningPhaseServiceImpl implements CleaningPhaseService {
-	
+
 	final private Logger log = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	private CleaningPhaseDao cleaningPhaseDao;
+
 	@Autowired
 	private UserService userService;
+
 	@Autowired
 	private ProductionOrderService productionOrderService;
 
 	@Transactional(readOnly = true)
 	@Override
 	public CleaningPhase getCleaningPhase(Integer id, Integer sid) {
-		
+
 		CleaningPhase cleaningPhase = null;
+
 		ProductionOrder p = this.productionOrderService.getProductionOrder(id);
-		
-		if (p == null)
-			throw new NotFoundException(404, "ProductionOrder " + id + " not found");
-		
-		for(CleaningPhase sf : this.productionOrderService.getProductionOrder(id).getCleaningPhaseList()) {
-			if(sf.getId() == sid) {
+		for(CleaningPhase sf : p.getCleaningPhaseList()) {
+			if (sf.getId() == sid) {
 				cleaningPhase = sf;
+				break;
 			}
 		}
+
 		if (cleaningPhase == null)
 			throw new NotFoundException(404, "CleaningPhase " + sid + " not found");
-		
+
 		return cleaningPhase;
 	}
-	
+
 	@Transactional
 	@Override
 	public void persist(CleaningPhase cleaningPhase) {
@@ -64,18 +62,17 @@ public class CleaningPhaseServiceImpl implements CleaningPhaseService {
 
 		log.info("Creating new cleaningPhase: {}", input.toString());
 
-		org.springframework.security.core.userdetails.User user =
-				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
-		User u = this.userService.getUserByUsername(user.getUsername());
+		org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
 		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
+
 		CleaningPhase cleaningPhase = new CleaningPhase();
-		cleaningPhase.populateCleaningPhaseFromInput(input, po, u);
+		cleaningPhase.populateCleaningPhaseFromInput(input, po, this.userService.getUserByUsername(user.getUsername()));
 
 		this.persist(cleaningPhase);
 
 		return cleaningPhase;
 	}
-	
 
 	@Transactional
 	@Override
@@ -89,41 +86,22 @@ public class CleaningPhaseServiceImpl implements CleaningPhaseService {
 
 		log.info("Updating cleaningPhase with id: {}", id);
 
-		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
-		List<CleaningPhase> sflist = po.getCleaningPhaseList();
-		CleaningPhase cleaningPhase = null; // alternative: can we look for the cleaning phase using DAO?
-		if(sflist != null) {
-			for(CleaningPhase sf : sflist) {
-				if(sf.getId() == sid) {
-					cleaningPhase = sf;
-				}
-			}
-		}
-		if(cleaningPhase == null)
-			throw new NotFoundException(404, "CleaningPhase " + sid + " not found");
-		
-		org.springframework.security.core.userdetails.User user =
-				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
-		User u = this.userService.getUserByUsername(user.getUsername());
-		ProductionOrder npo = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
-		cleaningPhase.populateCleaningPhaseFromInput(input, npo, u);
-		
+		org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		CleaningPhase cleaningPhase = this.getCleaningPhase(id, sid);
+		cleaningPhase.populateCleaningPhaseFromInput(input, this.productionOrderService.getProductionOrder(input.getProductionOrder().getId()), this.userService.getUserByUsername(user.getUsername()));
+
 		this.update(cleaningPhase);
 
 		return cleaningPhase;
 	}
-	
+
 	@Transactional
 	@Override
-	public void deleteCleaningPhaseById(Integer id) {
+	public void deleteCleaningPhaseById(Integer id, Integer sid) {
 
 		log.info("Deleting cleaningPhase: {}", id);
-		CleaningPhase c = this.cleaningPhaseDao.getCleaningPhase(id);
-		
-		if (c == null) {
-			throw new NotFoundException(404, "CleaningPhase " + id + " not found");
-		}
-		
-		this.cleaningPhaseDao.delete(c);
+
+		this.cleaningPhaseDao.delete(this.getCleaningPhase(id, sid));
 	}
 }

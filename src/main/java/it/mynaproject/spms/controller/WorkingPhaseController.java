@@ -52,13 +52,12 @@ public class WorkingPhaseController {
 	public List<WorkingPhaseJson> getWorkingPhases(@PathVariable("id") Integer id) {
 
 		log.info("Request for workingPhases in ProductionOrder with id {}", id);
-		
+
 		List<WorkingPhaseJson> ret = new ArrayList<>();
-		Boolean loadLists = true;
-		
-		for(WorkingPhase sf : this.productionOrderService.getProductionOrder(id).getWorkingPhaseList()) {
-			ret.add(JsonUtil.workingPhaseToWorkingPhaseJson(sf, loadLists));
+		for (WorkingPhase sf : this.productionOrderService.getProductionOrder(id).getWorkingPhaseList()) {
+			ret.add(JsonUtil.workingPhaseToWorkingPhaseJson(sf, true, true));
 		}
+
 		return ret;
 	}
 
@@ -69,21 +68,17 @@ public class WorkingPhaseController {
 	public WorkingPhaseJson getWorkingPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for workingPhase with id {}", sid);
-		Boolean loadLists = true;
-		
-		return JsonUtil.workingPhaseToWorkingPhaseJson(this.workingPhaseService.getWorkingPhase(id, sid), loadLists);
+
+		return JsonUtil.workingPhaseToWorkingPhaseJson(this.workingPhaseService.getWorkingPhase(id, sid), true, true);
 	}
-	
+
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
 	@PostMapping(value = "/admin/productionOrders/{id}/workingPhases")
 	public Object postWorkingPhase(@PathVariable("id") Integer id, @Valid @RequestBody WorkingPhaseJson input, HttpServletRequest request) {
 
-		WorkingPhase workingPhase = this.workingPhaseService.createWorkingPhaseFromJson(id, input);
-		Boolean loadLists = true;
-
-		return new ResponseEntity<>(JsonUtil.workingPhaseToWorkingPhaseJson(workingPhase, loadLists), new HttpHeaders(), HttpStatus.CREATED);
+		return new ResponseEntity<>(JsonUtil.workingPhaseToWorkingPhaseJson(this.workingPhaseService.createWorkingPhaseFromJson(id, input), true, true), new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	@ApiResponses({
@@ -92,10 +87,7 @@ public class WorkingPhaseController {
 	@PutMapping(value = "/admin/productionOrders/{id}/workingPhases/{sid}")
 	public Object updateWorkingPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody WorkingPhaseJson input) {
 
-		WorkingPhase workingPhase = this.workingPhaseService.updateWorkingPhaseFromJson(id, sid, input);
-		Boolean loadLists = true;
-
-		return new ResponseEntity<>(JsonUtil.workingPhaseToWorkingPhaseJson(workingPhase, loadLists), new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(JsonUtil.workingPhaseToWorkingPhaseJson(this.workingPhaseService.updateWorkingPhaseFromJson(id, sid, input), true, true), new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@ApiResponses({
@@ -104,11 +96,11 @@ public class WorkingPhaseController {
 	@DeleteMapping(value = "/admin/productionOrders/{id}/workingPhases/{sid}")
 	public Object deleteWorkingPhase(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
-		this.workingPhaseService.deleteWorkingPhaseById(sid);
+		this.workingPhaseService.deleteWorkingPhaseById(id, sid);
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}
-	
+
 	/*
 	 *  -------------
 	 *  RESP SECTION
@@ -122,13 +114,12 @@ public class WorkingPhaseController {
 	public List<WorkingPhaseJson> getWorkingPhasesForResp(@PathVariable("id") Integer id) {
 
 		log.info("Request for workingPhases in ProductionOrder with id {}", id);
-		
+
 		List<WorkingPhaseJson> ret = new ArrayList<>();
-		Boolean loadLists = true;
-		
-		for(WorkingPhase sf : this.productionOrderService.getProductionOrder(id).getWorkingPhaseList()) {
-			ret.add(JsonUtil.workingPhaseToWorkingPhaseJson(sf, loadLists));
+		for (WorkingPhase sf : this.productionOrderService.getProductionOrder(id).getWorkingPhaseList()) {
+			ret.add(JsonUtil.workingPhaseToWorkingPhaseJson(sf, true, true));
 		}
+
 		return ret;
 	}
 
@@ -139,21 +130,17 @@ public class WorkingPhaseController {
 	public WorkingPhaseJson getWorkingPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for workingPhase with id {}", sid);
-		Boolean loadLists = true;
-		
-		return JsonUtil.workingPhaseToWorkingPhaseJson(this.workingPhaseService.getWorkingPhase(id, sid), loadLists);
+
+		return JsonUtil.workingPhaseToWorkingPhaseJson(this.workingPhaseService.getWorkingPhase(id, sid), true, true);
 	}
-	
+
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
 	@PostMapping(value = "/resp/productionOrders/{id}/workingPhases")
 	public Object postWorkingPhaseForResp(@PathVariable("id") Integer id, @Valid @RequestBody WorkingPhaseJson input, HttpServletRequest request) {
 
-		WorkingPhase workingPhase = this.workingPhaseService.createWorkingPhaseFromJson(id, input);
-		Boolean loadLists = true;
-
-		return new ResponseEntity<>(JsonUtil.workingPhaseToWorkingPhaseJson(workingPhase, loadLists), new HttpHeaders(), HttpStatus.CREATED);
+		return new ResponseEntity<>(JsonUtil.workingPhaseToWorkingPhaseJson(this.workingPhaseService.createWorkingPhaseFromJson(id, input), true, true), new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	@ApiResponses({
@@ -162,10 +149,7 @@ public class WorkingPhaseController {
 	@PutMapping(value = "/resp/productionOrders/{id}/workingPhases/{sid}")
 	public Object updateWorkingPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody WorkingPhaseJson input) {
 
-		WorkingPhase workingPhase = this.workingPhaseService.updateWorkingPhaseFromJson(id, sid, input);
-		Boolean loadLists = true;
-
-		return new ResponseEntity<>(JsonUtil.workingPhaseToWorkingPhaseJson(workingPhase, loadLists), new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(JsonUtil.workingPhaseToWorkingPhaseJson(this.workingPhaseService.updateWorkingPhaseFromJson(id, sid, input), true, true), new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@ApiResponses({
@@ -174,11 +158,11 @@ public class WorkingPhaseController {
 	@DeleteMapping(value = "/resp/productionOrders/{id}/workingPhases/{sid}")
 	public Object deleteWorkingPhaseForResp(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
-		this.workingPhaseService.deleteWorkingPhaseById(sid);
+		this.workingPhaseService.deleteWorkingPhaseById(id, sid);
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}
-	
+
 	/*
 	 *  -------------
 	 *  USER SECTION
@@ -194,11 +178,10 @@ public class WorkingPhaseController {
 		log.info("Request for workingPhases in ProductionOrder with id {}", id);
 		
 		List<WorkingPhaseJson> ret = new ArrayList<>();
-		Boolean loadLists = true;
-		
-		for(WorkingPhase sf : this.productionOrderService.getProductionOrder(id).getWorkingPhaseList()) {
-			ret.add(JsonUtil.workingPhaseToWorkingPhaseJson(sf, loadLists));
+		for (WorkingPhase sf : this.productionOrderService.getProductionOrder(id).getWorkingPhaseList()) {
+			ret.add(JsonUtil.workingPhaseToWorkingPhaseJson(sf, true, true));
 		}
+
 		return ret;
 	}
 
@@ -209,21 +192,17 @@ public class WorkingPhaseController {
 	public WorkingPhaseJson getWorkingPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
 		log.info("Request for workingPhase with id {}", sid);
-		Boolean loadLists = true;
-		
-		return JsonUtil.workingPhaseToWorkingPhaseJson(this.workingPhaseService.getWorkingPhase(id, sid), loadLists);
+
+		return JsonUtil.workingPhaseToWorkingPhaseJson(this.workingPhaseService.getWorkingPhase(id, sid), true, true);
 	}
-	
+
 	@ApiResponses({
 		@ApiResponse(code = 400, message = "Bad Request")
 	})
 	@PostMapping(value = "/productionOrders/{id}/workingPhases")
 	public Object postWorkingPhaseForUser(@PathVariable("id") Integer id, @Valid @RequestBody WorkingPhaseJson input, HttpServletRequest request) {
 
-		WorkingPhase workingPhase = this.workingPhaseService.createWorkingPhaseFromJson(id, input);
-		Boolean loadLists = true;
-
-		return new ResponseEntity<>(JsonUtil.workingPhaseToWorkingPhaseJson(workingPhase, loadLists), new HttpHeaders(), HttpStatus.CREATED);
+		return new ResponseEntity<>(JsonUtil.workingPhaseToWorkingPhaseJson(this.workingPhaseService.createWorkingPhaseFromJson(id, input), true, true), new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	@ApiResponses({
@@ -232,10 +211,7 @@ public class WorkingPhaseController {
 	@PutMapping(value = "/productionOrders/{id}/workingPhases/{sid}")
 	public Object updateWorkingPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid, @Valid @RequestBody WorkingPhaseJson input) {
 
-		WorkingPhase workingPhase = this.workingPhaseService.updateWorkingPhaseFromJson(id, sid, input);
-		Boolean loadLists = true;
-
-		return new ResponseEntity<>(JsonUtil.workingPhaseToWorkingPhaseJson(workingPhase, loadLists), new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(JsonUtil.workingPhaseToWorkingPhaseJson(this.workingPhaseService.updateWorkingPhaseFromJson(id, sid, input), true, true), new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@ApiResponses({
@@ -244,9 +220,8 @@ public class WorkingPhaseController {
 	@DeleteMapping(value = "/productionOrders/{id}/workingPhases/{sid}")
 	public Object deleteWorkingPhaseForUser(@PathVariable("id") Integer id, @PathVariable("sid") Integer sid) {
 
-		this.workingPhaseService.deleteWorkingPhaseById(sid);
+		this.workingPhaseService.deleteWorkingPhaseById(id, sid);
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}
-	
 }

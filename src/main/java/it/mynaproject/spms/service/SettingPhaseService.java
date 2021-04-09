@@ -10,5 +10,5 @@ public interface SettingPhaseService {
 	public SettingPhase createSettingPhaseFromJson(Integer id, SettingPhaseJson input);
 	public void update(SettingPhase settingPhase);
 	public SettingPhase updateSettingPhaseFromJson(Integer id, Integer sid, SettingPhaseJson input);
-	public void deleteSettingPhaseById(Integer id);
+	public void deleteSettingPhaseById(Integer id, Integer sid);
 }

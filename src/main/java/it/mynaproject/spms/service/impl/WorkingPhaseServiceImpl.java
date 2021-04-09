@@ -1,7 +1,5 @@
 package it.mynaproject.spms.service.impl;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import it.mynaproject.spms.dao.WorkingPhaseDao;
 import it.mynaproject.spms.domain.ProductionOrder;
-import it.mynaproject.spms.domain.User;
 import it.mynaproject.spms.domain.WorkingPhase;
 import it.mynaproject.spms.exception.NotFoundException;
 import it.mynaproject.spms.model.WorkingPhaseJson;
@@ -40,18 +37,19 @@ public class WorkingPhaseServiceImpl implements WorkingPhaseService {
 		WorkingPhase workingPhase = null;
 
 		ProductionOrder p = this.productionOrderService.getProductionOrder(id);
-		if (p == null)
-			throw new NotFoundException(404, "ProductionOrder " + id + " not found");
-
-		for (WorkingPhase sf : this.productionOrderService.getProductionOrder(id).getWorkingPhaseList())
-			if(sf.getId() == sid)
+		for (WorkingPhase sf : p.getWorkingPhaseList()) {
+			if (sf.getId() == sid) {
 				workingPhase = sf;
+				break;
+			}
+		}
+
 		if (workingPhase == null)
 			throw new NotFoundException(404, "WorkingPhase " + sid + " not found");
 
 		return workingPhase;
 	}
-	
+
 	@Transactional
 	@Override
 	public void persist(WorkingPhase workingPhase) {
@@ -64,20 +62,17 @@ public class WorkingPhaseServiceImpl implements WorkingPhaseService {
 
 		log.info("Creating new workingPhase: {}", input.toString());
 
-		org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
-
-		User u = this.userService.getUserByUsername(user.getUsername());
+		org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
 
 		WorkingPhase workingPhase = new WorkingPhase();
-		workingPhase.populateWorkingPhaseFromInput(input, po, u);
+		workingPhase.populateWorkingPhaseFromInput(input, po, this.userService.getUserByUsername(user.getUsername()));
 
 		this.persist(workingPhase);
 
 		return workingPhase;
 	}
-	
 
 	@Transactional
 	@Override
@@ -91,40 +86,22 @@ public class WorkingPhaseServiceImpl implements WorkingPhaseService {
 
 		log.info("Updating settingPhase with id: {}", id);
 
-		WorkingPhase settingPhase = null;
+		org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
+		WorkingPhase workingPhase = this.getWorkingPhase(id, sid);
+		workingPhase.populateWorkingPhaseFromInput(input, this.productionOrderService.getProductionOrder(input.getProductionOrder().getId()), this.userService.getUserByUsername(user.getUsername()));
 
-		List<WorkingPhase> sflist = po.getWorkingPhaseList();
-		if (sflist != null)
-			for (WorkingPhase sf : sflist)
-				if (sf.getId() == sid)
-					settingPhase = sf;
-		if (settingPhase == null)
-			throw new NotFoundException(404, "WorkingPhase " + sid + " not found");
+		this.update(workingPhase);
 
-		org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
-
-		User u = this.userService.getUserByUsername(user.getUsername());
-
-		ProductionOrder npo = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
-		settingPhase.populateWorkingPhaseFromInput(input, npo, u);
-
-		this.update(settingPhase);
-
-		return settingPhase;
+		return workingPhase;
 	}
 
 	@Transactional
 	@Override
-	public void deleteWorkingPhaseById(Integer id) {
+	public void deleteWorkingPhaseById(Integer id, Integer sid) {
 
 		log.info("Deleting workingPhase: {}", id);
 
-		WorkingPhase c = this.workingPhaseDao.getWorkingPhase(id);
-		if (c == null)
-			throw new NotFoundException(404, "WorkingPhase " + id + " not found");
-
-		this.workingPhaseDao.delete(c);
+		this.workingPhaseDao.delete(this.getWorkingPhase(id, sid));
 	}
 }

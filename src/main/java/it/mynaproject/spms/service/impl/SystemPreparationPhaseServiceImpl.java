@@ -1,7 +1,5 @@
 package it.mynaproject.spms.service.impl;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import it.mynaproject.spms.dao.SystemPreparationPhaseDao;
 import it.mynaproject.spms.domain.ProductionOrder;
 import it.mynaproject.spms.domain.SystemPreparationPhase;
-import it.mynaproject.spms.domain.User;
 import it.mynaproject.spms.exception.NotFoundException;
 import it.mynaproject.spms.model.SystemPreparationPhaseJson;
 import it.mynaproject.spms.service.ProductionOrderService;
@@ -40,12 +37,13 @@ public class SystemPreparationPhaseServiceImpl implements SystemPreparationPhase
 		SystemPreparationPhase systemPreparationPhase = null;
 
 		ProductionOrder p = this.productionOrderService.getProductionOrder(id);
-		if (p == null)
-			throw new NotFoundException(404, "ProductionOrder " + id + " not found");
-
-		for (SystemPreparationPhase sf : this.productionOrderService.getProductionOrder(id).getSystemPreparationPhaseList())
-			if (sf.getId() == sid)
+		for (SystemPreparationPhase sf : p.getSystemPreparationPhaseList()) {
+			if (sf.getId() == sid) {
 				systemPreparationPhase = sf;
+				break;
+			}
+		}
+
 		if (systemPreparationPhase == null)
 			throw new NotFoundException(404, "SystemPreparationPhase " + sid + " not found");
 
@@ -64,51 +62,34 @@ public class SystemPreparationPhaseServiceImpl implements SystemPreparationPhase
 
 		log.info("Creating new systemPreparationPhase: {}", input.toString());
 
-		org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
-
-		User u = this.userService.getUserByUsername(user.getUsername());
+		org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
 
 		SystemPreparationPhase systemPreparationPhase = new SystemPreparationPhase();
-		systemPreparationPhase.populateSystemPreparationPhaseFromInput(input, po, u);
+		systemPreparationPhase.populateSystemPreparationPhaseFromInput(input, po, this.userService.getUserByUsername(user.getUsername()));
 
 		this.persist(systemPreparationPhase);
 
 		return systemPreparationPhase;
 	}
-	
 
 	@Transactional
 	@Override
 	public void update(SystemPreparationPhase systemPreparationPhase) {
 		this.systemPreparationPhaseDao.update(systemPreparationPhase);
 	}
-	
+
 	@Transactional
 	@Override
 	public SystemPreparationPhase updateSystemPreparationPhaseFromJson(Integer id, Integer sid, SystemPreparationPhaseJson input) {
 
 		log.info("Updating systemPreparationPhase with id: {}", id);
 
-		SystemPreparationPhase systemPreparationPhase = null;
+		org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
-
-		List<SystemPreparationPhase> sflist = po.getSystemPreparationPhaseList();
-		if (sflist != null)
-			for (SystemPreparationPhase sf : sflist)
-				if (sf.getId() == sid)
-					systemPreparationPhase = sf;
-		if (systemPreparationPhase == null)
-			throw new NotFoundException(404, "SystemPreparationPhase " + sid + " not found");
-
-		org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
-
-		User u = this.userService.getUserByUsername(user.getUsername());
-
-		ProductionOrder npo = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
-		systemPreparationPhase.populateSystemPreparationPhaseFromInput(input, npo, u);
+		SystemPreparationPhase systemPreparationPhase = this.getSystemPreparationPhase(id, sid);
+		systemPreparationPhase.populateSystemPreparationPhaseFromInput(input, this.productionOrderService.getProductionOrder(input.getProductionOrder().getId()), this.userService.getUserByUsername(user.getUsername()));
 
 		this.update(systemPreparationPhase);
 
@@ -117,15 +98,10 @@ public class SystemPreparationPhaseServiceImpl implements SystemPreparationPhase
 	
 	@Transactional
 	@Override
-	public void deleteSystemPreparationPhaseById(Integer id) {
+	public void deleteSystemPreparationPhaseById(Integer id, Integer sid) {
 
 		log.info("Deleting systemPreparationPhase: {}", id);
-		SystemPreparationPhase c = this.systemPreparationPhaseDao.getSystemPreparationPhase(id);
-		
-		if (c == null) {
-			throw new NotFoundException(404, "SystemPreparationPhase " + id + " not found");
-		}
-		
-		this.systemPreparationPhaseDao.delete(c);
+
+		this.systemPreparationPhaseDao.delete(this.getSystemPreparationPhase(id, sid));
 	}
 }

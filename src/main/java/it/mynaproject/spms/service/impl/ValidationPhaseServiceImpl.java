@@ -1,7 +1,5 @@
 package it.mynaproject.spms.service.impl;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import it.mynaproject.spms.dao.ValidationPhaseDao;
 import it.mynaproject.spms.domain.ProductionOrder;
-import it.mynaproject.spms.domain.User;
 import it.mynaproject.spms.domain.ValidationPhase;
 import it.mynaproject.spms.exception.NotFoundException;
 import it.mynaproject.spms.model.ValidationPhaseJson;
@@ -21,37 +18,38 @@ import it.mynaproject.spms.service.ValidationPhaseService;
 
 @Service
 public class ValidationPhaseServiceImpl implements ValidationPhaseService {
-	
+
 	final private Logger log = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	private ValidationPhaseDao validationPhaseDao;
+
 	@Autowired
 	private UserService userService;
+
 	@Autowired
 	private ProductionOrderService productionOrderService;
 
 	@Transactional(readOnly = true)
 	@Override
 	public ValidationPhase getValidationPhase(Integer id, Integer sid) {
-		
+
 		ValidationPhase validationPhase = null;
+
 		ProductionOrder p = this.productionOrderService.getProductionOrder(id);
-		
-		if (p == null)
-			throw new NotFoundException(404, "ProductionOrder " + id + " not found");
-		
-		for(ValidationPhase sf : this.productionOrderService.getProductionOrder(id).getValidationPhaseList()) {
-			if(sf.getId() == sid) {
+		for (ValidationPhase sf : p.getValidationPhaseList()) {
+			if (sf.getId() == sid) {
 				validationPhase = sf;
+				break;
 			}
 		}
+
 		if (validationPhase == null)
 			throw new NotFoundException(404, "ValidationPhase " + sid + " not found");
-		
+
 		return validationPhase;
 	}
-	
+
 	@Transactional
 	@Override
 	public void persist(ValidationPhase validationPhase) {
@@ -64,66 +62,46 @@ public class ValidationPhaseServiceImpl implements ValidationPhaseService {
 
 		log.info("Creating new validationPhase: {}", input.toString());
 
-		org.springframework.security.core.userdetails.User user =
-				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
-		User u = this.userService.getUserByUsername(user.getUsername());
+		org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
 		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
+
 		ValidationPhase validationPhase = new ValidationPhase();
-		validationPhase.populateValidationPhaseFromInput(input, po, u);
+		validationPhase.populateValidationPhaseFromInput(input, po, this.userService.getUserByUsername(user.getUsername()));
 
 		this.persist(validationPhase);
 
 		return validationPhase;
 	}
-	
 
 	@Transactional
 	@Override
 	public void update(ValidationPhase validationPhase) {
 		this.validationPhaseDao.update(validationPhase);
 	}
-	
+
 	@Transactional
 	@Override
 	public ValidationPhase updateValidationPhaseFromJson(Integer id, Integer sid, ValidationPhaseJson input) {
 
 		log.info("Updating validationPhase with id: {}", id);
 
-		ProductionOrder po = this.productionOrderService.getProductionOrder(id);
-		List<ValidationPhase> sflist = po.getValidationPhaseList();
-		ValidationPhase validationPhase = null; // alternative: can we look for the validation phase using DAO?
-		if(sflist != null) {
-			for(ValidationPhase sf : sflist) {
-				if(sf.getId() == sid) {
-					validationPhase = sf;
-				}
-			}
-		}
-		if(validationPhase == null)
-			throw new NotFoundException(404, "ValidationPhase " + sid + " not found");
-		
-		org.springframework.security.core.userdetails.User user =
-				(org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
-		User u = this.userService.getUserByUsername(user.getUsername());
-		ProductionOrder npo = this.productionOrderService.getProductionOrder(input.getProductionOrder().getId());
-		validationPhase.populateValidationPhaseFromInput(input, npo, u);
-		
+		org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		ValidationPhase validationPhase = this.getValidationPhase(id, sid);
+		validationPhase.populateValidationPhaseFromInput(input, this.productionOrderService.getProductionOrder(input.getProductionOrder().getId()), this.userService.getUserByUsername(user.getUsername()));
+
 		this.update(validationPhase);
 
 		return validationPhase;
 	}
-	
+
 	@Transactional
 	@Override
-	public void deleteValidationPhaseById(Integer id) {
+	public void deleteValidationPhaseById(Integer id, Integer sid) {
 
 		log.info("Deleting validationPhase: {}", id);
-		ValidationPhase c = this.validationPhaseDao.getValidationPhase(id);
-		
-		if (c == null) {
-			throw new NotFoundException(404, "ValidationPhase " + id + " not found");
-		}
-		
-		this.validationPhaseDao.delete(c);
+
+		this.validationPhaseDao.delete(this.getValidationPhase(id, sid));
 	}
 }

@@ -1,5 +1,6 @@
 package it.mynaproject.spms.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -63,5 +64,24 @@ public class WorkingPhaseMeasureDaoImpl extends BaseDaoImpl implements WorkingPh
 	@Override
 	public List<WorkingPhaseMeasure> getWorkingPhaseMeasures() {
 		return em.createQuery("FROM WorkingPhaseMeasure").getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<WorkingPhaseMeasure> getAllMeasures(Date start, Date end) {
+
+		String queryString = "FROM WorkingPhaseMeasure WHERE 1 = 1";
+		if (start != null)
+			queryString = queryString.concat(" AND time >= :start");
+		if (end != null)
+			queryString = queryString.concat(" AND time <= :end");
+
+		Query q = em.createQuery(queryString);
+		if (start != null)
+			q.setParameter("start", start);
+		if (end != null)
+			q.setParameter("end", end);
+
+		return q.getResultList();
 	}
 }
