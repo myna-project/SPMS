@@ -1,5 +1,7 @@
 package it.mynaproject.spms.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +15,10 @@ import it.mynaproject.spms.dao.WorkingPhaseMeasureDao;
 import it.mynaproject.spms.domain.WorkingPhase;
 import it.mynaproject.spms.domain.WorkingPhaseMeasure;
 import it.mynaproject.spms.exception.NotFoundException;
+import it.mynaproject.spms.model.IEnergyMeasureJson;
+import it.mynaproject.spms.model.IEnergyMeasuresJson;
 import it.mynaproject.spms.model.WorkingPhaseMeasureJson;
+import it.mynaproject.spms.service.IEnergyService;
 import it.mynaproject.spms.service.WorkingPhaseMeasureService;
 import it.mynaproject.spms.service.WorkingPhaseService;
 
@@ -27,6 +32,9 @@ public class WorkingPhaseMeasureServiceImpl implements WorkingPhaseMeasureServic
 
 	@Autowired
 	private WorkingPhaseService workingPhaseService;
+
+	@Autowired
+	private IEnergyService iEnergyService;
 
 	@Transactional(readOnly = true)
 	@Override
@@ -67,6 +75,8 @@ public class WorkingPhaseMeasureServiceImpl implements WorkingPhaseMeasureServic
 	@Override
 	public void persist(WorkingPhaseMeasure workingPhaseMeasure) {
 		this.workingPhaseMeasureDao.persist(workingPhaseMeasure);
+
+		this.updateIEnergyMeasures(workingPhaseMeasure);
 	}
 
 	@Transactional
@@ -89,6 +99,8 @@ public class WorkingPhaseMeasureServiceImpl implements WorkingPhaseMeasureServic
 	@Override
 	public void update(WorkingPhaseMeasure workingPhaseMeasure) {
 		this.workingPhaseMeasureDao.update(workingPhaseMeasure);
+
+		this.updateIEnergyMeasures(workingPhaseMeasure);
 	}
 
 	@Transactional
@@ -113,6 +125,35 @@ public class WorkingPhaseMeasureServiceImpl implements WorkingPhaseMeasureServic
 
 		log.info("Deleting workingPhaseMeasure: {}", id);
 
-		this.workingPhaseMeasureDao.delete(this.workingPhaseMeasureDao.getWorkingPhaseMeasure(id));
+		WorkingPhaseMeasure workingPhaseMeasure = this.workingPhaseMeasureDao.getWorkingPhaseMeasure(id);
+
+		this.workingPhaseMeasureDao.delete(workingPhaseMeasure);
+
+		this.deleteIEnergyMeasures(workingPhaseMeasure);
+	}
+
+	private void updateIEnergyMeasures(WorkingPhaseMeasure workingPhaseMeasure) {
+
+		IEnergyMeasuresJson iEnergyMeasuresJson = new IEnergyMeasuresJson();
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+		iEnergyMeasuresJson.setAt(format.format(Date.from(workingPhaseMeasure.getTime())));
+
+		ArrayList<IEnergyMeasureJson> iEnergyMeasuresList = new ArrayList<IEnergyMeasureJson>();
+
+		IEnergyMeasureJson iEnergyMeasureJson = new IEnergyMeasureJson();
+		iEnergyMeasureJson.setValue(Float.toString(workingPhaseMeasure.getFinished_product_quantity()));
+		iEnergyMeasuresList.add(iEnergyMeasureJson);
+
+		iEnergyMeasuresJson.setMeasures(iEnergyMeasuresList);
+
+		this.iEnergyService.putMeasures(iEnergyMeasuresJson);
+	}
+
+	private void deleteIEnergyMeasures(WorkingPhaseMeasure workingPhaseMeasure) {
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+
+		this.iEnergyService.deleteMeasures(format.format(Date.from(workingPhaseMeasure.getTime())), format.format(Date.from(workingPhaseMeasure.getTime())));
 	}
 }
