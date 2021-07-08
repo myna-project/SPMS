@@ -40,7 +40,6 @@ public class RoleController {
 		log.info("Request for roles");
 
 		List<RoleJson> roles = new ArrayList<>();
-
 		for (Role role : this.roleService.getRoles())
 			roles.add(JsonUtil.roleToRoleJson(role));
 

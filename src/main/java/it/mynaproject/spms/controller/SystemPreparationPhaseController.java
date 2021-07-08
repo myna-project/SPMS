@@ -54,9 +54,8 @@ public class SystemPreparationPhaseController {
 		log.info("Request for systemPreparationPhases in ProductionOrder with id {}", id);
 
 		List<SystemPreparationPhaseJson> ret = new ArrayList<>();
-		for (SystemPreparationPhase sf : this.productionOrderService.getProductionOrder(id).getSystemPreparationPhaseList()) {
+		for (SystemPreparationPhase sf : this.productionOrderService.getProductionOrder(id).getSystemPreparationPhaseList())
 			ret.add(JsonUtil.systemPreparationPhaseToSystemPreparationPhaseJson(sf, true));
-		}
 
 		return ret;
 	}
@@ -116,9 +115,8 @@ public class SystemPreparationPhaseController {
 		log.info("Request for systemPreparationPhases in ProductionOrder with id {}", id);
 
 		List<SystemPreparationPhaseJson> ret = new ArrayList<>();
-		for (SystemPreparationPhase sf : this.productionOrderService.getProductionOrder(id).getSystemPreparationPhaseList()) {
+		for (SystemPreparationPhase sf : this.productionOrderService.getProductionOrder(id).getSystemPreparationPhaseList())
 			ret.add(JsonUtil.systemPreparationPhaseToSystemPreparationPhaseJson(sf, true));
-		}
 
 		return ret;
 	}
@@ -178,9 +176,8 @@ public class SystemPreparationPhaseController {
 		log.info("Request for systemPreparationPhases in ProductionOrder with id {}", id);
 
 		List<SystemPreparationPhaseJson> ret = new ArrayList<>();
-		for (SystemPreparationPhase sf : this.productionOrderService.getProductionOrder(id).getSystemPreparationPhaseList()) {
+		for (SystemPreparationPhase sf : this.productionOrderService.getProductionOrder(id).getSystemPreparationPhaseList())
 			ret.add(JsonUtil.systemPreparationPhaseToSystemPreparationPhaseJson(sf, true));
-		}
 
 		return ret;
 	}

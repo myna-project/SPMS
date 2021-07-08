@@ -54,9 +54,8 @@ public class ValidationPhaseController {
 		log.info("Request for validationPhases in ProductionOrder with id {}", id);
 
 		List<ValidationPhaseJson> ret = new ArrayList<>();
-		for (ValidationPhase sf : this.productionOrderService.getProductionOrder(id).getValidationPhaseList()) {
+		for (ValidationPhase sf : this.productionOrderService.getProductionOrder(id).getValidationPhaseList())
 			ret.add(JsonUtil.validationPhaseToValidationPhaseJson(sf, true));
-		}
 
 		return ret;
 	}
@@ -116,9 +115,8 @@ public class ValidationPhaseController {
 		log.info("Request for validationPhases in ProductionOrder with id {}", id);
 
 		List<ValidationPhaseJson> ret = new ArrayList<>();
-		for (ValidationPhase sf : this.productionOrderService.getProductionOrder(id).getValidationPhaseList()) {
+		for (ValidationPhase sf : this.productionOrderService.getProductionOrder(id).getValidationPhaseList())
 			ret.add(JsonUtil.validationPhaseToValidationPhaseJson(sf, true));
-		}
 
 		return ret;
 	}
@@ -178,9 +176,8 @@ public class ValidationPhaseController {
 		log.info("Request for validationPhases in ProductionOrder with id {}", id);
 
 		List<ValidationPhaseJson> ret = new ArrayList<>();
-		for (ValidationPhase sf : this.productionOrderService.getProductionOrder(id).getValidationPhaseList()) {
+		for (ValidationPhase sf : this.productionOrderService.getProductionOrder(id).getValidationPhaseList())
 			ret.add(JsonUtil.validationPhaseToValidationPhaseJson(sf, true));
-		}
 
 		return ret;
 	}

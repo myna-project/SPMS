@@ -50,7 +50,6 @@ public class CustomerController {
 		log.info("Request for customers");
 
 		List<CustomerJson> customers = new ArrayList<>();
-
 		for (Customer customer : this.customerService.getCustomers())
 			customers.add(JsonUtil.customerToCustomerJson(customer));
 
@@ -74,9 +73,7 @@ public class CustomerController {
 	@PostMapping(value = "/admin/customers")
 	public Object postCustomer(@Valid @RequestBody CustomerJson input, HttpServletRequest request) {
 
-		Customer customer = this.customerService.createCustomerFromJson(input);
-
-		return new ResponseEntity<>(JsonUtil.customerToCustomerJson(customer), new HttpHeaders(), HttpStatus.CREATED);
+		return new ResponseEntity<>(JsonUtil.customerToCustomerJson(this.customerService.createCustomerFromJson(input)), new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	@ApiResponses({
@@ -85,9 +82,7 @@ public class CustomerController {
 	@PutMapping(value = "/admin/customers/{id}")
 	public Object updateCustomer(@PathVariable("id") Integer id, @Valid @RequestBody CustomerJson input) {
 
-		Customer customer = this.customerService.updateCustomerFromJson(id, input);
-
-		return new ResponseEntity<>(JsonUtil.customerToCustomerJson(customer), new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(JsonUtil.customerToCustomerJson(this.customerService.updateCustomerFromJson(id, input)), new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@ApiResponses({
@@ -116,7 +111,6 @@ public class CustomerController {
 		log.info("Request for customers");
 
 		List<CustomerJson> customers = new ArrayList<>();
-
 		for (Customer customer : this.customerService.getCustomers())
 			customers.add(JsonUtil.customerToCustomerJson(customer));
 
@@ -149,7 +143,6 @@ public class CustomerController {
 		log.info("Request for customers");
 
 		List<CustomerJson> customers = new ArrayList<>();
-
 		for (Customer customer : this.customerService.getCustomers())
 			customers.add(JsonUtil.customerToCustomerJson(customer));
 

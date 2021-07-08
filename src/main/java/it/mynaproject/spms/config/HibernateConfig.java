@@ -42,6 +42,7 @@ public class HibernateConfig {
 				WorkingPhase.class,
 				WorkingPhaseMeasure.class
 		);
+
 		return factoryBean;
 	}
 
@@ -51,5 +52,4 @@ public class HibernateConfig {
 		transactionManager.setSessionFactory(getSessionFactory().getObject());
 		return transactionManager;
 	}
-
 }

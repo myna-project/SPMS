@@ -54,9 +54,8 @@ public class CleaningPhaseController {
 		log.info("Request for cleaningPhases in ProductionOrder with id {}", id);
 
 		List<CleaningPhaseJson> ret = new ArrayList<>();
-		for (CleaningPhase sf : this.productionOrderService.getProductionOrder(id).getCleaningPhaseList()) {
+		for (CleaningPhase sf : this.productionOrderService.getProductionOrder(id).getCleaningPhaseList())
 			ret.add(JsonUtil.cleaningPhaseToCleaningPhaseJson(sf, true));
-		}
 
 		return ret;
 	}
@@ -116,9 +115,8 @@ public class CleaningPhaseController {
 		log.info("Request for cleaningPhases in ProductionOrder with id {}", id);
 
 		List<CleaningPhaseJson> ret = new ArrayList<>();
-		for (CleaningPhase sf : this.productionOrderService.getProductionOrder(id).getCleaningPhaseList()) {
+		for (CleaningPhase sf : this.productionOrderService.getProductionOrder(id).getCleaningPhaseList())
 			ret.add(JsonUtil.cleaningPhaseToCleaningPhaseJson(sf, true));
-		}
 
 		return ret;
 	}
@@ -178,9 +176,8 @@ public class CleaningPhaseController {
 		log.info("Request for cleaningPhases in ProductionOrder with id {}", id);
 
 		List<CleaningPhaseJson> ret = new ArrayList<>();
-		for (CleaningPhase sf : this.productionOrderService.getProductionOrder(id).getCleaningPhaseList()) {
+		for (CleaningPhase sf : this.productionOrderService.getProductionOrder(id).getCleaningPhaseList())
 			ret.add(JsonUtil.cleaningPhaseToCleaningPhaseJson(sf, true));
-		}
 
 		return ret;
 	}

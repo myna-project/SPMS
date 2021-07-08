@@ -23,7 +23,7 @@ public class Role extends BaseDomain implements GrantedAuthority {
 
 	private String description;
 
-	@ManyToMany(mappedBy = "roleList", cascade = CascadeType.MERGE)
+	@ManyToMany(mappedBy="roleList", cascade=CascadeType.MERGE)
 	private List<User> userList;
 
 	@Override

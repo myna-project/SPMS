@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.OneToMany;
-import javax.persistence.CascadeType;
 
 import it.mynaproject.spms.model.AdditiveJson;
 import it.mynaproject.spms.util.ClassSerializer;
@@ -18,7 +17,7 @@ public class Additive extends BaseDomain {
 	@Column(nullable=false)
 	private String name;
 	
-	@OneToMany(mappedBy = "additive", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="additive")
 	private List<AdditiveProductionOrder> additiveProductionOrderList;
 
 	public void populateAdditiveFromInput(AdditiveJson input) {

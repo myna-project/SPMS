@@ -3,7 +3,6 @@ package it.mynaproject.spms.domain;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -73,22 +72,22 @@ public class ProductionOrder extends BaseDomain {
 	@Column
 	private String ddt_number;
 	
-	@OneToMany(mappedBy="productionOrder", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="productionOrder")
 	private List<SettingPhase> settingPhaseList;
 	
-	@OneToMany(mappedBy="productionOrder", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="productionOrder")
 	private List<SystemPreparationPhase> systemPreparationPhaseList;
 	
-	@OneToMany(mappedBy="productionOrder", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="productionOrder")
 	private List<CleaningPhase> cleaningPhaseList;
 	
-	@OneToMany(mappedBy="productionOrder", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="productionOrder")
 	private List<ValidationPhase> validationPhaseList;
 	
-	@OneToMany(mappedBy="productionOrder", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="productionOrder")
 	private List<WorkingPhase> workingPhaseList;
 	
-	@OneToMany(mappedBy="productionOrder", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="productionOrder")
 	private List<AdditiveProductionOrder> additiveProductionOrderList;
 	
 	public String toString() {

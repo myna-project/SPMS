@@ -50,7 +50,6 @@ public class AdditiveController {
 		log.info("Request for additives");
 
 		List<AdditiveJson> additives = new ArrayList<>();
-
 		for (Additive additive : this.additiveService.getAdditives())
 			additives.add(JsonUtil.additiveToAdditiveJson(additive));
 
@@ -74,9 +73,7 @@ public class AdditiveController {
 	@PostMapping(value = "/admin/additives")
 	public Object postAdditive(@Valid @RequestBody AdditiveJson input, HttpServletRequest request) {
 
-		Additive additive = this.additiveService.createAdditiveFromJson(input);
-
-		return new ResponseEntity<>(JsonUtil.additiveToAdditiveJson(additive), new HttpHeaders(), HttpStatus.CREATED);
+		return new ResponseEntity<>(JsonUtil.additiveToAdditiveJson(this.additiveService.createAdditiveFromJson(input)), new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	@ApiResponses({
@@ -85,9 +82,7 @@ public class AdditiveController {
 	@PutMapping(value = "/admin/additives/{id}")
 	public Object updateAdditive(@PathVariable("id") Integer id, @Valid @RequestBody AdditiveJson input) {
 
-		Additive additive = this.additiveService.updateAdditiveFromJson(id, input);
-
-		return new ResponseEntity<>(JsonUtil.additiveToAdditiveJson(additive), new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(JsonUtil.additiveToAdditiveJson(this.additiveService.updateAdditiveFromJson(id, input)), new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@ApiResponses({
@@ -100,7 +95,7 @@ public class AdditiveController {
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}
-	
+
 	/*
 	 *  -------------
 	 *  RESP SECTION
@@ -116,7 +111,6 @@ public class AdditiveController {
 		log.info("Request for additives");
 
 		List<AdditiveJson> additives = new ArrayList<>();
-
 		for (Additive additive : this.additiveService.getAdditives())
 			additives.add(JsonUtil.additiveToAdditiveJson(additive));
 
@@ -149,7 +143,6 @@ public class AdditiveController {
 		log.info("Request for additives");
 
 		List<AdditiveJson> additives = new ArrayList<>();
-
 		for (Additive additive : this.additiveService.getAdditives())
 			additives.add(JsonUtil.additiveToAdditiveJson(additive));
 

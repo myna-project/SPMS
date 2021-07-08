@@ -18,7 +18,7 @@ public class RawMaterial extends BaseDomain {
 	@Column(nullable=false)
 	private String name;
 	
-	@OneToMany(mappedBy="rawMaterial", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+	@OneToMany(mappedBy="rawMaterial", cascade={CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
 	private List<ProductionOrder> productionOrders;
 	
 	public void populateRawMaterialFromInput(RawMaterialJson input) {
@@ -48,5 +48,4 @@ public class RawMaterial extends BaseDomain {
 	public void setProductionOrders(List<ProductionOrder> productionOrders) {
 		this.productionOrders = productionOrders;
 	}
-	
 }

@@ -54,9 +54,8 @@ public class SettingPhaseController {
 		log.info("Request for settingPhases in ProductionOrder with id {}", id);
 
 		List<SettingPhaseJson> ret = new ArrayList<>();
-		for (SettingPhase sf : this.productionOrderService.getProductionOrder(id).getSettingPhaseList()) {
+		for (SettingPhase sf : this.productionOrderService.getProductionOrder(id).getSettingPhaseList())
 			ret.add(JsonUtil.settingPhaseToSettingPhaseJson(sf, true));
-		}
 
 		return ret;
 	}
@@ -116,9 +115,8 @@ public class SettingPhaseController {
 		log.info("Request for settingPhases in ProductionOrder with id {}", id);
 
 		List<SettingPhaseJson> ret = new ArrayList<>();
-		for (SettingPhase sf : this.productionOrderService.getProductionOrder(id).getSettingPhaseList()) {
+		for (SettingPhase sf : this.productionOrderService.getProductionOrder(id).getSettingPhaseList())
 			ret.add(JsonUtil.settingPhaseToSettingPhaseJson(sf, true));
-		}
 
 		return ret;
 	}
@@ -178,9 +176,8 @@ public class SettingPhaseController {
 		log.info("Request for settingPhases in ProductionOrder with id {}", id);
 
 		List<SettingPhaseJson> ret = new ArrayList<>();
-		for (SettingPhase sf : this.productionOrderService.getProductionOrder(id).getSettingPhaseList()) {
+		for (SettingPhase sf : this.productionOrderService.getProductionOrder(id).getSettingPhaseList())
 			ret.add(JsonUtil.settingPhaseToSettingPhaseJson(sf, true));
-		}
 
 		return ret;
 	}

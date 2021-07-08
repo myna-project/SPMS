@@ -73,9 +73,7 @@ public class ProductionOrderController {
 	@PostMapping(value = "/admin/productionOrders")
 	public Object postProductionOrder(@Valid @RequestBody ProductionOrderJson input, HttpServletRequest request) {
 
-		ProductionOrder productionOrder = this.productionOrderService.createProductionOrderFromJson(input);
-
-		return new ResponseEntity<>(JsonUtil.productionOrderToProductionOrderJson(productionOrder, false), new HttpHeaders(), HttpStatus.CREATED);
+		return new ResponseEntity<>(JsonUtil.productionOrderToProductionOrderJson(this.productionOrderService.createProductionOrderFromJson(input), false), new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	@ApiResponses({
@@ -84,9 +82,7 @@ public class ProductionOrderController {
 	@PutMapping(value = "/admin/productionOrders/{id}")
 	public Object updateProductionOrder(@PathVariable("id") Integer id, @Valid @RequestBody ProductionOrderJson input) {
 
-		ProductionOrder productionOrder = this.productionOrderService.updateProductionOrderFromJson(id, input);
-
-		return new ResponseEntity<>(JsonUtil.productionOrderToProductionOrderJson(productionOrder, true), new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(JsonUtil.productionOrderToProductionOrderJson(this.productionOrderService.updateProductionOrderFromJson(id, input), true), new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@ApiResponses({
@@ -99,7 +95,7 @@ public class ProductionOrderController {
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}
-	
+
 	/*
 	 *  -------------
 	 *  RESP SECTION
@@ -163,6 +159,4 @@ public class ProductionOrderController {
 
 		return JsonUtil.productionOrderToProductionOrderJson(this.productionOrderService.getProductionOrder(id), true);
 	}
-	
-	
 }

@@ -49,11 +49,11 @@ public class Pbkdf2CustomEncoder implements PasswordEncoder {
 		byte[] hash = skey.getEncoded();
 
 		return "PBKDF2$sha512$" + iterations + "$" + Base64.getEncoder().encodeToString(salt) + "$" + Base64.getEncoder().encodeToString(hash);
-
 	}
 
 	@Override
 	public boolean matches(CharSequence rawPassword, String encodedPassword) {
+
 		String[] parts = encodedPassword.split("\\$");
 
 		int iterations = Integer.parseInt(parts[2]);

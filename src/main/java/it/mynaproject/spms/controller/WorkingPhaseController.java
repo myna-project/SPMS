@@ -54,9 +54,8 @@ public class WorkingPhaseController {
 		log.info("Request for workingPhases in ProductionOrder with id {}", id);
 
 		List<WorkingPhaseJson> ret = new ArrayList<>();
-		for (WorkingPhase sf : this.productionOrderService.getProductionOrder(id).getWorkingPhaseList()) {
+		for (WorkingPhase sf : this.productionOrderService.getProductionOrder(id).getWorkingPhaseList())
 			ret.add(JsonUtil.workingPhaseToWorkingPhaseJson(sf, true, true));
-		}
 
 		return ret;
 	}
@@ -116,9 +115,8 @@ public class WorkingPhaseController {
 		log.info("Request for workingPhases in ProductionOrder with id {}", id);
 
 		List<WorkingPhaseJson> ret = new ArrayList<>();
-		for (WorkingPhase sf : this.productionOrderService.getProductionOrder(id).getWorkingPhaseList()) {
+		for (WorkingPhase sf : this.productionOrderService.getProductionOrder(id).getWorkingPhaseList())
 			ret.add(JsonUtil.workingPhaseToWorkingPhaseJson(sf, true, true));
-		}
 
 		return ret;
 	}
@@ -178,9 +176,8 @@ public class WorkingPhaseController {
 		log.info("Request for workingPhases in ProductionOrder with id {}", id);
 		
 		List<WorkingPhaseJson> ret = new ArrayList<>();
-		for (WorkingPhase sf : this.productionOrderService.getProductionOrder(id).getWorkingPhaseList()) {
+		for (WorkingPhase sf : this.productionOrderService.getProductionOrder(id).getWorkingPhaseList())
 			ret.add(JsonUtil.workingPhaseToWorkingPhaseJson(sf, true, true));
-		}
 
 		return ret;
 	}

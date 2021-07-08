@@ -2,7 +2,6 @@ package it.mynaproject.spms.domain;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -14,7 +13,7 @@ import it.mynaproject.spms.util.ClassSerializer;
 @Table(name = "working_phases")
 public class WorkingPhase extends Phase {
 
-	@OneToMany(mappedBy="workingPhase", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="workingPhase")
 	private List<WorkingPhaseMeasure> workingPhaseMeasureList;
 
 	public void populateWorkingPhaseFromInput(WorkingPhaseJson input, ProductionOrder po, User u) {

@@ -18,7 +18,7 @@ public class Packaging extends BaseDomain {
 	@Column(nullable=false)
 	private String packaging_mode;
 	
-	@OneToMany(mappedBy="packaging", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+	@OneToMany(mappedBy="packaging", cascade={CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
 	private List<ProductionOrder> productionOrders;
 	
 	public void populatePackagingFromInput(PackagingJson input) {
@@ -48,5 +48,4 @@ public class Packaging extends BaseDomain {
 	public void setProductionOrders(List<ProductionOrder> productionOrders) {
 		this.productionOrders = productionOrders;
 	}
-	
 }

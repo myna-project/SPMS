@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -48,7 +47,7 @@ public class User extends BaseDomain {
 	@Column
 	private String style;
 
-	@ManyToMany(cascade = CascadeType.MERGE, fetch=FetchType.EAGER)
+	@ManyToMany(cascade=CascadeType.MERGE)
 	@JoinTable(name = "users_roles", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
 	private List<Role> roleList;
 	

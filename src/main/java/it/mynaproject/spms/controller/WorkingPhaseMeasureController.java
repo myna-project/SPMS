@@ -53,9 +53,8 @@ public class WorkingPhaseMeasureController {
 		log.info("Request for workingPhaseMeasures in ProductionOrder with id {}", id);
 
 		List<WorkingPhaseMeasureJson> ret = new ArrayList<>();
-		for (WorkingPhaseMeasure sf : this.workingPhaseMeasureService.getWorkingPhaseMeasures(id, sid)) {
+		for (WorkingPhaseMeasure sf : this.workingPhaseMeasureService.getWorkingPhaseMeasures(id, sid))
 			ret.add(JsonUtil.workingPhaseMeasureToWorkingPhaseMeasureJson(sf));
-		}
 
 		return ret;
 	}
@@ -78,9 +77,8 @@ public class WorkingPhaseMeasureController {
 	public List<WorkingPhaseMeasureJson> getAllMeasures(@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ") Date start, @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ") Date end) {
 
 		List<WorkingPhaseMeasureJson> ret = new ArrayList<>();
-		for (WorkingPhaseMeasure sf : this.workingPhaseMeasureService.getAllMeasures(start, end)) {
+		for (WorkingPhaseMeasure sf : this.workingPhaseMeasureService.getAllMeasures(start, end))
 			ret.add(JsonUtil.workingPhaseMeasureToWorkingPhaseMeasureJson(sf));
-		}
 
 		return ret;
 	}
@@ -129,9 +127,8 @@ public class WorkingPhaseMeasureController {
 		log.info("Request for workingPhaseMeasures in ProductionOrder with id {}", id);
 
 		List<WorkingPhaseMeasureJson> ret = new ArrayList<>();
-		for (WorkingPhaseMeasure sf : this.workingPhaseMeasureService.getWorkingPhaseMeasures(id, sid)) {
+		for (WorkingPhaseMeasure sf : this.workingPhaseMeasureService.getWorkingPhaseMeasures(id, sid))
 			ret.add(JsonUtil.workingPhaseMeasureToWorkingPhaseMeasureJson(sf));
-		}
 
 		return ret;
 	}
@@ -154,9 +151,8 @@ public class WorkingPhaseMeasureController {
 	public List<WorkingPhaseMeasureJson> getAllMeasuresForResp(@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ") Date start, @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ") Date end) {
 
 		List<WorkingPhaseMeasureJson> ret = new ArrayList<>();
-		for (WorkingPhaseMeasure sf : this.workingPhaseMeasureService.getAllMeasures(start, end)) {
+		for (WorkingPhaseMeasure sf : this.workingPhaseMeasureService.getAllMeasures(start, end))
 			ret.add(JsonUtil.workingPhaseMeasureToWorkingPhaseMeasureJson(sf));
-		}
 
 		return ret;
 	}
@@ -205,9 +201,8 @@ public class WorkingPhaseMeasureController {
 		log.info("Request for workingPhaseMeasures in ProductionOrder with id {}", id);
 
 		List<WorkingPhaseMeasureJson> ret = new ArrayList<>();
-		for (WorkingPhaseMeasure sf : this.workingPhaseMeasureService.getWorkingPhaseMeasures(id, sid)) {
+		for (WorkingPhaseMeasure sf : this.workingPhaseMeasureService.getWorkingPhaseMeasures(id, sid))
 			ret.add(JsonUtil.workingPhaseMeasureToWorkingPhaseMeasureJson(sf));
-		}
 
 		return ret;
 	}
@@ -230,9 +225,8 @@ public class WorkingPhaseMeasureController {
 	public List<WorkingPhaseMeasureJson> getAllMeasuresForUser(@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ") Date start, @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ") Date end) {
 
 		List<WorkingPhaseMeasureJson> ret = new ArrayList<>();
-		for (WorkingPhaseMeasure sf : this.workingPhaseMeasureService.getAllMeasures(start, end)) {
+		for (WorkingPhaseMeasure sf : this.workingPhaseMeasureService.getAllMeasures(start, end))
 			ret.add(JsonUtil.workingPhaseMeasureToWorkingPhaseMeasureJson(sf));
-		}
 
 		return ret;
 	}

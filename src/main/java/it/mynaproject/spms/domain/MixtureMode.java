@@ -18,7 +18,7 @@ public class MixtureMode extends BaseDomain {
 	@Column(nullable=false)
 	private String name;
 	
-	@OneToMany(mappedBy="mixtureMode", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+	@OneToMany(mappedBy="mixtureMode", cascade={CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
 	private List<ProductionOrder> productionOrders;
 	
 	public void populateMixtureModeFromInput(MixtureModeJson input) {
@@ -48,5 +48,4 @@ public class MixtureMode extends BaseDomain {
 	public void setProductionOrders(List<ProductionOrder> productionOrders) {
 		this.productionOrders = productionOrders;
 	}
-	
 }

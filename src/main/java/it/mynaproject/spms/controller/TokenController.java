@@ -17,6 +17,7 @@ public class TokenController {
 	public Object getToken() {
 
 		log.info("Request for token");
+
 		return new ResponseEntity<>(null , new HttpHeaders(), HttpStatus.OK);
 	}
 }

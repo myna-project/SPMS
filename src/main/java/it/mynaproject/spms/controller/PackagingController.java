@@ -50,7 +50,6 @@ public class PackagingController {
 		log.info("Request for packagings");
 
 		List<PackagingJson> packagings = new ArrayList<>();
-
 		for (Packaging packaging : this.packagingService.getPackagings())
 			packagings.add(JsonUtil.packagingToPackagingJson(packaging));
 
@@ -74,9 +73,7 @@ public class PackagingController {
 	@PostMapping(value = "/admin/packagings")
 	public Object postPackaging(@Valid @RequestBody PackagingJson input, HttpServletRequest request) {
 
-		Packaging packaging = this.packagingService.createPackagingFromJson(input);
-
-		return new ResponseEntity<>(JsonUtil.packagingToPackagingJson(packaging), new HttpHeaders(), HttpStatus.CREATED);
+		return new ResponseEntity<>(JsonUtil.packagingToPackagingJson(this.packagingService.createPackagingFromJson(input)), new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	@ApiResponses({
@@ -85,9 +82,7 @@ public class PackagingController {
 	@PutMapping(value = "/admin/packagings/{id}")
 	public Object updatePackaging(@PathVariable("id") Integer id, @Valid @RequestBody PackagingJson input) {
 
-		Packaging packaging = this.packagingService.updatePackagingFromJson(id, input);
-
-		return new ResponseEntity<>(JsonUtil.packagingToPackagingJson(packaging), new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(JsonUtil.packagingToPackagingJson(this.packagingService.updatePackagingFromJson(id, input)), new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@ApiResponses({
@@ -100,7 +95,7 @@ public class PackagingController {
 
 		return new ResponseEntity<>(null, new HttpHeaders(), HttpStatus.OK);
 	}
-	
+
 	/*
 	 *  -------------
 	 *  RESP SECTION
@@ -116,7 +111,6 @@ public class PackagingController {
 		log.info("Request for packagings");
 
 		List<PackagingJson> packagings = new ArrayList<>();
-
 		for (Packaging packaging : this.packagingService.getPackagings())
 			packagings.add(JsonUtil.packagingToPackagingJson(packaging));
 
@@ -149,7 +143,6 @@ public class PackagingController {
 		log.info("Request for packagings");
 
 		List<PackagingJson> packagings = new ArrayList<>();
-
 		for (Packaging packaging : this.packagingService.getPackagings())
 			packagings.add(JsonUtil.packagingToPackagingJson(packaging));
 

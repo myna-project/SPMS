@@ -19,7 +19,7 @@ public class Customer extends BaseDomain {
 	@Column(nullable=false)
 	private String name;
 	
-	@OneToMany(mappedBy="customer", cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+	@OneToMany(mappedBy="customer", cascade={CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
 	private List<ProductionOrder> productionOrders;
 	
 	@Override
@@ -52,5 +52,4 @@ public class Customer extends BaseDomain {
 	public void setProductionOrders(List<ProductionOrder> productionOrders) {
 		this.productionOrders = productionOrders;
 	}
-
 }
