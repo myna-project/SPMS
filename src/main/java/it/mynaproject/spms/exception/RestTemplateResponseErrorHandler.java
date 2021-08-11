@@ -18,12 +18,12 @@ public class RestTemplateResponseErrorHandler implements ResponseErrorHandler {
 	public void handleError(ClientHttpResponse httpResponse) throws IOException {
 
 		if (httpResponse.getStatusCode().series() == HttpStatus.Series.SERVER_ERROR) {
-			throw new GenericException(590, "Error during connection to IEnergy");
+			throw new GenericException(590, "Error during connection to TOGO-API");
 		} else if (httpResponse.getStatusCode().series() == HttpStatus.Series.CLIENT_ERROR) {
 			if (httpResponse.getStatusCode() == HttpStatus.NOT_FOUND) {
-				throw new NotFoundException(494, "IEnergy resource not found!");
+				throw new NotFoundException(494, "TOGO resource not found!");
 			} else if (httpResponse.getStatusCode() == HttpStatus.BAD_REQUEST) {
-				throw new ConflictException(490, "Bad request to IEnergy!");
+				throw new ConflictException(490, "Bad request to TOGO-API!");
 			}
 		}
 	}

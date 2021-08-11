@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(Include.NON_EMPTY)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class IEnergyMeasuresJson {
+public class TogoMeasuresJson {
 
 	@NotNull
 	@JsonProperty("client_id")
@@ -27,7 +27,7 @@ public class IEnergyMeasuresJson {
 
 	@NotNull
 	@JsonProperty("measures")
-	ArrayList<IEnergyMeasureJson> measures;
+	ArrayList<TogoMeasureJson> measures;
 
 	public Integer getClientId() {
 		return clientId;
@@ -53,11 +53,11 @@ public class IEnergyMeasuresJson {
 		this.at = at;
 	}
 
-	public ArrayList<IEnergyMeasureJson> getMeasures() {
+	public ArrayList<TogoMeasureJson> getMeasures() {
 		return measures;
 	}
 
-	public void setMeasures(ArrayList<IEnergyMeasureJson> measures){
+	public void setMeasures(ArrayList<TogoMeasureJson> measures){
 		this.measures = measures;
 	}
 }

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonInclude(Include.NON_EMPTY)
-public class IEnergyMeasureJson {
+public class TogoMeasureJson {
 
 	@NotNull
 	@JsonProperty("measure_id")

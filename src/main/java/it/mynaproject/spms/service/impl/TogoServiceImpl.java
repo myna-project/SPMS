@@ -27,15 +27,15 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import it.mynaproject.spms.exception.ForbiddenException;
 import it.mynaproject.spms.exception.RestTemplateResponseErrorHandler;
-import it.mynaproject.spms.model.IEnergyMeasureJson;
-import it.mynaproject.spms.model.IEnergyMeasuresJson;
-import it.mynaproject.spms.service.IEnergyService;
+import it.mynaproject.spms.model.TogoMeasureJson;
+import it.mynaproject.spms.model.TogoMeasuresJson;
+import it.mynaproject.spms.service.TogoService;
 import it.mynaproject.spms.util.PropertiesFileReader;
 
 @Service
-public class IEnergyServiceImpl implements IEnergyService {
+public class TogoServiceImpl implements TogoService {
 
-	final private static Logger log = LoggerFactory.getLogger(IEnergyService.class);
+	final private static Logger log = LoggerFactory.getLogger(TogoService.class);
 
 	private RestTemplate restTemplate;
 
@@ -46,7 +46,7 @@ public class IEnergyServiceImpl implements IEnergyService {
 	final private static Properties prop = PropertiesFileReader.loadPropertiesFile();
 
 	@Autowired
-    public IEnergyServiceImpl() {
+    public TogoServiceImpl() {
 
 		List<ClientHttpRequestInterceptor> interceptors = new ArrayList<ClientHttpRequestInterceptor>();
         interceptors.add(new PlusEncoderInterceptor());
@@ -59,9 +59,9 @@ public class IEnergyServiceImpl implements IEnergyService {
 	@Override
 	public void getToken() {
 
-		log.info("New request for IEnergy token");
+		log.info("New request for TOGO-API token");
 
-		ResponseEntity<Void> response = restTemplate.exchange(prop.getProperty("ienergyapiurl") + "token", HttpMethod.GET, new HttpEntity<String>(setHttpHeaders()), Void.class);
+		ResponseEntity<Void> response = restTemplate.exchange(prop.getProperty("togoapiurl") + "token", HttpMethod.GET, new HttpEntity<String>(setHttpHeaders()), Void.class);
 		if (response.getStatusCode().equals(HttpStatus.OK)) {
 			String cookieHeader = response.getHeaders().getFirst(HttpHeaders.SET_COOKIE);
 			if (cookieHeader != null) {
@@ -73,32 +73,32 @@ public class IEnergyServiceImpl implements IEnergyService {
 	}
 
 	@Override
-	public void putMeasures(IEnergyMeasuresJson measures) {
+	public void putMeasures(TogoMeasuresJson measures) {
 
-		if (this.checkIEnergySettings()) {
-			log.info("Send measure with timestamp {} to IEnergy", measures.getAt());
+		if (this.checkTogoApiSettings()) {
+			log.info("Send measure with timestamp {} to TOGO", measures.getAt());
 
-			measures.setClientId(Integer.parseInt(prop.getProperty("ienergyclientid")));
-			measures.setDeviceId(prop.getProperty("ienergydeviceid"));
+			measures.setClientId(Integer.parseInt(prop.getProperty("togoclientid")));
+			measures.setDeviceId(prop.getProperty("togodeviceid"));
 
-			for (IEnergyMeasureJson measure : measures.getMeasures())
-				measure.setMeasureId(prop.getProperty("ienergymeasureid"));
+			for (TogoMeasureJson measure : measures.getMeasures())
+				measure.setMeasureId(prop.getProperty("togomeasureid"));
 
-			this.doPut(prop.getProperty("ienergyapiurl") + "organization/measures", measures);
+			this.doPut(prop.getProperty("togoapiurl") + "organization/measures", measures);
 
-			log.info("Measure sent to IEnergy!");
+			log.info("Measure sent to TOGO!");
 		}
 	}
 
 	@Override
 	public void deleteMeasures(String start, String end) {
 
-		if (this.checkIEnergySettings()) {
-			log.info("Delete measures from IEnergy from {} to {}", start, end);
+		if (this.checkTogoApiSettings()) {
+			log.info("Delete measures from TOGO from {} to {}", start, end);
 
-			this.doDelete(prop.getProperty("ienergyapiurl") + "organization/measures?clientId=" + prop.getProperty("ienergyclientid") + "&deviceId=" + prop.getProperty("ienergydeviceid") + "&start=" + start + "&end=" + end);
+			this.doDelete(prop.getProperty("togoapiurl") + "organization/measures?clientId=" + prop.getProperty("togoclientid") + "&deviceId=" + prop.getProperty("togodeviceid") + "&start=" + start + "&end=" + end);
 
-			log.info("Measure deleted from IEnergy!");
+			log.info("Measure deleted from TOGO!");
 		}
 	}
 
@@ -119,7 +119,7 @@ public class IEnergyServiceImpl implements IEnergyService {
 		}
 
 		if (response.getStatusCode().equals(HttpStatus.FORBIDDEN))
-			throw new ForbiddenException(493, "Cannot access to IEnergy resource!");
+			throw new ForbiddenException(493, "Cannot access to TOGO resource!");
 	}
 
 	private void doDelete(String url) {
@@ -139,17 +139,17 @@ public class IEnergyServiceImpl implements IEnergyService {
 		}
 
 		if (response.getStatusCode().equals(HttpStatus.FORBIDDEN))
-			throw new ForbiddenException(493, "Cannot access to IEnergy-Da resource!");
+			throw new ForbiddenException(493, "Cannot access to TOGO resource!");
 	}
 
-	private boolean checkIEnergySettings() {
+	private boolean checkTogoApiSettings() {
 
-		return ((prop.getProperty("ienergyapiurl") != null) && !prop.getProperty("ienergyapiurl").equals(""));
+		return ((prop.getProperty("togoapiurl") != null) && !prop.getProperty("togoapiurl").equals(""));
 	}
 
 	private static HttpHeaders setHttpHeaders() {
 
-		String plainCreds = prop.getProperty("ienergyuser") + ":" + prop.getProperty("ienergypwd");
+		String plainCreds = prop.getProperty("togouser") + ":" + prop.getProperty("togopwd");
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", "Basic " + Base64.getEncoder().encodeToString(plainCreds.getBytes()));

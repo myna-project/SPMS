@@ -15,10 +15,10 @@ import it.mynaproject.spms.dao.WorkingPhaseMeasureDao;
 import it.mynaproject.spms.domain.WorkingPhase;
 import it.mynaproject.spms.domain.WorkingPhaseMeasure;
 import it.mynaproject.spms.exception.NotFoundException;
-import it.mynaproject.spms.model.IEnergyMeasureJson;
-import it.mynaproject.spms.model.IEnergyMeasuresJson;
+import it.mynaproject.spms.model.TogoMeasureJson;
+import it.mynaproject.spms.model.TogoMeasuresJson;
 import it.mynaproject.spms.model.WorkingPhaseMeasureJson;
-import it.mynaproject.spms.service.IEnergyService;
+import it.mynaproject.spms.service.TogoService;
 import it.mynaproject.spms.service.WorkingPhaseMeasureService;
 import it.mynaproject.spms.service.WorkingPhaseService;
 
@@ -34,7 +34,7 @@ public class WorkingPhaseMeasureServiceImpl implements WorkingPhaseMeasureServic
 	private WorkingPhaseService workingPhaseService;
 
 	@Autowired
-	private IEnergyService iEnergyService;
+	private TogoService togoService;
 
 	@Transactional(readOnly = true)
 	@Override
@@ -76,7 +76,7 @@ public class WorkingPhaseMeasureServiceImpl implements WorkingPhaseMeasureServic
 	public void persist(WorkingPhaseMeasure workingPhaseMeasure) {
 		this.workingPhaseMeasureDao.persist(workingPhaseMeasure);
 
-		this.updateIEnergyMeasures(workingPhaseMeasure);
+		this.updateTogoMeasures(workingPhaseMeasure);
 	}
 
 	@Transactional
@@ -100,7 +100,7 @@ public class WorkingPhaseMeasureServiceImpl implements WorkingPhaseMeasureServic
 	public void update(WorkingPhaseMeasure workingPhaseMeasure) {
 		this.workingPhaseMeasureDao.update(workingPhaseMeasure);
 
-		this.updateIEnergyMeasures(workingPhaseMeasure);
+		this.updateTogoMeasures(workingPhaseMeasure);
 	}
 
 	@Transactional
@@ -129,31 +129,31 @@ public class WorkingPhaseMeasureServiceImpl implements WorkingPhaseMeasureServic
 
 		this.workingPhaseMeasureDao.delete(workingPhaseMeasure);
 
-		this.deleteIEnergyMeasures(workingPhaseMeasure);
+		this.deleteTogoMeasures(workingPhaseMeasure);
 	}
 
-	private void updateIEnergyMeasures(WorkingPhaseMeasure workingPhaseMeasure) {
+	private void updateTogoMeasures(WorkingPhaseMeasure workingPhaseMeasure) {
 
-		IEnergyMeasuresJson iEnergyMeasuresJson = new IEnergyMeasuresJson();
+		TogoMeasuresJson togoMeasuresJson = new TogoMeasuresJson();
 
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-		iEnergyMeasuresJson.setAt(format.format(Date.from(workingPhaseMeasure.getTime())));
+		togoMeasuresJson.setAt(format.format(Date.from(workingPhaseMeasure.getTime())));
 
-		ArrayList<IEnergyMeasureJson> iEnergyMeasuresList = new ArrayList<IEnergyMeasureJson>();
+		ArrayList<TogoMeasureJson> togoMeasuresList = new ArrayList<TogoMeasureJson>();
 
-		IEnergyMeasureJson iEnergyMeasureJson = new IEnergyMeasureJson();
-		iEnergyMeasureJson.setValue(Float.toString(workingPhaseMeasure.getFinished_product_quantity()));
-		iEnergyMeasuresList.add(iEnergyMeasureJson);
+		TogoMeasureJson togoMeasureJson = new TogoMeasureJson();
+		togoMeasureJson.setValue(Float.toString(workingPhaseMeasure.getFinished_product_quantity()));
+		togoMeasuresList.add(togoMeasureJson);
 
-		iEnergyMeasuresJson.setMeasures(iEnergyMeasuresList);
+		togoMeasuresJson.setMeasures(togoMeasuresList);
 
-		this.iEnergyService.putMeasures(iEnergyMeasuresJson);
+		this.togoService.putMeasures(togoMeasuresJson);
 	}
 
-	private void deleteIEnergyMeasures(WorkingPhaseMeasure workingPhaseMeasure) {
+	private void deleteTogoMeasures(WorkingPhaseMeasure workingPhaseMeasure) {
 
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 
-		this.iEnergyService.deleteMeasures(format.format(Date.from(workingPhaseMeasure.getTime())), format.format(Date.from(workingPhaseMeasure.getTime())));
+		this.togoService.deleteMeasures(format.format(Date.from(workingPhaseMeasure.getTime())), format.format(Date.from(workingPhaseMeasure.getTime())));
 	}
 }
