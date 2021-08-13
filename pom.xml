@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>it.mynaproject</groupId>
-  <artifactId>spms</artifactId>
-  <version>0.0.1</version>
+  <artifactId>spms.api</artifactId>
+  <version>1.0.0</version>
   <packaging>war</packaging>
-  <name>SPMS</name>
+  <name>spms-api</name>
   <profiles>
     <!-- The configuration of the development profile -->
     <profile>
@@ -29,7 +29,7 @@
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
   </properties>
   <build>
-    <finalName>SPMS</finalName>
+    <finalName>spms-api</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
