@@ -21,10 +21,10 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <failOnMissingWebXml>false</failOnMissingWebXml>
-    <spring-version>5.2.9.RELEASE</spring-version>
-    <spring-security-version>5.4.1</spring-security-version>
-    <jackson-version>2.11.3</jackson-version>
-    <hibernate-version>5.4.22.Final</hibernate-version>
+    <spring-version>5.2.20.RELEASE</spring-version>
+    <spring-security-version>5.4.10</spring-security-version>
+    <jackson-version>2.11.4</jackson-version>
+    <hibernate-version>5.4.33.Final</hibernate-version>
     <timestamp>${maven.build.timestamp}</timestamp>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
   </properties>
@@ -127,7 +127,7 @@
     <dependency>
       <groupId>org.hibernate.validator</groupId>
       <artifactId>hibernate-validator</artifactId>
-      <version>6.1.5.Final</version>
+      <version>6.1.7.Final</version>
     </dependency>
     <!-- POSTGRESQL DRIVER -->
     <dependency>
@@ -168,13 +168,13 @@
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-      <version>1.2.3</version>
+      <version>1.2.11</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.30</version>
+      <version>1.7.36</version>
     </dependency>
   </dependencies>
 </project>
