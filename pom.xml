@@ -21,10 +21,10 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <failOnMissingWebXml>false</failOnMissingWebXml>
-    <spring-version>5.2.20.RELEASE</spring-version>
-    <spring-security-version>5.4.10</spring-security-version>
-    <jackson-version>2.11.4</jackson-version>
-    <hibernate-version>5.4.33.Final</hibernate-version>
+    <spring-version>5.3.22</spring-version>
+    <spring-security-version>5.7.2</spring-security-version>
+    <hibernate-version>5.6.10.Final </hibernate-version>
+    <jackson-version>2.13.3</jackson-version>
     <timestamp>${maven.build.timestamp}</timestamp>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
   </properties>
@@ -33,14 +33,14 @@
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
+        <version>3.10.1</version>
         <configuration>
           <release>11</release>
         </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
-        <version>3.2.3</version>
+        <version>3.3.2</version>
         <configuration>
           <archive>
             <manifest>
@@ -52,7 +52,7 @@
       <plugin>
         <groupId>org.owasp</groupId>
         <artifactId>dependency-check-maven</artifactId>
-        <version>${spring-version}</version>
+        <version>7.1.1</version>
       </plugin>
     </plugins>
     <resources>
@@ -127,13 +127,13 @@
     <dependency>
       <groupId>org.hibernate.validator</groupId>
       <artifactId>hibernate-validator</artifactId>
-      <version>6.1.7.Final</version>
+      <version>6.2.3.Final</version>
     </dependency>
     <!-- POSTGRESQL DRIVER -->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
-      <version>42.3.3</version>
+      <version>42.4.0</version>
     </dependency>
     <!-- JACKSON (JSON) -->
     <dependency>
@@ -155,7 +155,7 @@
     <dependency>
       <groupId>io.springfox</groupId>
       <artifactId>springfox-swagger2</artifactId>
-      <version>2.9.2</version>
+      <version>3.0.0</version>
     </dependency>
     <!-- SERVLET -->
     <dependency>

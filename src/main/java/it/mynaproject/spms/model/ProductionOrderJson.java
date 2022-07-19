@@ -1,10 +1,9 @@
 package it.mynaproject.spms.model;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
-
-import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
